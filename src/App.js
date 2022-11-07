@@ -1,6 +1,10 @@
 import * as React from "react";
+import { Routes, Route } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
+
+//Pages
+import { LoginPage } from "./pages/shared/LoginPage/LoginPage";
 
 function App() {
   const theme = createTheme({
@@ -13,11 +17,15 @@ function App() {
       },
     },
   });
+  
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <div>Binhi</div>
+      <Routes>
+      <Route path="/login" element={<LoginPage />}></Route>
+      </Routes>
     </ThemeProvider>
+    
   );
 }
 
