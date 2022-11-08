@@ -13,8 +13,14 @@ import decode from "jwt-decode";
 import { LoginPage } from "./pages/shared/LoginPage/LoginPage";
 import RegisterPage from "./pages/shared/RegisterPage";
 
+//testPage(Carlo)
+import LandingPage from "./pages/shared/LandingPage"
+
 //service
 import * as accountService from "./service/shared/accountService";
+import theme from "./styles/Theme/Theme";
+import PersistentDrawerLeft from "./component/shared/sidebar/Sidebar";
+import Sidebar from "./component/shared/sidebar/Sidebar";
 
 function App() {
   const [accessToken, setAccessToken] = React.useState(
@@ -36,16 +42,16 @@ function App() {
     setAccessToken(localStorage.getItem("accessToken"));
   }, []);
 
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#558b94",
-      },
-      secondary: {
-        main: "#d3d3cd",
-      },
-    },
-  });
+  // const theme = createTheme({
+  //   palette: {
+  //     primary: {
+  //       main: "#558b94",
+  //     },
+  //     secondary: {
+  //       main: "#d3d3cd",
+  //     },
+  //   },
+  // });
 
   const handleLogout = () => {
     accountService.logout();
@@ -56,6 +62,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <LandingPage />
       <Routes>
         <Route
           path="/login"
