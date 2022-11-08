@@ -66,12 +66,12 @@ function App() {
             )
           }
         />
-      </Routes>
       {/* Routes for Farmer */}
 
       {/* Routes for Buyer */}
 
       {/* Routes for admin */}
+      </Routes>
     </ThemeProvider>
   );
 }
