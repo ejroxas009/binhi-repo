@@ -8,11 +8,14 @@ export function getAllAccount() {
   return http.get("/account");
 }
 
-export async function createAccount(data) {
-  const response = await fetch("http://localhost:8080/api/account/register", {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(data),
-  });
-  return await response.json();
+export function login(form) {
+  return http.post("account/login", form);
+}
+
+export function logout() {
+  localStorage.removeItem("accessToken");
+}
+
+export function getAccessToken() {
+  return localStorage.getItem("accessToken");
 }

@@ -11,13 +11,14 @@ import decode from "jwt-decode";
 
 //pages
 import { LoginPage } from "./pages/shared/LoginPage/LoginPage";
+import RegisterPage from "./pages/shared/RegisterPage";
 
 //service
-import * as accountService from "./service/shared/accounts";
+import * as accountService from "./service/shared/accountService";
 
 function App() {
   const [accessToken, setAccessToken] = React.useState(
-          accountService.getAccessToken()
+    accountService.getAccessToken()
   );
 
   const navigate = useNavigate();
@@ -62,16 +63,22 @@ function App() {
             accessToken ? (
               <Navigate to="/" />
             ) : (
-              <LoginPage />
+              <LoginPage onSetAccessToken={setAccessToken} />
             )
           }
         />
+
+        <Route
+          path="/register"
+          element={accessToken ? <Navigate to="/" /> : <RegisterPage />}
+        />
+
+        {/* Routes for Farmer */}
+
+        {/* Routes for Buyer */}
+
+        {/* Routes for admin */}
       </Routes>
-      {/* Routes for Farmer */}
-
-      {/* Routes for Buyer */}
-
-      {/* Routes for admin */}
     </ThemeProvider>
   );
 }

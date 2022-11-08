@@ -17,14 +17,15 @@ import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 
 //service
-import * as accountService from "../../../service/shared/accounts";
 
-export function LoginPage() {
+import * as accountService from "../../../service/shared/accountService";
+
+export function LoginPage({ onSetAccessToken }) {
   // const [accessToken, setAccessToken] = React.useState(
   //   accountService.getAccessToken()
   // );
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({
     username: "",
@@ -56,48 +57,20 @@ export function LoginPage() {
     }
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   onLogin(form);
-  //    // console.log(form);
-  // };
-
   const handleSubmit = async (event) => {
     try {
       event.preventDefault();
       const res = await accountService.login(form);
-      // localStorage.setItem("accessToken", res.data.access_token);
-      // setAccessToken(res.data.access_token);
+      localStorage.setItem("accessToken", res.data.access_token);
+      onSetAccessToken(res.data.access_token);
       // window.location.reload();
       console.log(res.data);
-      // navigate("/");
+      //navigate("/");
     } catch (error) {
       toast.error("Username or Password is incorrect. Please try again.");
       console.log(error);
     }
   };
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   accountService.login(form).then((res) => {
-  //     console.log(res, "the response");
-  //     if (res.data.access_token && res.data.status === 1) {
-  //       localStorage.setItem(
-  //         "accessToken",
-  //         JSON.stringify(res.data.access_token)
-  //       );
-  //       // navigate("/");
-  //     } else if (res.data.access_token && res.data.status === 0) {
-  //       toast.error(res.data.message);
-  //     }
-  //   });
-  // };
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   // accountService.getAllAccount().then(res => console.log(res));
-  //   accountService.login(form).then(res => console.log(res));
-  // }
 
   const isFormInvalid = () => {
     const result = schema.validate(form);
