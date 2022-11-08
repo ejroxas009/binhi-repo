@@ -68,6 +68,7 @@ function App() {
           }
         />
 
+
         <Route
           path="/register"
           element={accessToken ? <Navigate to="/" /> : <RegisterPage />}
@@ -77,7 +78,9 @@ function App() {
 
         {/* Routes for Buyer */}
 
+
         {/* Routes for admin */}
+        
       </Routes>
     </ThemeProvider>
   );
