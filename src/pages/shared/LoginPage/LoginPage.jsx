@@ -1,5 +1,5 @@
-
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
@@ -13,7 +13,18 @@ import FormLabel from "@mui/material/FormLabel";
 import Joi from "joi";
 import Swal from "sweetalert2";
 
-export function LoginPage ({ onLogin }) {
+//toast
+import { toast } from "react-toastify";
+
+//service
+import * as accountService from "../../../service/shared/accounts";
+
+export function LoginPage() {
+  // const [accessToken, setAccessToken] = React.useState(
+  //   accountService.getAccessToken()
+  // );
+
+  // const navigate = useNavigate();
 
   const [form, setForm] = useState({
     username: "",
@@ -27,38 +38,73 @@ export function LoginPage ({ onLogin }) {
     password: Joi.string().required(),
   });
 
-  const handleChange = (event) => {
-    setForm({ ...form, 
-      [event.currentTarget.name]: event.currentTarget.value });
+  const handleChange = (e) => {
+    setForm({ ...form, [e.currentTarget.name]: e.currentTarget.value });
 
     const { error } = schema
-      .extract(event.currentTarget.name)
-      .label(event.currentTarget.name)
-      .validate(event.currentTarget.value);
+      .extract(e.currentTarget.name)
+      .label(e.currentTarget.name)
+      .validate(e.currentTarget.value);
     if (error) {
       setErrors({
         ...errors,
-        [event.currentTarget.name]: error.details[0].message,
+        [e.currentTarget.name]: error.details[0].message,
       });
     } else {
-      delete errors[event.currentTarget.name];
+      delete errors[e.currentTarget.name];
       setErrors(errors);
     }
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    onLogin(form.username, form.password);
-     // console.log(form);
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   onLogin(form);
+  //    // console.log(form);
+  // };
+
+  const handleSubmit = async (event) => {
+    try {
+      event.preventDefault();
+      const res = await accountService.login(form);
+      // localStorage.setItem("accessToken", res.data.access_token);
+      // setAccessToken(res.data.access_token);
+      // window.location.reload();
+      console.log(res.data);
+      // navigate("/");
+    } catch (error) {
+      toast.error("Username or Password is incorrect. Please try again.");
+      console.log(error);
+    }
   };
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   accountService.login(form).then((res) => {
+  //     console.log(res, "the response");
+  //     if (res.data.access_token && res.data.status === 1) {
+  //       localStorage.setItem(
+  //         "accessToken",
+  //         JSON.stringify(res.data.access_token)
+  //       );
+  //       // navigate("/");
+  //     } else if (res.data.access_token && res.data.status === 0) {
+  //       toast.error(res.data.message);
+  //     }
+  //   });
+  // };
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   // accountService.getAllAccount().then(res => console.log(res));
+  //   accountService.login(form).then(res => console.log(res));
+  // }
 
   const isFormInvalid = () => {
     const result = schema.validate(form);
-    return result.error;
+    return !!result.error;
   };
 
   return (
-    <div className="loginForm">
     <Grid
       container
       justifyContent="center"
@@ -101,7 +147,7 @@ export function LoginPage ({ onLogin }) {
               variant="contained"
               type="submit"
               fullWidth
-              disabled={isFormInvalid()}
+              // disabled={isFormInvalid()}
             >
               Login
             </Button>
@@ -129,7 +175,5 @@ export function LoginPage ({ onLogin }) {
         </Card>
       </Grid>
     </Grid>
-    </div>
   );
-};
-
+}

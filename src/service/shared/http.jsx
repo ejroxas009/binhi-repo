@@ -4,15 +4,16 @@ const http = axios.create({
   baseURL: "http://localhost:8080/api",
 });
 
-http.interceptors.request.use((request) => {
-  const token = localStorage.getItem("accessToken");
-  if (token) {
-    request.headers = {
-      Authorization: `Bearer ${token}`,
-    };
-  }
-  return request;
-});
+// http.interceptors.request.use((request) => {
+//   const token = localStorage.getItem("accessToken");
+//   console.log(token);
+//   // if (token) {
+//   //   request.headers = {
+//   //     Authorization: `Bearer ${token}`,
+//   //   };
+//   // }
+//   return request;
+// });
 
 http.interceptors.response.use(null, (error) => {
   const expectedError =
