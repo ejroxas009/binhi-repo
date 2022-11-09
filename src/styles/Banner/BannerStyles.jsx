@@ -70,6 +70,7 @@ export const BannerTitle = styled(Typography)(({ matches, theme }) => ({
     backgroundPosition: "center",
     width: "100vw",
     height: "100vh",
+    marginTop:'20px',
     zIndex:'0',
     [theme.breakpoints.down("md")]: {
       width: "100vw",

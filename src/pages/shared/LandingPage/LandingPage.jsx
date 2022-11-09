@@ -6,7 +6,7 @@ import { Colors } from '../../../styles/Theme/Theme';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import Appbar from '../../../component/shared/appbar';
 import Sidebar from '../../../component/shared/sidebar/Sidebar';
-import Home from '../../../component/shared/sidebar/SidebarData';
+import { fullWidthClassName, noScrollbarsClassName, RemoveScrollBar } from 'react-remove-scroll-bar';
 
 const landingpage = () => {
   return (
@@ -16,11 +16,15 @@ const landingpage = () => {
     <Sidebar/>
     <Grid>
       <Box sx={{ display: 'flex' }}>
-          <Banner ml="2"/>
+        <div className={noScrollbarsClassName}/>
+        <div className={fullWidthClassName}/>
+        <RemoveScrollBar/>
+          <Banner />
+          
           <Box textAlign='center'>
               <Fab variant="extended" sx={{
               position: "absolute",
-              bottom: (theme) => theme.spacing(37),
+              bottom: (theme) => theme.spacing(45),
               left: (theme) => theme.spacing(90),
               backgroundColor:Colors.gold
               }}>
@@ -29,7 +33,7 @@ const landingpage = () => {
               </Fab>
               <Fab variant="extended" sx={{
               position: "absolute",
-              bottom: (theme) => theme.spacing(37),
+              bottom: (theme) => theme.spacing(45),
               right: (theme) => theme.spacing(90),
               backgroundColor:Colors.olive
               }}>

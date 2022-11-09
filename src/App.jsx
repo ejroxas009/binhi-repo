@@ -19,8 +19,6 @@ import LandingPage from "./pages/shared/LandingPage/LandingPage"
 //service
 import * as accountService from "./service/shared/accountService";
 import theme from "./styles/Theme/Theme";
-import PersistentDrawerLeft from "./component/shared/sidebar/Sidebar";
-import Sidebar from "./component/shared/sidebar/Sidebar";
 
 function App() {
   const [accessToken, setAccessToken] = React.useState(
