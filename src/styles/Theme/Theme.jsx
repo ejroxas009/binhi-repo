@@ -16,6 +16,7 @@ export const Colors = {
   inverse: "#2F3D4A",
   shaft: "#333",
   gold: "#ffd966",
+  olive: "#6E8B3D",
   ///////////////
   // Grays
   ///////////////

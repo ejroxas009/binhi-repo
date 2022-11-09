@@ -8,7 +8,7 @@ import {
   MyList } from "../../../styles/Appbar/AppbarStyles";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MenuIcon from '@mui/icons-material/Menu';
-import Logo from "../../../assets/Logo-white.png";
+import Logo from "../../../assets/images/Logo-white.png";
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';

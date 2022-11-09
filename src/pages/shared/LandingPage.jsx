@@ -16,8 +16,8 @@ const landingpage = () => {
           <Box textAlign='center'>
               <Fab variant="extended" sx={{
               position: "absolute",
-              bottom: (theme) => theme.spacing(20),
-              left: (theme) => theme.spacing(80),
+              bottom: (theme) => theme.spacing(43),
+              left: (theme) => theme.spacing(90),
               backgroundColor:Colors.gold
               }}>
                   Login
@@ -25,9 +25,9 @@ const landingpage = () => {
               </Fab>
               <Fab variant="extended" sx={{
               position: "absolute",
-              bottom: (theme) => theme.spacing(20),
-              right: (theme) => theme.spacing(80),
-              backgroundColor:Colors.primary
+              bottom: (theme) => theme.spacing(43),
+              right: (theme) => theme.spacing(90),
+              backgroundColor:Colors.olive
               }}>
                   Register
                   <KeyboardArrowRightIcon sx={{ ml: 2 }} />

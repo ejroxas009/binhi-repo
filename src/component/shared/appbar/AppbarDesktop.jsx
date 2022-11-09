@@ -5,7 +5,7 @@ import {
   AppbarHeader, 
   LogoStyle,
   MyList } from "../../../styles/Appbar/AppbarStyles";
-import Logo from "../../../assets/Logo-white.png";
+import Logo from "../../../assets/images/Logo-white.png";
 import { Divider, IconButton, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import * as React from 'react';
 import Box from '@mui/material/Box';
