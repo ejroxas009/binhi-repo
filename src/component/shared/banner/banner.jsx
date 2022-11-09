@@ -1,7 +1,7 @@
 import { Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { BannerContainer, BannerContent, BannerImage } from "../../../styles/Banner/BannerStyles";
-import FarmerBanner from "../../../assets/Farmer-Banner.png";
+import FarmerBanner from "../../../assets/images/farmerbanner.jpg";
 
 
 export default function Banner(){

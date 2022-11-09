@@ -5,10 +5,9 @@ export const AppbarContainer = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  padding: '2px 8px',
   backgroundColor: Colors.primary,
   color: Colors.white,
-  zIndex:'2',
+  zIndex:'99',
 }));
 
 export const AppbarHeader = styled(Typography)(() => ({
@@ -16,6 +15,7 @@ export const AppbarHeader = styled(Typography)(() => ({
   flexGrow: 1,
   fontSize: "4em",
   color: Colors.primary,
+  zIndex:'99',
 }));
 
 export const MyList = styled(List)(({ type }) => ({
@@ -35,6 +35,7 @@ export const LogoStyle = {
 
 export const ActionIconsContainerDesktop = styled(Box)(() => ({
   flexGrow: 0,
+  zIndex: '99', 
 }));
 
 export const ActionIconsContainerMobile = styled(Box)(() => ({
@@ -45,6 +46,6 @@ export const ActionIconsContainerMobile = styled(Box)(() => ({
   left: 0,
   width: '100%',
   alignItems: 'center',
-  zIndex: 99,  
+  zIndex: '99',  
   borderTop: `1px solid ${Colors.border}`
 }));
