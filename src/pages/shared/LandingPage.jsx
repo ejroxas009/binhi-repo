@@ -11,7 +11,6 @@ const landingpage = () => {
   return (
     <>
     <Appbar />
-    <Sidebar/>
       <Box sx={{ display: 'flex' }}>
           <Banner />
           <Box textAlign='center'>
