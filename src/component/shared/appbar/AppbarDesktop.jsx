@@ -6,7 +6,7 @@ import {
   LogoStyle,
   MyList } from "../../../styles/Appbar/AppbarStyles";
 import Logo from "../../../assets/images/Logo-white.png";
-import { Divider, IconButton, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { Divider, Grid, IconButton, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -32,7 +32,7 @@ export default function AppbarDesktop({matches}){
     };
 
     return(
-      <AppbarContainer >
+      <AppbarContainer sx={{zIndex:'99'}}>
         <AppbarHeader sx={{justifyContent:'center'}}>
             <img src={Logo} style={LogoStyle} />
         </AppbarHeader>
@@ -54,12 +54,11 @@ export default function AppbarDesktop({matches}){
                 <ListItemText primary="Contact" />
               </ListItemButton>
             </Divider>
-            <Divider orientation="vertical" flexItem/>
             <Divider>
             
             {/* Avatar Logo */}
             <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title="Profile">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>

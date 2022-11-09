@@ -14,7 +14,7 @@ import { LoginPage } from "./pages/shared/LoginPage/LoginPage";
 import RegisterPage from "./pages/shared/RegisterPage";
 
 //testPage(Carlo)
-import LandingPage from "./pages/shared/LandingPage"
+import LandingPage from "./pages/shared/LandingPage/LandingPage"
 
 //service
 import * as accountService from "./service/shared/accountService";
@@ -62,8 +62,13 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <LandingPage />
+      {/* <Sidebar/> */}
+      
       <Routes>
+        <Route
+          path="/"
+          element={accessToken ? <Navigate to="/" /> : <LandingPage />}
+        />
         <Route
           path="/login"
           element={
@@ -80,6 +85,7 @@ function App() {
           path="/register"
           element={accessToken ? <Navigate to="/" /> : <RegisterPage />}
         />
+
 
         {/* Routes for Farmer */}
 

@@ -12,7 +12,6 @@ export const landingPageStyle = {
     backgroundRepeat: 'no-repeat',
     position:'relative',
     backgroundRepeat: 'no-repeat',
-    zIndex:'-2'
 }
 
 export const typographyStyle = {
@@ -53,7 +52,6 @@ export const BannerContent = styled(Box)(() => ({
     flexDirection: "column",
     justifyContent: "center",
     maxWidth: 420,
-    padding: "30px",
 }));
 
 export const BannerTitle = styled(Typography)(({ matches, theme }) => ({
@@ -71,12 +69,14 @@ export const BannerTitle = styled(Typography)(({ matches, theme }) => ({
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     width: "100vw",
-    height: "90vh",
+    height: "100vh",
+    zIndex:'0',
     [theme.breakpoints.down("md")]: {
-      width: "350px",
+      width: "100vw",
+      height: "100vh",
     },
     [theme.breakpoints.down("sm")]: {
-      width: "320px",
-      height: "300px",
+      width: "100vw",
+      height: "100vh",
     },
   }));

@@ -1,22 +1,26 @@
 import React from 'react'
-import { Box, Button, Fab, ThemeProvider, Typography } from '@mui/material';
-import Banner from '../../component/shared/banner/banner';
+import { Box, Button, Fab, Grid, ThemeProvider, Typography } from '@mui/material';
+import Banner from '../../../component/shared/banner/banner';
 import NavigationIcon from '@mui/icons-material/Navigation';
-import { Colors } from '../../styles/Theme/Theme';
+import { Colors } from '../../../styles/Theme/Theme';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import Appbar from '../../component/shared/appbar';
-import Sidebar from '../../component/shared/sidebar/Sidebar';
+import Appbar from '../../../component/shared/appbar';
+import Sidebar from '../../../component/shared/sidebar/Sidebar';
+import Home from '../../../component/shared/sidebar/SidebarData';
 
 const landingpage = () => {
   return (
+    
     <>
-    <Appbar />
+    
+    <Sidebar/>
+    <Grid>
       <Box sx={{ display: 'flex' }}>
-          <Banner />
+          <Banner ml="2"/>
           <Box textAlign='center'>
               <Fab variant="extended" sx={{
               position: "absolute",
-              bottom: (theme) => theme.spacing(43),
+              bottom: (theme) => theme.spacing(37),
               left: (theme) => theme.spacing(90),
               backgroundColor:Colors.gold
               }}>
@@ -25,7 +29,7 @@ const landingpage = () => {
               </Fab>
               <Fab variant="extended" sx={{
               position: "absolute",
-              bottom: (theme) => theme.spacing(43),
+              bottom: (theme) => theme.spacing(37),
               right: (theme) => theme.spacing(90),
               backgroundColor:Colors.olive
               }}>
@@ -34,6 +38,7 @@ const landingpage = () => {
               </Fab>
           </Box>
       </Box>
+      </Grid>
     </>
   )
 }
