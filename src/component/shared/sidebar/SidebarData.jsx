@@ -27,7 +27,7 @@ import theme from '../../../styles/Theme/Theme';
 export const SidebarData = ({ children }) => {
   
     const Data = ['Inbox', 'Starred', 'Send email', 'Drafts'];
-    return Data;
+    return Data
     
   };
   
