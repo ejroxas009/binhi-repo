@@ -16,6 +16,7 @@ export const Colors = {
   inverse: "#2F3D4A",
   shaft: "#333",
   gold: "#ffd966",
+  olive: "#6E8B3D",
   ///////////////
   // Grays
   ///////////////
@@ -37,65 +38,6 @@ const theme = createTheme({
     },
     secondary: {
       main: Colors.secondary,
-    },
-  },
-
-  components: {
-    MuiButton: {
-      defaultProps: {
-        disableRipple: true,
-        disableElevation: true,
-      },
-    },
-    MuiTooltip: {
-      defaultProps: {
-        arrow: true,
-      },
-      styleOverrides: {
-        tooltip: {
-          background: Colors.primary,
-        },
-        arrow: {
-          color: Colors.primary,
-        },
-      },
-    },
-    MuiDrawer: {
-      styleOverrides: {
-        paper: {
-          width: DrawerWidth,          
-          background: Colors.primary,
-          color: Colors.secondary,
-          borderRadius: '0px 100px 0px 0px',
-          borderRight: `1px solid ${Colors.primary}`
-        }
-      }
-    },
-    MuiDivider: {
-      styleOverrides: {
-        root: {
-          borderColor:(0.2, Colors.primary)
-        }
-      }
-    },
-    MyShopButton: {
-      styleOverrides: {
-        root: {
-          color: Colors.white,
-        },
-        primary: {
-          background: Colors.primary,
-          "&:hover": {
-            background:(0.05, Colors.primary),
-          },
-        },
-        secondary: {
-          background: `${Colors.secondary}`,
-          "&:hover": {
-            background: (0.05, Colors.primary),
-          },
-        },
-      },
     },
   },
 });
