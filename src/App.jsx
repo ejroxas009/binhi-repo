@@ -15,8 +15,7 @@ import RegisterPage from "./pages/shared/RegisterPage";
 
 //testPage(Carlo)
 
-import LandingPage from "./pages/shared/LandingPage/LandingPage"
-
+import LandingPage from "./pages/shared/LandingPage/LandingPage";
 
 //service
 import * as accountService from "./service/shared/accountService";
@@ -29,7 +28,6 @@ import SamplePage from "./pages/shared/SamplePage";
 //pages - buyer
 import ProfilePage from "./pages/shared/ProfilePage";
 
-
 function App() {
   const [accessToken, setAccessToken] = React.useState(
     accountService.getAccessToken()
@@ -38,19 +36,19 @@ function App() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    const date = new Date();
+  // useEffect(() => {
+  //   const token = localStorage.getItem("accessToken");
+  //   const date = new Date();
 
-    if (token) {
-      const decodedToken = decode(token);
-      setDecodedToken(decodedToken);
-      if (new Date(decodedToken.exp * 1000).getTime() <= date.getTime()) {
-        handleLogout();
-      }
-    }
-    setAccessToken(localStorage.getItem("accessToken"));
-  }, [accessToken]);
+  //   if (token) {
+  //     const decodedToken = decode(token);
+  //     setDecodedToken(decodedToken);
+  //     if (new Date(decodedToken.exp * 1000).getTime() <= date.getTime()) {
+  //       handleLogout();
+  //     }
+  //   }
+  //   setAccessToken(localStorage.getItem("accessToken"));
+  // }, []);
 
   // const theme = createTheme({
   //   palette: {
@@ -74,13 +72,9 @@ function App() {
       <CssBaseline />
 
       {/* <Sidebar/> */}
-      
 
       <Routes>
-        <Route
-          path="/"
-          element={accessToken ? <Navigate to="/" /> : <LandingPage />}
-        />
+        <Route path="/" element={<LandingPage />} />
         <Route
           path="/login"
           element={
@@ -96,7 +90,6 @@ function App() {
           path="/register"
           element={accessToken ? <Navigate to="/" /> : <RegisterPage />}
         />
-
 
         {/* Routes for Farmer */}
 
