@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import MultiStepper from "./MultiStepper";
 
 import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
+import { storage } from "../../service/shared/firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { v4 } from "uuid";
 
 import RegistrationForm1 from "./RegistrationForm1";
 import RegistrationForm2 from "./RegistrationForm2";
@@ -12,6 +15,7 @@ import RegistrationForm3 from "./RegistrationForm3";
 import * as accountService from "../../service/shared/accountService";
 
 const RegistrationFormHolder = () => {
+  let temp;
   const [accountForm, setAccountForm] = useState({
     role: "",
     firstName: "",
@@ -32,9 +36,45 @@ const RegistrationFormHolder = () => {
     password: "",
   });
 
+  const [imageUpload, setImageUpload] = useState(null);
+  const [imageRef, setImageRef] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
+  const [image, setImage] = useState(null);
+  const [toggle, setToggle] = useState(false);
+
   const [step, setStep] = useState(0);
 
   const steps = ["User Credentials", "Personal Details", "Address"];
+
+  useEffect(() => {
+    console.log(imageUrl);
+
+    console.log(accountForm);
+    if (accountForm.complianceImg !== "") {
+      accountService.addAccount(accountForm).then((data) => {
+        console.log(data);
+        setAccountForm({
+          role: "",
+          firstName: "",
+          middleName: "",
+          lastName: "",
+          gender: "",
+          addressLine1: "",
+          addressLine2: "",
+          city: "",
+          province: "",
+          zipCode: "",
+          country: "",
+          phoneNumber: "",
+          profileImg: "",
+          complianceImg: "",
+          email: "",
+          username: "",
+          password: "",
+        });
+      });
+    }
+  }, [toggle]);
 
   const handleNext = () => {
     if (step !== steps.length - 1) {
@@ -55,11 +95,32 @@ const RegistrationFormHolder = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(accountForm);
-    accountService.addAccount(accountForm).then((data) => console.log(data));
-    //accountService.createAccount(accountForm).then((res) => console.log(res));
+    if (imageUpload !== null) {
+      const imageRef = ref(storage, `testing/${imageUpload.name}`);
+      setImageRef(imageRef);
+
+      const uploadImage = uploadBytesResumable(imageRef, imageUpload);
+      uploadImage.on(
+        "state_changed",
+        (snapshot) => {
+          const prog = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+        },
+        (err) => console.log(err),
+        () => {
+          getDownloadURL(ref(storage, `testing/${imageUpload.name}`)).then(
+            (url) => {
+              setAccountForm({ ...accountForm, complianceImg: url });
+              setToggle(!toggle); // this is to trigger the useEffect
+            }
+          );
+        }
+      );
+    }
   };
 
   return (
@@ -71,7 +132,8 @@ const RegistrationFormHolder = () => {
         onSubmit={handleSubmit}
       >
         <Grid container>
-          <MultiStepper step={step} steps={steps} />
+          {/* <MultiStepper step={step} steps={steps} /> */}
+          {role == "admin" && <MultiStepper step={step} steps={steps} />}
         </Grid>
 
         <Grid container>
@@ -96,6 +158,7 @@ const RegistrationFormHolder = () => {
               onHandleChange={handleChange}
               accountForm={accountForm}
               onSetAccountForm={setAccountForm}
+              onSetImageUpload={setImageUpload}
             />
           )}
         </Grid>
