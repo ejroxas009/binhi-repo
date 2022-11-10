@@ -24,7 +24,7 @@ export function LoginPage() {
   //   accountService.getAccessToken()
   // );
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({
     username: "",
@@ -70,7 +70,7 @@ export function LoginPage() {
       // setAccessToken(res.data.access_token);
       // window.location.reload();
       console.log(res.data);
-      // navigate("/");
+      navigate("/");
     } catch (error) {
       toast.error("Username or Password is incorrect. Please try again.");
       console.log(error);
@@ -147,7 +147,7 @@ export function LoginPage() {
               variant="contained"
               type="submit"
               fullWidth
-              // disabled={isFormInvalid()}
+              disabled={isFormInvalid()}
             >
               Login
             </Button>

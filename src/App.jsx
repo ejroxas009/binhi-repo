@@ -12,8 +12,14 @@ import decode from "jwt-decode";
 //pages
 import { LoginPage } from "./pages/shared/LoginPage/LoginPage";
 
+//farmerPages
+import MyCurrentBids from "./pages/farmer/MyCurrentBids";
+import MyCurrentAds from "./pages/farmer/MyCurrentAds";
+import MyComplaints from "./pages/farmer/MyComplaints";
+
 //service
 import * as accountService from "./service/shared/accounts";
+
 
 function App() {
   const [accessToken, setAccessToken] = React.useState(
@@ -66,12 +72,15 @@ function App() {
             )
           }
         />
-      </Routes>
       {/* Routes for Farmer */}
+      <Route path="/myCurrentBids" element={<MyCurrentBids />} />
+      <Route path="/myCurrentAds" element={<MyCurrentAds />} />
+      <Route path="/myComplaints" element={<MyComplaints />} />
 
       {/* Routes for Buyer */}
 
       {/* Routes for admin */}
+      </Routes>
     </ThemeProvider>
   );
 }
