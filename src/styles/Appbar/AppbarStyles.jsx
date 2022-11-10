@@ -18,7 +18,7 @@ export const AppbarHeader = styled(Typography)(() => ({
   zIndex:'99',
 }));
 
-export const MyList = (List)(({ type }) => ({
+export const MyList = styled(List)(({ type }) => ({
   display: type === "row" ? "flex" : "block",
   flexGrow: 3,
   justifyContent: "center",
