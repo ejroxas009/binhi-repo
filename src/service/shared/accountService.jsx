@@ -8,6 +8,10 @@ export function getAllAccount() {
   return http.get("/account");
 }
 
+export function getAccountById(id) {
+  return http.get(`/account/${id}`);
+}
+
 export function login(form) {
   return http.post("account/login", form);
 }
