@@ -21,11 +21,15 @@ import MailIcon from '@mui/icons-material/Mail';
 import Logo from "../../../assets/images/Logo.png";
 import Drawer from '@mui/material/Drawer';
 import theme from '../../../styles/Theme/Theme';
-import http from "./http";
 
-export function SidebarData(id) {
-  //   console.log("getUserById(id)");
-    return http.get(`/account/${id}`);
-  }
 
-export default SidebarData
+
+export const SidebarData = ({ children }) => {
+  
+    const Data = ['Inbox', 'Starred', 'Send email', 'Drafts'];
+    return Data
+    
+  };
+  
+
+  export default SidebarData;
