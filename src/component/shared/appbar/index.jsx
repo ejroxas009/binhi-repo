@@ -4,7 +4,7 @@ import { useTheme } from "@mui/material/styles";
 import AppbarDesktop from "./AppbarDesktop";
 import AppbarMobile from "./AppbarMobile";
 
-export default function Appbar(){
+export default function Appbar2(){
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.down('md'));
 
