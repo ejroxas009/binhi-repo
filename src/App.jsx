@@ -60,12 +60,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {/* <Sidebar/> */}
-      
       <Routes>
-        <Route
-          path="/"
-          element={accessToken ? <Navigate to="/" /> : <LandingPage />}
+        <Route element={accessToken ? <Navigate to="/" /> : <LandingPage />}
         />
         <Route
           path="/login"

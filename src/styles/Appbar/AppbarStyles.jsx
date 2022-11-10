@@ -18,7 +18,7 @@ export const AppbarHeader = styled(Typography)(() => ({
   zIndex:'99',
 }));
 
-export const MyList = styled(List)(({ type }) => ({
+export const MyList = (List)(({ type }) => ({
   display: type === "row" ? "flex" : "block",
   flexGrow: 3,
   justifyContent: "center",
@@ -26,11 +26,10 @@ export const MyList = styled(List)(({ type }) => ({
 }));
 
 export const LogoStyle = {
-  width:'100px',
-  height:'50px',
+  width:'90px',
+  height:'75px',
   position:'relative',
   justifyContent:'center',
-  marginLeft:'50px'
 }
 
 export const ActionIconsContainerDesktop = styled(Box)(() => ({
