@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import Grid from "@mui/material/Grid";
 import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { Typography } from "@mui/material";
 
 const RegistrationForm3 = ({
   onHandleChange,
   accountForm,
   onSetAccountForm,
+  onSetImageUpload,
 }) => {
   const {
     addressLine1,
@@ -19,6 +22,7 @@ const RegistrationForm3 = ({
     country,
     complianceImg,
   } = accountForm;
+
   return (
     <>
       <Grid container spacing={2} justifyContent="center">
@@ -73,7 +77,7 @@ const RegistrationForm3 = ({
                     fullWidth
                   />
                 </Grid>
-                <Grid item xs={12} md={12} sm={12}>
+                {/* <Grid item xs={12} md={12} sm={12}>
                   <TextField
                     label="Valid Government ID"
                     name="complianceImg"
@@ -81,6 +85,19 @@ const RegistrationForm3 = ({
                     value={complianceImg}
                     fullWidth
                   />
+                </Grid> */}
+                <Grid item xs={12} md={12} sm={12}>
+                  <Typography>Government Valid ID</Typography>
+                  <Button variant="contained" component="label">
+                    Upload File
+                    <input
+                      type="file"
+                      hidden
+                      onChange={(event) => {
+                        onSetImageUpload(event.target.files[0]);
+                      }}
+                    />
+                  </Button>
                 </Grid>
               </Grid>
             </CardContent>
