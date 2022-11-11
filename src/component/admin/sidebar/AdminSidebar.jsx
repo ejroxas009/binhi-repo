@@ -13,9 +13,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import Logo from "../../../assets/images/Logo.png";
-import { LogoStyle } from '../../../styles/Appbar/AppbarStyles';
-import AdminAppbar from '../appbar/AdminAppbar';
 
 const drawerWidth = 240;
 
