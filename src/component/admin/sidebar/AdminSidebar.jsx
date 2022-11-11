@@ -23,7 +23,6 @@ export default function AdminSidebar() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AdminAppbar/>
       <Drawer
         variant="permanent"
         sx={{
@@ -33,7 +32,7 @@ export default function AdminSidebar() {
         }}
       >
         <Toolbar />
-        <Box sx={{ overflow: 'auto' }}>
+        <Box sx={{ overflow: 'auto', marginTop:'20px', }}>
           <List>
             {['Advertisement', 'Complaints', 'Courses', 'Farming Tips', 'Users', 'My Profile'].map((item, index) => (
               <ListItem key={item} disablePadding>
