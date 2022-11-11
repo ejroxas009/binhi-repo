@@ -7,13 +7,13 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import Appbar from '../../../component/shared/appbar';
 import Sidebar from '../../../component/shared/sidebar/Sidebar';
 import { fullWidthClassName, noScrollbarsClassName, RemoveScrollBar } from 'react-remove-scroll-bar';
+import LandingAppbar from './LandingAppbar';
 
 const landingpage = () => {
   return (
     
     <>
-    
-    <Sidebar/>
+    <LandingAppbar/>
     <Grid>
       <Box sx={{ display: 'flex' }}>
         <div className={noScrollbarsClassName}/>

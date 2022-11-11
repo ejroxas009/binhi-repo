@@ -32,6 +32,7 @@ import SamplePage from "./pages/shared/SamplePage";
 
 //pages - buyer
 import ProfilePage from "./pages/shared/ProfilePage";
+import Users from "./pages/admin/UsersPage/Users";
 
 
 function App() {
@@ -138,7 +139,10 @@ function App() {
         />
 
         {/* Routes for admin */}
-        
+        <Route
+          path="/admin/users"
+          element={accessToken ? <Navigate to="/" /> : <Users />}
+        />
       </Routes>
     </ThemeProvider>
   );

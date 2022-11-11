@@ -13,17 +13,13 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import Logo from "../../../assets/images/Logo.png";
-import { LogoStyle } from '../../../styles/Appbar/AppbarStyles';
-import Appbar from '../appbar/Appbar';
 
 const drawerWidth = 240;
 
-export default function Sidebar() {
+export default function AdminSidebar() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <Appbar/>
       <Drawer
         variant="permanent"
         sx={{
@@ -33,28 +29,15 @@ export default function Sidebar() {
         }}
       >
         <Toolbar />
-        <Box sx={{ overflow: 'auto' }}>
+        <Box sx={{ overflow: 'auto', marginTop:'20px', }}>
           <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem key={text} disablePadding>
+            {['Advertisement', 'Complaints', 'Courses', 'Farming Tips', 'Users', 'My Profile'].map((item, index) => (
+              <ListItem key={item} disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                   </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
+                  <ListItemText primary={item} />
                 </ListItemButton>
               </ListItem>
             ))}
