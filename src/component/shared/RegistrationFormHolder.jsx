@@ -39,7 +39,6 @@ const RegistrationFormHolder = () => {
   const [imageUpload, setImageUpload] = useState(null);
   const [imageRef, setImageRef] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
-  const [image, setImage] = useState(null);
   const [toggle, setToggle] = useState(false);
 
   const [step, setStep] = useState(0);
@@ -132,7 +131,7 @@ const RegistrationFormHolder = () => {
         onSubmit={handleSubmit}
       >
         <Grid container>
-          <MultiStepper step={step} steps={steps} />          
+          <MultiStepper step={step} steps={steps} />
         </Grid>
 
         <Grid container>
