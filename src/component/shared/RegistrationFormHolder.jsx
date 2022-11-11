@@ -132,8 +132,7 @@ const RegistrationFormHolder = () => {
         onSubmit={handleSubmit}
       >
         <Grid container>
-          <MultiStepper step={step} steps={steps} />
-          {/* {role == "admin" && <MultiStepper step={step} steps={steps} />} */}
+          <MultiStepper step={step} steps={steps} />          
         </Grid>
 
         <Grid container>

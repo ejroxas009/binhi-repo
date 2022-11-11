@@ -5,7 +5,7 @@ export function login(form) {
 }
 
 export function getUserById(id) {
-//   console.log("getUserById(id)");
+  //   console.log("getUserById(id)");
   return http.get(`/account/${id}`);
 }
 
@@ -17,6 +17,6 @@ export function logout() {
   localStorage.removeItem("accessToken");
 }
 
-export function getAllAccount(){
-  return http.get("/account")
+export function getAllAccount() {
+  return http.get("/account");
 }

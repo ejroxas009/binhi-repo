@@ -17,6 +17,11 @@ import RegisterPage from "./pages/shared/RegisterPage";
 
 import LandingPage from "./pages/shared/LandingPage/LandingPage";
 
+//farmerPages
+import MyCurrentBids from "./pages/farmer/MyCurrentBids";
+import MyCurrentAds from "./pages/farmer/MyCurrentAds";
+import MyComplaints from "./pages/farmer/MyComplaints";
+
 //service
 import * as accountService from "./service/shared/accountService";
 import theme from "./styles/Theme/Theme";
@@ -27,7 +32,7 @@ import SamplePage from "./pages/shared/SamplePage";
 
 //pages - buyer
 import ProfilePage from "./pages/shared/ProfilePage";
-import Users from "./pages/admin/UsersPage/Users";
+
 
 function App() {
   const [accessToken, setAccessToken] = React.useState(
@@ -71,6 +76,9 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+
+      {/* <Sidebar/> */}
+
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route
@@ -83,16 +91,41 @@ function App() {
             )
           }
         />
-
         <Route
           path="/register"
           element={accessToken ? <Navigate to="/" /> : <RegisterPage />}
         />
-
-        {/* Routes for Farmer */}
+        
+      {/* Routes for Farmer */}
+      <Route path="/farmer/myCurrentBids" 
+      element={
+            accessToken ? (
+              <MyCurrentBids token={accessToken} />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+      <Route path="/farmer/myCurrentAds" 
+      element={
+            accessToken ? (
+              <MyCurrentAds token={accessToken} />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+      <Route path="/farmer/myComplaints" 
+      element={
+            accessToken ? (
+              <MyComplaints token={accessToken} />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
 
         {/* Routes for Buyer */}
-
         <Route
           path="/buyer/profile"
           element={
@@ -103,11 +136,9 @@ function App() {
             )
           }
         />
+
         {/* Routes for admin */}
-        <Route
-          path="/admin/users"
-          element={accessToken ? <Navigate to="/" /> : <Users />}
-        />
+        
       </Routes>
     </ThemeProvider>
   );

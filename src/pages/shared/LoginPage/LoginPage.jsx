@@ -65,7 +65,7 @@ export function LoginPage({ onSetAccessToken }) {
       onSetAccessToken(res.data.access_token);
       // window.location.reload();
       console.log(res.data);
-      //navigate("/");
+      navigate("/");
     } catch (error) {
       toast.error("Username or Password is incorrect. Please try again.");
       console.log(error);
@@ -120,7 +120,7 @@ export function LoginPage({ onSetAccessToken }) {
               variant="contained"
               type="submit"
               fullWidth
-              // disabled={isFormInvalid()}
+              disabled={isFormInvalid()}
             >
               Login
             </Button>
