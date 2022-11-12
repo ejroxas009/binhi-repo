@@ -31,9 +31,11 @@ import Sidebar from "./component/shared/sidebar/Sidebar";
 import SamplePage from "./pages/shared/SamplePage";
 
 //pages - buyer
-import ProfilePage from "./pages/shared/ProfilePage";
-import Users from "./pages/admin/UsersPage/Users";
+import ProfilePage from "./pages/buyer/ProfilePage";
+import MyTransacionPage from "./pages/buyer/MyTransacionPage";
 
+//pages - admin
+import Users from "./pages/admin/UsersPage/Users";
 
 function App() {
   const [accessToken, setAccessToken] = React.useState(
@@ -96,10 +98,11 @@ function App() {
           path="/register"
           element={accessToken ? <Navigate to="/" /> : <RegisterPage />}
         />
-        
-      {/* Routes for Farmer */}
-      <Route path="/farmer/myCurrentBids" 
-      element={
+
+        {/* Routes for Farmer */}
+        <Route
+          path="/farmer/myCurrentBids"
+          element={
             accessToken ? (
               <MyCurrentBids token={accessToken} />
             ) : (
@@ -107,8 +110,9 @@ function App() {
             )
           }
         />
-      <Route path="/farmer/myCurrentAds" 
-      element={
+        <Route
+          path="/farmer/myCurrentAds"
+          element={
             accessToken ? (
               <MyCurrentAds token={accessToken} />
             ) : (
@@ -116,8 +120,9 @@ function App() {
             )
           }
         />
-      <Route path="/farmer/myComplaints" 
-      element={
+        <Route
+          path="/farmer/myComplaints"
+          element={
             accessToken ? (
               <MyComplaints token={accessToken} />
             ) : (
@@ -136,6 +141,10 @@ function App() {
               <Navigate to="/" />
             )
           }
+        />
+        <Route
+          path="/buyer/transaction-history"
+          element={accessToken ? <MyTransacionPage /> : <Navigate to="/" />}
         />
 
         {/* Routes for admin */}
