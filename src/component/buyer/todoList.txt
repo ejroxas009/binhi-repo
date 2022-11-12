@@ -6,3 +6,6 @@ Profile Page
     -set Modal for confirmation
 
 Transaction Page
+    -data
+    -pagination
+    -print
