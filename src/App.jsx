@@ -33,6 +33,7 @@ import SamplePage from "./pages/shared/SamplePage";
 //pages - buyer
 import ProfilePage from "./pages/buyer/ProfilePage";
 import MyTransacionPage from "./pages/buyer/MyTransacionPage";
+import MarketPlacePage from "./pages/buyer/MarketPlacePage";
 
 //pages - admin
 import Users from "./pages/admin/UsersPage/Users";
@@ -145,6 +146,10 @@ function App() {
         <Route
           path="/buyer/transaction-history"
           element={accessToken ? <MyTransacionPage /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/buyer/marketplace"
+          element={accessToken ? <MarketPlacePage /> : <Navigate to="/" />}
         />
 
         {/* Routes for admin */}
