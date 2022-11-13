@@ -1,7 +1,7 @@
-import http from "./http";
+import http from "../shared/http";
 
-export function viewAccount(id) {
-    return http.get(`/account/${id}`);
+export function viewAccount() {
+    return http.get("/account");
   }
   
 export function getAllAccount() {

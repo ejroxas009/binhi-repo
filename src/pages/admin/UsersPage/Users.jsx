@@ -11,11 +11,11 @@ import * as userService from '../../../service/admin/userService'
 const Users = () => {
   const [accountList, setAccountList] = useState();
   useEffect(() => {
-    const getAllAcountFunction = async () => {
-      const res = await accountService.getAllAccount()
+    const viewUsers = async () => {
+      const res = await userService.viewAccount()
       console.log(res.data);
     }
-    getAllAcountFunction();
+    viewUsers();
   },[])
 
   return (
