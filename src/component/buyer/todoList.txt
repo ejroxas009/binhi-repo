@@ -1,0 +1,11 @@
+11/11/22
+Profile Page
+    - Change password - done
+    -upload Profile -done
+    -edit details - done
+    -set Modal for confirmation
+
+Transaction Page
+    -data
+    -pagination
+    -print
