@@ -13,8 +13,7 @@ import decode from "jwt-decode";
 import { LoginPage } from "./pages/shared/LoginPage/LoginPage";
 import RegisterPage from "./pages/shared/RegisterPage";
 
-//testPage(Carlo)
-
+//LandingPage
 import LandingPage from "./pages/shared/LandingPage/LandingPage";
 
 //farmerPages
@@ -32,7 +31,16 @@ import SamplePage from "./pages/shared/SamplePage";
 
 //pages - buyer
 import ProfilePage from "./pages/shared/ProfilePage";
+
+//pages - admin
 import Users from "./pages/admin/UsersPage/Users";
+import AdminDashboardPage from "./pages/admin/DashboardPage/AdminDashboardPage";
+import AdminProfile from "./pages/admin/MyProfilePage/AdminProfile";
+import ComplaintsPage from "./pages/admin/ComplaintsPage/ComplaintsPage";
+import CoursesPage from "./pages/admin/CoursesPage/CoursesPage";
+import FarmingTipsPage from "./pages/admin/FarmingTipsPage/FarmingTipsPage";
+import AdvertisementPage from "./pages/admin/AdvertisementPage/AdvertisementPage";
+import BlockedPosts from "./pages/admin/AdvertisementPage/BlockedPosts";
 
 
 function App() {
@@ -140,8 +148,36 @@ function App() {
 
         {/* Routes for admin */}
         <Route
+          path="/admin/dashboard"
+          element={accessToken ? <Navigate to="/" /> : <AdminDashboardPage />}
+        />
+        <Route
           path="/admin/users"
           element={accessToken ? <Navigate to="/" /> : <Users />}
+        />
+        <Route
+          path="/admin/profile"
+          element={accessToken ? <Navigate to="/" /> : <AdminProfile />}
+        />
+        <Route
+          path="/admin/complaints"
+          element={accessToken ? <Navigate to="/" /> : <ComplaintsPage />}
+        />
+        <Route
+          path="/admin/courses"
+          element={accessToken ? <Navigate to="/" /> : <CoursesPage />}
+        />
+        <Route
+          path="/admin/farmingtips"
+          element={accessToken ? <Navigate to="/" /> : <FarmingTipsPage />}
+        />
+        <Route
+          path="/admin/ads"
+          element={accessToken ? <Navigate to="/" /> : <AdvertisementPage />}
+        />
+        <Route
+          path="/admin/ads/blocked"
+          element={accessToken ? <Navigate to="/" /> : <BlockedPosts />}
         />
       </Routes>
     </ThemeProvider>

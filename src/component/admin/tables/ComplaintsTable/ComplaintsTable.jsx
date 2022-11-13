@@ -41,14 +41,14 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-export default function CustomizedTables() {
+export default function ComplaintsTable() {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Name</StyledTableCell>
-            <StyledTableCell align="right">Username</StyledTableCell>
+            <StyledTableCell>Complaint Title</StyledTableCell>
+            <StyledTableCell align="right">Post Number</StyledTableCell>
             <StyledTableCell align="right">User Type</StyledTableCell>
             <StyledTableCell align="right">Status</StyledTableCell>
             <StyledTableCell align="right">Action </StyledTableCell>
