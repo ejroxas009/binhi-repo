@@ -11,7 +11,6 @@ import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
-import { fabClasses } from "@mui/material";
 
 const MyTransaction = () => {
   const [adsList, setAdsList] = useState();
@@ -114,7 +113,7 @@ const MyTransaction = () => {
                     sx={{ borderRadius: 50, margin: 1 }}
                     variant={isPaymentTable ? "contained" : "outlined"}
                   >
-                    Products Delivered
+                    Products Received
                   </Button>
                 </CardContent>
               </Grid>
