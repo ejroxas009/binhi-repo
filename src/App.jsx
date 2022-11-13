@@ -153,7 +153,7 @@ function App() {
         />
         <Route
           path="/admin/users"
-          element={accessToken ? <Navigate to="/" /> : <Users />}
+          element={accessToken ? <Users />: <Navigate to="/" /> }
         />
         <Route
           path="/admin/profile"
