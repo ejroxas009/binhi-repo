@@ -13,8 +13,7 @@ import { CssBaseline } from "@mui/material";
 import { LoginPage } from "./pages/shared/LoginPage/LoginPage";
 import RegisterPage from "./pages/shared/RegisterPage";
 
-//testPage(Carlo)
-
+//LandingPage
 import LandingPage from "./pages/shared/LandingPage/LandingPage";
 
 //farmerPages
@@ -26,10 +25,6 @@ import MyComplaints from "./pages/farmer/MyComplaints";
 import * as accountService from "./service/shared/accountService";
 import theme from "./styles/Theme/Theme";
 
-// import PersistentDrawerLeft from "./component/shared/sidebar/Sidebar";
-// import Sidebar from "./component/shared/sidebar/Sidebar";
-// import SamplePage from "./pages/shared/SamplePage";
-
 //pages - buyer
 import ProfilePage from "./pages/buyer/ProfilePage";
 import MyTransacionPage from "./pages/buyer/MyTransacionPage";
@@ -37,6 +32,12 @@ import MarketPlacePage from "./pages/buyer/MarketPlacePage";
 
 //pages - admin
 import Users from "./pages/admin/UsersPage/Users";
+import AdminDashboardPage from "./pages/admin/DashboardPage/AdminDashboardPage";
+import AdminProfile from "./pages/admin/MyProfilePage/AdminProfile";
+import ComplaintsPage from "./pages/admin/ComplaintsPage/ComplaintsPage";
+import CoursesPage from "./pages/admin/CoursesPage/CoursesPage";
+import FarmingTipsPage from "./pages/admin/FarmingTipsPage/FarmingTipsPage";
+import AdvertisementPage from "./pages/admin/AdvertisementPage/AdvertisementPage";
 
 function App() {
   const [accessToken, setAccessToken] = React.useState(
@@ -155,8 +156,32 @@ function App() {
 
         {/* Routes for admin */}
         <Route
+          path="/admin/dashboard"
+          element={accessToken ? <AdminDashboardPage /> : <Navigate to="/" />}
+        />
+        <Route
           path="/admin/users"
-          element={accessToken ? <Navigate to="/" /> : <Users />}
+          element={accessToken ? <Users />: <Navigate to="/" /> }
+        />
+        <Route
+          path="/admin/profile"
+          element={accessToken ? <AdminProfile /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/admin/complaints"
+          element={accessToken ? <ComplaintsPage /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/admin/courses"
+          element={accessToken ? <CoursesPage /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/admin/farmingtips"
+          element={accessToken ? <FarmingTipsPage /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/admin/ads"
+          element={accessToken ? <AdvertisementPage /> : <Navigate to="/" />}
         />
       </Routes>
     </ThemeProvider>

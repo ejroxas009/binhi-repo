@@ -12,7 +12,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import { Link } from "react-router-dom";
+import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 
 const drawerWidth = 240;
 
@@ -31,16 +32,61 @@ export default function AdminSidebar() {
         <Toolbar />
         <Box sx={{ overflow: 'auto', marginTop:'20px', }}>
           <List>
-            {['Advertisement', 'Complaints', 'Courses', 'Farming Tips', 'Users', 'My Profile'].map((item, index) => (
-              <ListItem key={item} disablePadding>
-                <ListItemButton>
+            
+
+              <ListItem disablePadding>
+                <ListItemButton LinkComponent={Link} to="/admin/dashboard">
                   <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    <DashboardRoundedIcon />
                   </ListItemIcon>
-                  <ListItemText primary={item} />
+                  <ListItemText primary={"Dashboard"} />
                 </ListItemButton>
               </ListItem>
-            ))}
+
+              <ListItem disablePadding>
+                <ListItemButton LinkComponent={Link} to="/admin/ads">
+                  <ListItemIcon>
+                    <DashboardRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Advertisements"} />
+                </ListItemButton>
+              </ListItem>
+
+              <ListItem disablePadding>
+                <ListItemButton LinkComponent={Link} to="/admin/courses">
+                  <ListItemIcon>
+                    <DashboardRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Courses"} />
+                </ListItemButton>
+              </ListItem>
+
+              <ListItem disablePadding>
+                <ListItemButton LinkComponent={Link} to="/admin/complaints">
+                  <ListItemIcon>
+                    <DashboardRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Complaints"} />
+                </ListItemButton>
+              </ListItem>
+
+              <ListItem disablePadding>
+                <ListItemButton LinkComponent={Link} to="/admin/farmingtips">
+                  <ListItemIcon>
+                    <DashboardRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Farming Tips"} />
+                </ListItemButton>
+              </ListItem>
+
+              <ListItem disablePadding>
+                <ListItemButton LinkComponent={Link} to="/admin/users">
+                  <ListItemIcon>
+                    <DashboardRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Users"} />
+                </ListItemButton>
+              </ListItem>
           </List>
         </Box>
       </Drawer>
