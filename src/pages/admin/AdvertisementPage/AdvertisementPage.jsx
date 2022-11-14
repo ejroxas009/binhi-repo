@@ -12,7 +12,7 @@ const AdvertisementPage = () => {
   useEffect(() => {
     const viewAds = async () => {
       const res = await adService.viewAds()
-      setAdsList(res.data);
+      setAdsList(res.data); 
     }
     
     viewAds();

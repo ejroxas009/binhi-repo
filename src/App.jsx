@@ -37,7 +37,6 @@ import ComplaintsPage from "./pages/admin/ComplaintsPage/ComplaintsPage";
 import CoursesPage from "./pages/admin/CoursesPage/CoursesPage";
 import FarmingTipsPage from "./pages/admin/FarmingTipsPage/FarmingTipsPage";
 import AdvertisementPage from "./pages/admin/AdvertisementPage/AdvertisementPage";
-import BlockedPosts from "./pages/admin/AdvertisementPage/BlockedPosts";
 
 function App() {
   const [accessToken, setAccessToken] = React.useState(
@@ -177,10 +176,6 @@ function App() {
         <Route
           path="/admin/ads"
           element={accessToken ? <AdvertisementPage /> : <Navigate to="/" />}
-        />
-        <Route
-          path="/admin/ads/blocked"
-          element={accessToken ? <BlockedPosts /> : <Navigate to="/" />}
         />
       </Routes>
     </ThemeProvider>
