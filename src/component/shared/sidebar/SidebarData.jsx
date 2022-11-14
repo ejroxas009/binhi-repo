@@ -24,7 +24,7 @@ import theme from '../../../styles/Theme/Theme';
 
 
 
-export const SidebarData = ({ children }) => {
+const SidebarData = (list) => {
   
     const Data = ['Inbox', 'Starred', 'Send email', 'Drafts'];
     return Data
@@ -32,4 +32,4 @@ export const SidebarData = ({ children }) => {
   };
   
 
-  export default SidebarData;
+export default SidebarData;

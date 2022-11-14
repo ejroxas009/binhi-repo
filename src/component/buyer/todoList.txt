@@ -1,0 +1,20 @@
+11/11/22
+Profile Page
+    -set Modal for confirmation
+
+Transaction Page
+    -data
+    -pagination
+    -print
+
+MarketPlace Page
+    - Post
+    -Send Bid - done
+    -complain
+
+Monday
+DashBoard and AppBar for each pages
+Email and SMS study
+
+Tuesday
+Registration

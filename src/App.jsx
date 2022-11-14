@@ -31,8 +31,12 @@ import theme from "./styles/Theme/Theme";
 // import SamplePage from "./pages/shared/SamplePage";
 
 //pages - buyer
-import ProfilePage from "./pages/shared/ProfilePage";
+import ProfilePage from "./pages/buyer/ProfilePage";
+import MyTransacionPage from "./pages/buyer/MyTransacionPage";
+import MarketPlacePage from "./pages/buyer/MarketPlacePage";
 
+//pages - admin
+import Users from "./pages/admin/UsersPage/Users";
 
 function App() {
   const [accessToken, setAccessToken] = React.useState(
@@ -95,21 +99,37 @@ function App() {
           path="/register"
           element= {<RegisterPage />}
         />
-        
-      {/* Routes for Farmer */}
-      <Route path="/farmer/myCurrentBids" 
-      element={
-              <MyCurrentBids/>
+
+        {/* Routes for Farmer */}
+        <Route
+          path="/farmer/myCurrentBids"
+          element={
+            accessToken ? (
+              <MyCurrentBids token={accessToken} />
+            ) : (
+              <Navigate to="/" />
+            )
           }
         />
-      <Route path="/farmer/myCurrentAds" 
-      element={
-              <MyCurrentAds/>
+        <Route
+          path="/farmer/myCurrentAds"
+          element={
+            accessToken ? (
+              <MyCurrentAds token={accessToken} />
+            ) : (
+              <Navigate to="/" />
+            )
           }
         />
-      <Route path="/farmer/myComplaints" 
-      element={
-              <MyComplaints/>
+        <Route
+          path="/farmer/myComplaints"
+          element={
+            accessToken ? (
+              <MyComplaints token={accessToken} />
+            ) : (
+              <Navigate to="/" />
+            )
+
           }
         />
 
@@ -124,9 +144,20 @@ function App() {
             )
           }
         />
+        <Route
+          path="/buyer/transaction-history"
+          element={accessToken ? <MyTransacionPage /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/buyer/marketplace"
+          element={accessToken ? <MarketPlacePage /> : <Navigate to="/" />}
+        />
 
         {/* Routes for admin */}
-        
+        <Route
+          path="/admin/users"
+          element={accessToken ? <Navigate to="/" /> : <Users />}
+        />
       </Routes>
     </ThemeProvider>
   );
