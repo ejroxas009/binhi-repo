@@ -3,20 +3,30 @@ import React, { useState, useEffect } from 'react'
 import AdminAppbar from '../../../component/admin/appbar/AdminAppbar'
 import AdminSidebar from '../../../component/admin/sidebar/AdminSidebar'
 import UserTable from '../../../component/admin/tables/UserTable/UserTable'
+import UserTable2 from '../../../component/admin/tables/UserTable/UserTable2'
 import * as userService from '../../../service/admin/userService'
 
 
 
 
 const Users = () => {
-  const [accountList, setAccountList] = useState();
+
+  const [userList, setUserList] = useState();
+  const [userListToggle, setUserListToggle] = useState();
+
   useEffect(() => {
     const viewUsers = async () => {
       const res = await userService.viewAccount()
-      console.log(res.data);
+      setUserList(res.data);
     }
+    
     viewUsers();
+    setUserListToggle(!userListToggle);
   },[])
+
+  useEffect(() => {
+    console.log(userList);
+  },[userListToggle])
 
   return (
     <>
@@ -24,7 +34,9 @@ const Users = () => {
         <AdminSidebar/>
         <Container fixed>
           <Box mt={20}>
-            <UserTable/>
+            {userList &&(
+              <UserTable list={userList}/>
+            )}
           </Box>
         </Container>
         

@@ -8,6 +8,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Colors } from '../../../../styles/Theme/Theme';
+import { Button, IconButton } from '@mui/material';
+import EditIcon from "@mui/icons-material/Edit";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -42,12 +45,13 @@ const rows = [
 ];
 
 export default function UserTables ({list}) {
+  
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Username</StyledTableCell>
+            <StyledTableCell align="left">Username</StyledTableCell>
             <StyledTableCell align="right">Username</StyledTableCell>
             <StyledTableCell align="right">User Type</StyledTableCell>
             <StyledTableCell align="right">Status</StyledTableCell>
@@ -56,14 +60,16 @@ export default function UserTables ({list}) {
         </TableHead>
         <TableBody>
           {list.map((item) => (
-            <StyledTableRow key={item.name}>
-              <StyledTableCell component="th" scope="row">
-                {item.username}
+            <StyledTableRow key={item.accountId}>
+              <StyledTableCell align="left">{item.username}</StyledTableCell>
+              <StyledTableCell align="right">{item.username}</StyledTableCell>
+              <StyledTableCell align="right">{item.role}</StyledTableCell>
+              <StyledTableCell align="right">{item.isActive}</StyledTableCell>
+              <StyledTableCell align="right">
+                <Button variant="outlined" color="error" sx={{ borderRadius:'20px!important'}}>
+                  Block
+                </Button>
               </StyledTableCell>
-              <StyledTableCell align="right">{item.calories}</StyledTableCell>
-              <StyledTableCell align="right">{item.fat}</StyledTableCell>
-              <StyledTableCell align="right">{item.carbs}</StyledTableCell>
-              <StyledTableCell align="right">{item.protein}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
