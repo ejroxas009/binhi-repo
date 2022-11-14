@@ -25,10 +25,6 @@ import MyComplaints from "./pages/farmer/MyComplaints";
 import * as accountService from "./service/shared/accountService";
 import theme from "./styles/Theme/Theme";
 
-import PersistentDrawerLeft from "./component/shared/sidebar/Sidebar";
-import Sidebar from "./component/shared/sidebar/Sidebar";
-import SamplePage from "./pages/shared/SamplePage";
-
 //pages - buyer
 import ProfilePage from "./pages/buyer/ProfilePage";
 import MyTransacionPage from "./pages/buyer/MyTransacionPage";

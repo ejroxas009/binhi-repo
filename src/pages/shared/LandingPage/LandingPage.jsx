@@ -8,8 +8,11 @@ import Appbar from '../../../component/shared/appbar';
 import Sidebar from '../../../component/shared/sidebar/Sidebar';
 import { fullWidthClassName, noScrollbarsClassName, RemoveScrollBar } from 'react-remove-scroll-bar';
 import LandingAppbar from './LandingAppbar';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+
 
 const landingpage = () => {
+  
   return (
     
     <>
@@ -27,7 +30,8 @@ const landingpage = () => {
               bottom: (theme) => theme.spacing(45),
               left: (theme) => theme.spacing(90),
               backgroundColor:Colors.gold
-              }}>
+              }}
+              >
                   Login
                   <KeyboardArrowRightIcon sx={{ ml: 1 }} />
               </Fab>

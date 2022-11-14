@@ -41,13 +41,13 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-export default function UserTables () {
+export default function UserTables ({list}) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Name</StyledTableCell>
+            <StyledTableCell>Username</StyledTableCell>
             <StyledTableCell align="right">Username</StyledTableCell>
             <StyledTableCell align="right">User Type</StyledTableCell>
             <StyledTableCell align="right">Status</StyledTableCell>
@@ -55,15 +55,15 @@ export default function UserTables () {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
+          {list.map((item) => (
+            <StyledTableRow key={item.name}>
               <StyledTableCell component="th" scope="row">
-                {row.name}
+                {item.username}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.calories}</StyledTableCell>
-              <StyledTableCell align="right">{row.fat}</StyledTableCell>
-              <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-              <StyledTableCell align="right">{row.protein}</StyledTableCell>
+              <StyledTableCell align="right">{item.calories}</StyledTableCell>
+              <StyledTableCell align="right">{item.fat}</StyledTableCell>
+              <StyledTableCell align="right">{item.carbs}</StyledTableCell>
+              <StyledTableCell align="right">{item.protein}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
