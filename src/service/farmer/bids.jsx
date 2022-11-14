@@ -8,6 +8,6 @@ export function getBidById(id) {
     return http.get(`/bid/${id}`);
 }
 
-export function getCurrentUser(){
-    return http.get();
+export function getAllAds() {
+    return http.get("/ads");
 }

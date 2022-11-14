@@ -1,9 +1,9 @@
 import React from "react";
+import ComplaintsTable from "../../component/farmer/ComplaintsTable";
 
 const MyComplaints = () => {
 
-    
-  return <div>MyComplaints</div>;
+  return <ComplaintsTable/>;
 };
 
 export default MyComplaints;

@@ -1,13 +1,15 @@
 import React from "react";
 import { useEffect } from "react";
+import AdsCard from "../../component/farmer/AdsCard";
 
 const MyCurrentAds = () => {
-    useEffect((event) => {
-        event.preventDefault();
+    useEffect(() => {
         
       }, []);
 
-  return <div>MyCurrentAds</div>;
+  return (
+    <AdsCard />
+);
 };
 
 export default MyCurrentAds;

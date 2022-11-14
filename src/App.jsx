@@ -1,13 +1,13 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+// import { useEffect, useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 //material
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 
 // JWT Decode
-import decode from "jwt-decode";
+// import decode from "jwt-decode";
 
 //pages
 import { LoginPage } from "./pages/shared/LoginPage/LoginPage";
@@ -26,9 +26,9 @@ import MyComplaints from "./pages/farmer/MyComplaints";
 import * as accountService from "./service/shared/accountService";
 import theme from "./styles/Theme/Theme";
 
-import PersistentDrawerLeft from "./component/shared/sidebar/Sidebar";
-import Sidebar from "./component/shared/sidebar/Sidebar";
-import SamplePage from "./pages/shared/SamplePage";
+// import PersistentDrawerLeft from "./component/shared/sidebar/Sidebar";
+// import Sidebar from "./component/shared/sidebar/Sidebar";
+// import SamplePage from "./pages/shared/SamplePage";
 
 //pages - buyer
 import ProfilePage from "./pages/shared/ProfilePage";
@@ -38,9 +38,9 @@ function App() {
   const [accessToken, setAccessToken] = React.useState(
     accountService.getAccessToken()
   );
-  const [decodedToken, setDecodedToken] = useState();
+  // const [decodedToken, setDecodedToken] = useState();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // useEffect(() => {
   //   const token = localStorage.getItem("accessToken");
@@ -67,11 +67,11 @@ function App() {
   //   },
   // });
 
-  const handleLogout = () => {
-    accountService.logout();
-    window.location.reload();
-    navigate("/");
-  };
+  // const handleLogout = () => {
+  //   accountService.logout();
+  //   window.location.reload();
+  //   navigate("/");
+  // };
 
   return (
     <ThemeProvider theme={theme}>
@@ -93,35 +93,23 @@ function App() {
         />
         <Route
           path="/register"
-          element={accessToken ? <Navigate to="/" /> : <RegisterPage />}
+          element= {<RegisterPage />}
         />
         
       {/* Routes for Farmer */}
       <Route path="/farmer/myCurrentBids" 
       element={
-            accessToken ? (
-              <MyCurrentBids token={accessToken} />
-            ) : (
-              <Navigate to="/" />
-            )
+              <MyCurrentBids/>
           }
         />
       <Route path="/farmer/myCurrentAds" 
       element={
-            accessToken ? (
-              <MyCurrentAds token={accessToken} />
-            ) : (
-              <Navigate to="/" />
-            )
+              <MyCurrentAds/>
           }
         />
       <Route path="/farmer/myComplaints" 
       element={
-            accessToken ? (
-              <MyComplaints token={accessToken} />
-            ) : (
-              <Navigate to="/" />
-            )
+              <MyComplaints/>
           }
         />
 
