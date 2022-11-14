@@ -1,11 +1,20 @@
 11/11/22
 Profile Page
-    - Change password - done
-    -upload Profile -done
-    -edit details - done
     -set Modal for confirmation
 
 Transaction Page
     -data
     -pagination
     -print
+
+MarketPlace Page
+    - Post
+    -Send Bid - done
+    -complain
+
+Monday
+DashBoard and AppBar for each pages
+Email and SMS study
+
+Tuesday
+Registration
