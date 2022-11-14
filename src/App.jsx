@@ -152,7 +152,7 @@ function App() {
         {/* Routes for admin */}
         <Route
           path="/admin/dashboard"
-          element={accessToken ? <Navigate to="/" /> : <AdminDashboardPage />}
+          element={accessToken ? <AdminDashboardPage /> : <Navigate to="/" />}
         />
         <Route
           path="/admin/users"
@@ -160,27 +160,27 @@ function App() {
         />
         <Route
           path="/admin/profile"
-          element={accessToken ? <Navigate to="/" /> : <AdminProfile />}
+          element={accessToken ? <AdminProfile /> : <Navigate to="/" />}
         />
         <Route
           path="/admin/complaints"
-          element={accessToken ? <Navigate to="/" /> : <ComplaintsPage />}
+          element={accessToken ? <ComplaintsPage /> : <Navigate to="/" />}
         />
         <Route
           path="/admin/courses"
-          element={accessToken ? <Navigate to="/" /> : <CoursesPage />}
+          element={accessToken ? <CoursesPage /> : <Navigate to="/" />}
         />
         <Route
           path="/admin/farmingtips"
-          element={accessToken ? <Navigate to="/" /> : <FarmingTipsPage />}
+          element={accessToken ? <FarmingTipsPage /> : <Navigate to="/" />}
         />
         <Route
           path="/admin/ads"
-          element={accessToken ? <Navigate to="/" /> : <AdvertisementPage />}
+          element={accessToken ? <AdvertisementPage /> : <Navigate to="/" />}
         />
         <Route
           path="/admin/ads/blocked"
-          element={accessToken ? <Navigate to="/" /> : <BlockedPosts />}
+          element={accessToken ? <BlockedPosts /> : <Navigate to="/" />}
         />
       </Routes>
     </ThemeProvider>

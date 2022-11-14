@@ -8,6 +8,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Colors } from '../../../../styles/Theme/Theme';
+import { Button, IconButton } from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import EditIcon from "@mui/icons-material/Edit";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -41,29 +44,36 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-export default function ComplaintsTable() {
+export default function ComplaintsTable({details}) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Complaint Title</StyledTableCell>
-            <StyledTableCell align="right">Post Number</StyledTableCell>
-            <StyledTableCell align="right">User Type</StyledTableCell>
-            <StyledTableCell align="right">Status</StyledTableCell>
-            <StyledTableCell align="right">Action </StyledTableCell>
+            <StyledTableCell align="left">Post Details</StyledTableCell>
+            <StyledTableCell align="left">User Type</StyledTableCell>
+            <StyledTableCell align="left">User Name</StyledTableCell>
+            <StyledTableCell align="left">Status</StyledTableCell>
+            <StyledTableCell align="right">Action</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
-              <StyledTableCell component="th" scope="row">
-                {row.name}
+          {details.map((item) => (
+            <StyledTableRow key={item.complaintId}>
+              <StyledTableCell align="left">{item.complaintPost}</StyledTableCell>
+              {/* <StyledTableCell align="left">{item.account}</StyledTableCell>
+              <StyledTableCell align="left">{item.account}</StyledTableCell> */}
+              <StyledTableCell align="left">{item.complaintImg}</StyledTableCell>
+              <StyledTableCell align="left">{item.complaintImg}</StyledTableCell>
+              <StyledTableCell align="left">{item.complaintImg}</StyledTableCell>
+              <StyledTableCell align="right">
+                <IconButton sx={{color:Colors.black}}>
+                  <VisibilityIcon />
+                </IconButton>
+                <IconButton sx={{color:Colors.success}}>
+                  <EditIcon />
+                </IconButton>
               </StyledTableCell>
-              <StyledTableCell align="right">{row.calories}</StyledTableCell>
-              <StyledTableCell align="right">{row.fat}</StyledTableCell>
-              <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-              <StyledTableCell align="right">{row.protein}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

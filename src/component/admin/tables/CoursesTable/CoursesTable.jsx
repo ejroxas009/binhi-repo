@@ -31,30 +31,28 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function UserTables ({list}) {
+export default function UserTables ({details}) {
   
   return (
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell align="left">Username</StyledTableCell>
-              <StyledTableCell align="left">Name</StyledTableCell>
-              <StyledTableCell align="left">User Type</StyledTableCell>
-              <StyledTableCell align="center">Status</StyledTableCell>
-              <StyledTableCell align="right">Action </StyledTableCell>
+              <StyledTableCell align="left">Course Description</StyledTableCell>
+              <StyledTableCell align="center">Schedule</StyledTableCell>
+              <StyledTableCell align="right">Action</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {list.map((item) => (
-              <StyledTableRow key={item.accountId}>
-                <StyledTableCell align="left">{item.username}</StyledTableCell>
-                <StyledTableCell align="left">{`${item.firstName} ${item.lastName}`}</StyledTableCell>
-                <StyledTableCell align="left">{item.role}</StyledTableCell>
-                <StyledTableCell align="center">{item.isActive}</StyledTableCell>
+            {details.map((item) => (
+              <StyledTableRow key={item.courseId}>
+                <StyledTableCell align="left">{item.courseDescription}</StyledTableCell>
+                <StyledTableCell align="center">
+                    {`${item.startTime} - ${item.endTime} | ${item.startDate} - ${item.endDate}`}
+                </StyledTableCell>
                 <StyledTableCell align="right">
                   <Button variant="outlined" color="error" sx={{ borderRadius:'20px!important'}}>
-                    Block
+                    Delete
                   </Button>
                 </StyledTableCell>
               </StyledTableRow>

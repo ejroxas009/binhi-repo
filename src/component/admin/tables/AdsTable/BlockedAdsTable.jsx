@@ -8,7 +8,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Colors } from '../../../../styles/Theme/Theme';
-import { Button } from '@mui/material';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -30,6 +29,17 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+function createData(name, calories, fat, carbs, protein) {
+  return { name, calories, fat, carbs, protein };
+}
+
+const rows = [
+  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+  createData('Eclair', 262, 16.0, 24, 6.0),
+  createData('Cupcake', 305, 3.7, 67, 4.3),
+  createData('Gingerbread', 356, 16.0, 49, 3.9),
+];
 
 export default function AdsTable({details}) {
   return (
@@ -37,26 +47,23 @@ export default function AdsTable({details}) {
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell align="left">User</StyledTableCell>
-            <StyledTableCell align="left">Description</StyledTableCell>
-            <StyledTableCell align="left">Post Date</StyledTableCell>
-            <StyledTableCell align="center">Status</StyledTableCell>
+            <StyledTableCell>Post Title</StyledTableCell>
+            <StyledTableCell align="right">Post Number</StyledTableCell>
+            <StyledTableCell align="right">User Type</StyledTableCell>
+            <StyledTableCell align="right">Status</StyledTableCell>
             <StyledTableCell align="right">Action </StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {details.map((item) => (
-            <StyledTableRow key={item.postId}>
-              {/* <StyledTableCell align="left">{item.account}</StyledTableCell> */}
-              <StyledTableCell align="left">{item.adsDescription}</StyledTableCell>
-              <StyledTableCell align="left">{item.adsDescription}</StyledTableCell>
-              <StyledTableCell align="left">{item.postDate}</StyledTableCell>
-              <StyledTableCell align="center">{item.isActive}</StyledTableCell>
-              <StyledTableCell align="right">
-                  <Button variant="outlined" color="error" sx={{ borderRadius:'20px!important'}}>
-                    Block
-                  </Button>
-                </StyledTableCell>
+            <StyledTableRow key={item.name}>
+              <StyledTableCell component="th" scope="row">
+                {item.name}
+              </StyledTableCell>
+              <StyledTableCell align="right">{item.calories}</StyledTableCell>
+              <StyledTableCell align="right">{item.fat}</StyledTableCell>
+              <StyledTableCell align="right">{item.carbs}</StyledTableCell>
+              <StyledTableCell align="right">{item.protein}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
