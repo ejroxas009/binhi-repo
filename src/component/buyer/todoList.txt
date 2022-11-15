@@ -8,13 +8,15 @@ Transaction Page
     -print
 
 MarketPlace Page
-    - Post
+    - Post - done - confirmation
     -Send Bid - done
-    -complain
+    -complain - done
 
-Monday
+Tuesday
+Confirmation for post
 DashBoard and AppBar for each pages
 Email and SMS study
 
-Tuesday
+Wednesday
 Registration
+Payment Method
