@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
+//service
 import * as adsService from "../../service/buyer/AdvertisementService";
-import MarketPlace from "../../component/shared/MarketPlace";
-import BuyerSidebar from "../../component/buyer/BuyerSidebar";
-import Appbar from "../../component/shared/appbar/Appbar";
-import Grid from "@mui/material/Grid";
 
-const MarketPlacePage = () => {
+//components
+import MarketPlace from "../../component/shared/MarketPlace";
+import FarmerSidebar from "../../component/farmer/FarmerSidebar";
+import Appbar from "../../component/shared/appbar/Appbar";
+
+const MarketplacePage = () => {
   const [adsList, setAdsList] = useState();
   const [adsListToggle, setAdsListToggle] = useState(false);
 
@@ -24,25 +26,11 @@ const MarketPlacePage = () => {
   }, [adsListToggle]);
   return (
     <>
-      <Grid container>
-        <Grid item xs={12}>
-          <Appbar />
-        </Grid>
-        <Grid item md={3}>
-          <BuyerSidebar />
-        </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={12} sx={{ marginTop: 10 }}>
-          {adsList && (
-            <MarketPlace
-              adsList={adsList}
-              onSetAdsListToggle={setAdsListToggle}
-              adsListToggle={adsListToggle}
-            />
-          )}
-        </Grid>
-      </Grid>
+      <Appbar />
+      <FarmerSidebar />
+      {adsList && <MarketPlace adsList={adsList} />}
     </>
   );
 };
 
-export default MarketPlacePage;
+export default MarketplacePage;
