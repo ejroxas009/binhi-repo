@@ -19,13 +19,14 @@ import Button from "@mui/material/Button";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { styled } from "@mui/material/styles";
 import Collapse from "@mui/material/Collapse";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
+// import Modal from "@mui/material/Modal";
+// import Box from "@mui/material/Box";
+// import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 
 //services
 import * as bidService from "../../service/farmer/bids";
+import * as adsService from "../../service/buyer/AdvertisementService";
 import {
   getAccountById,
   getAllAccount,
@@ -105,7 +106,7 @@ const BidCard = () => {
   };
 
   const getAllAds = async () => {
-    const res = await bidService.getAllAds();
+    const res = await adsService.getAllAds();
     console.log(res.data);
 
     setPostAds(res.data);

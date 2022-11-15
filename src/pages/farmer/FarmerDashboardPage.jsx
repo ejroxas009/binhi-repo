@@ -1,8 +1,15 @@
-import React from 'react'
+import React from "react";
 
-export function FarmerDashboardPage () {
+import FarmerSidebar from "../../component/farmer/FarmerSidebar";
+import Appbar from "../../component/shared/appbar/Appbar";
+
+const FarmerDashboardPage = () => {
   return (
-    <div>FarmerDashboardPage</div>
-  )
-}
+    <>
+      <Appbar/>
+      <FarmerSidebar/>
+    </>
+  );
+};
 
+export default FarmerDashboardPage;

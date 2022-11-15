@@ -1,15 +1,19 @@
 import React from "react";
-import { useEffect } from "react";
+
+//components
 import AdsCard from "../../component/farmer/AdsCard";
+import FarmerSidebar from "../../component/farmer/FarmerSidebar";
+import Appbar from "../../component/shared/appbar/Appbar";
 
 const MyCurrentAds = () => {
-    useEffect(() => {
-        
-      }, []);
 
   return (
-    <AdsCard />
-);
+      <>
+        <Appbar/>
+        <FarmerSidebar/>
+        <AdsCard /> 
+      </>); 
+  
 };
 
 export default MyCurrentAds;
