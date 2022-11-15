@@ -1,0 +1,6 @@
+Todo List (Deadline Wednesday) Priority
+- Button Send Complaints, make modal (My Current Bids Page, sa Bid Card)
+- Button View All Bids Offer, modal, card and have button that accept bids (My Current Ads, sa Ads Card)
+- View all my complaints (My Complaints Page)
+- 
+- 

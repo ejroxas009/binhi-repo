@@ -17,9 +17,15 @@ import RegisterPage from "./pages/shared/RegisterPage";
 import LandingPage from "./pages/shared/LandingPage/LandingPage";
 
 //farmerPages
+import FarmerDashboardPage from "./pages/farmer/FarmerDashboardPage";
+import MyProfile from "./pages/farmer/MyProfile";
+import MarketplacePage from "./pages/farmer/MarketplacePage";
+import TransactionHistory from "./pages/farmer/TransactionHistory";
+import Courses from "./pages/farmer/Courses";
 import MyCurrentBids from "./pages/farmer/MyCurrentBids";
 import MyCurrentAds from "./pages/farmer/MyCurrentAds";
 import MyComplaints from "./pages/farmer/MyComplaints";
+import MyCourses from "./pages/farmer/MyCourses";
 
 //service
 import * as accountService from "./service/shared/accountService";
@@ -82,8 +88,6 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
 
-      {/* <Sidebar/> */}
-
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route
@@ -96,12 +100,60 @@ function App() {
             )
           }
         />
-        <Route
-          path="/register"
-          element= {<RegisterPage />}
-        />
+        <Route path="/register" element={<RegisterPage />} />
 
         {/* Routes for Farmer */}
+        <Route
+          path="/farmer/dashboard"
+          element={
+            accessToken ? (
+              <FarmerDashboardPage token={accessToken} />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+
+        <Route
+          path="/farmer/myProfile"
+          element={
+            accessToken ? (
+              <MyProfile token={accessToken} />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+
+        <Route
+          path="/farmer/marketplace"
+          element={
+            accessToken ? (
+              <MarketplacePage token={accessToken} />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+
+        <Route
+          path="/farmer/transactions"
+          element={
+            accessToken ? (
+              <TransactionHistory token={accessToken} />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+
+        <Route
+          path="/farmer/courses"
+          element={
+            accessToken ? <Courses token={accessToken} /> : <Navigate to="/" />
+          }
+        />
+
         <Route
           path="/farmer/myCurrentBids"
           element={
@@ -112,6 +164,7 @@ function App() {
             )
           }
         />
+
         <Route
           path="/farmer/myCurrentAds"
           element={
@@ -130,7 +183,17 @@ function App() {
             ) : (
               <Navigate to="/" />
             )
+          }
+        />
 
+        <Route
+          path="/farmer/myCourses"
+          element={
+            accessToken ? (
+              <MyCourses token={accessToken} />
+            ) : (
+              <Navigate to="/" />
+            )
           }
         />
 

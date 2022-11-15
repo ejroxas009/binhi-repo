@@ -8,10 +8,6 @@ export function getBidById(id) {
   return http.get(`/bid/${id}`);
 }
 
-export function getAllAds() {
-    return http.get("/ads");
-}
-
 export function addBid(form) {
   return http.post("/bid", form);
 }

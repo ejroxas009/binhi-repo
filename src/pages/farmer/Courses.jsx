@@ -1,9 +1,15 @@
 import React from 'react'
 
+import FarmerSidebar from "../../component/farmer/FarmerSidebar";
+import Appbar from "../../component/shared/appbar/Appbar";
+
 const Courses = () => {
   return (
-    <div>Courses</div>
-  )
+    <>
+      <Appbar/>
+      <FarmerSidebar/>
+    </>
+  );
 }
 
 export default Courses;
