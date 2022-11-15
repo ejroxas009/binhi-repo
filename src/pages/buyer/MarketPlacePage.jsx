@@ -19,7 +19,17 @@ const MarketPlacePage = () => {
   useEffect(() => {
     console.log(adsList);
   }, [adsListToggle]);
-  return <>{adsList && <MarketPlace adsList={adsList} />}</>;
+  return (
+    <>
+      {adsList && (
+        <MarketPlace
+          adsList={adsList}
+          onSetAdsListToggle={setAdsListToggle}
+          adsListToggle={adsListToggle}
+        />
+      )}
+    </>
+  );
 };
 
 export default MarketPlacePage;
