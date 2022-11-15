@@ -1,14 +1,11 @@
 import React from 'react'
 import { Box, Button, Fab, Grid, ThemeProvider, Typography } from '@mui/material';
 import Banner from '../../../component/shared/banner/banner';
-import NavigationIcon from '@mui/icons-material/Navigation';
 import { Colors } from '../../../styles/Theme/Theme';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import Appbar from '../../../component/shared/appbar';
-import Sidebar from '../../../component/shared/sidebar/Sidebar';
 import { fullWidthClassName, noScrollbarsClassName, RemoveScrollBar } from 'react-remove-scroll-bar';
 import LandingAppbar from './LandingAppbar';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 
 const landingpage = () => {
@@ -31,6 +28,7 @@ const landingpage = () => {
               left: (theme) => theme.spacing(90),
               backgroundColor:Colors.gold
               }}
+              LinkComponent={Link} to="/login"
               >
                   Login
                   <KeyboardArrowRightIcon sx={{ ml: 1 }} />
@@ -40,7 +38,9 @@ const landingpage = () => {
               bottom: (theme) => theme.spacing(45),
               right: (theme) => theme.spacing(90),
               backgroundColor:Colors.olive
-              }}>
+              }}
+              LinkComponent={Link} to="/register"
+              >
                   Register
                   <KeyboardArrowRightIcon sx={{ ml: 2 }} />
               </Fab>
