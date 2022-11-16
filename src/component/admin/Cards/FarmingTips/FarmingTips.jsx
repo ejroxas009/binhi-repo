@@ -128,11 +128,11 @@ const FarmingTips = ({ tipsList, onSetAdsListToggle, adsListToggle }) => {
       <Card sx={{ maxWidth: 345, borderRadius:'20px' }}>
       {tipsList.map((contents) => (
       <CardActionArea href={contents.farmingTipsLink}>
-        {contents.farmingTipsImg && (
+        {contents && (
         <CardMedia
           component="img"
           height="140"
-          image={<img src={contents.farmingTipsImg}/>}
+          image={contents.farmingTipsImg}
           alt="image"
         />
         
@@ -144,7 +144,6 @@ const FarmingTips = ({ tipsList, onSetAdsListToggle, adsListToggle }) => {
           <Typography variant="body2" color="text.secondary">
           {contents.farmingTipsDesc} 
           </Typography>
-          <img src={contents.farmingTipsImg}/>
         </CardContent>
       </CardActionArea>
       ))}
