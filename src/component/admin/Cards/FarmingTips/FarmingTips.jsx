@@ -125,37 +125,38 @@ const FarmingTips = ({ tipsList, onSetAdsListToggle, adsListToggle }) => {
       </Grid>
       
       {/* Start of Card */}
-      <Card sx={{ maxWidth: 345, borderRadius:'20px' }}>
-      {tipsList.map((contents) => (
-      <CardActionArea href={contents.farmingTipsLink}>
-        {contents && (
-        <CardMedia
-          component="img"
-          height="140"
-          image={contents.farmingTipsImg}
-          alt="image"
-        />
-        
-        )}
-        <CardContent key={contents.farmingTipsId}>
-          <Typography gutterBottom variant="h5" component="div">
-          {contents.farmingTips}    
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-          {contents.farmingTipsDesc} 
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      ))}
-      {tipsList.map((contents) => (
-      <CardActions>
-        <Button size="small" color="primary" href={contents.farmingTipsLink}>
-            Visit Article
-            <span hidden={contents.farmingTipsLink}></span>
-        </Button>
-      </CardActions>
-      ))}
-    </Card>
+      <Grid container="row" columnSpacing={{ xs: 12, sm: 3, md: 6, lg: 6 }} >
+          {tipsList.map((contents) => (
+          <Card sx={{ marginLeft:3, marginTop:2,height:300,width: 345, borderRadius:'20px' }}>
+          <CardActionArea href={contents.farmingTipsLink}>
+            {contents && (
+            <CardMedia
+              component="img"
+              height="140"
+              width="280"
+              image={contents.farmingTipsImg}
+              alt="image"
+            />
+            )}
+            <CardContent key={contents.farmingTipsId}>
+              <Typography gutterBottom variant="h5" component="div">
+              {contents.farmingTips}    
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+              {contents.farmingTipsDesc} 
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+          <CardActions>
+            <Button size="small" color="primary" href={contents.farmingTipsLink}>
+                Visit Article
+                <span hidden={contents.farmingTipsLink}></span>
+            </Button>
+          </CardActions>
+        </Card>
+          ))}
+      </Grid>
+    {/* Modal */}
       {account && (
         <TipsModal
           open={postOpen}
