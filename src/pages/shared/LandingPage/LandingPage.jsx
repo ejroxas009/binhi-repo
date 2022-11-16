@@ -24,25 +24,25 @@ const landingpage = () => {
           <Box textAlign='center'>
               <Fab variant="extended" sx={{
               position: "absolute",
-              bottom: (theme) => theme.spacing(45),
+              bottom: (theme) => theme.spacing(10),
               left: (theme) => theme.spacing(90),
-              backgroundColor:Colors.gold
+              backgroundColor:Colors.white,
+              width: '150px'
               }}
               LinkComponent={Link} to="/login"
               >
-                  Login
-                  <KeyboardArrowRightIcon sx={{ ml: 1 }} />
+                  Sign in
               </Fab>
               <Fab variant="extended" sx={{
               position: "absolute",
-              bottom: (theme) => theme.spacing(45),
+              bottom: (theme) => theme.spacing(10),
               right: (theme) => theme.spacing(90),
-              backgroundColor:Colors.olive
+              backgroundColor:Colors.primary,
+              width: '150px',
               }}
               LinkComponent={Link} to="/register"
               >
-                  Register
-                  <KeyboardArrowRightIcon sx={{ ml: 2 }} />
+                  Sign up
               </Fab>
           </Box>
       </Box>

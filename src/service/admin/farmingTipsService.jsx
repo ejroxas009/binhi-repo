@@ -4,11 +4,6 @@ export function viewTips() {
     return http.get("/farmingtips");
   }
   
-export function getAccountById(id) {
-    return http.get(`/account/${id}`);
-  }
-  
-  
-export function getAccessToken() {
-    return localStorage.getItem("accessToken");
+  export function addTips(form) {
+    return http.post("/farmingtips", form);
   }

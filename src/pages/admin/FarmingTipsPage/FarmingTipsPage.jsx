@@ -1,41 +1,55 @@
-import { Box } from '@mui/material'
-import { Container } from '@mui/system'
-import React, { useEffect, useState } from 'react'
-import AdminAppbar from '../../../component/admin/appbar/AdminAppbar'
-import FarmingTipsCard from '../../../component/admin/Cards/FarmingTips/FarmingTipsData'
-import AdminSidebar from '../../../component/admin/sidebar/AdminSidebar'
-import * as farmingTipsService from '../../../service/admin/farmingTipsService'
+import React, { useEffect, useState } from "react";
+import * as adsService from "../../../service/buyer/AdvertisementService";
+import * as tipsService from "../../../service/admin/farmingTipsService";
+import BuyerSidebar from "../../../component/buyer/BuyerSidebar";
+import Appbar from "../../../component/shared/appbar/Appbar";
+import Grid from "@mui/material/Grid";
+import FarmingTips from "../../../component/admin/Cards/FarmingTips/FarmingTips";
+import AdminAppbar from "../../../component/admin/appbar/AdminAppbar";
+import AdminSidebar from "../../../component/admin/sidebar/AdminSidebar";
+import { Container } from "@mui/material";
 
 const FarmingTipsPage = () => {
-  const [contentTips, setcontentTips] = useState();
-  const [contentTipsToggle, setcontentTipsToggle] = useState();
+  const [tipList, setTipList] = useState();
+  const [tipToggle, setTipToggle] = useState(false);
+
+  const getAllTipsFunction = async () => {
+    const res = await tipsService.viewTips();
+
+    setTipList(res.data);
+    setTipToggle(!tipToggle);
+  };
+  useEffect(() => {
+    getAllTipsFunction();
+  }, []);
 
   useEffect(() => {
-    const viewTips = async () => {
-      const res = await farmingTipsService.viewTips();
-      setcontentTips(res.data);
-    }
-    
-    viewTips();
-    setcontentTipsToggle(!contentTipsToggle);
-  },[])
-
-  useEffect(() => {
-    console.log(contentTips);
-  },[contentTipsToggle])
+    console.log(tipList);
+  }, [tipToggle]);
   return (
     <>
-      <AdminAppbar/>
-      <AdminSidebar/>
-      <Container fixed>
-        <Box mt={20}>
-          {contentTips &&(
-            <FarmingTipsCard content={contentTips}/>
-          )}
-        </Box>
-      </Container>
+      <Grid>
+        <Grid item xs={12}>
+          <AdminAppbar />
+        </Grid>
+        <Grid item md={3}>
+          <AdminSidebar />
+        </Grid>
+        <Container>
+          <Grid item xs={12} sm={12} md={12} lg={12} mt={15}>
+            
+            {tipList && (
+              <FarmingTips
+                tipsList={tipList}
+                onSetAdsListToggle={setTipToggle}
+                adsListToggle={tipToggle}
+              />
+            )}
+          </Grid>
+        </Container>
+      </Grid>
     </>
-  )
-}
+  );
+};
 
-export default FarmingTipsPage
+export default FarmingTipsPage;
