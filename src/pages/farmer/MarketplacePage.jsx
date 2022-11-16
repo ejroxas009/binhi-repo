@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Box, Container } from "@mui/material";
+
 //service
 import * as adsService from "../../service/buyer/AdvertisementService";
 
@@ -28,7 +30,9 @@ const MarketplacePage = () => {
     <>
       <Appbar />
       <FarmerSidebar />
-      {adsList && <MarketPlace adsList={adsList} />}
+      <Container fixed>
+        <Box mt={10}>{adsList && <MarketPlace adsList={adsList} />}</Box>
+      </Container>
     </>
   );
 };

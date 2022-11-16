@@ -26,6 +26,7 @@ import MyCurrentBids from "./pages/farmer/MyCurrentBids";
 import MyCurrentAds from "./pages/farmer/MyCurrentAds";
 import MyComplaints from "./pages/farmer/MyComplaints";
 import MyCourses from "./pages/farmer/MyCourses";
+import ViewAllBids from "./pages/farmer/ViewAllBids";
 
 //service
 import * as accountService from "./service/shared/accountService";
@@ -197,6 +198,17 @@ function App() {
           }
         />
 
+        <Route
+          path="/farmer/myCurrentAds/:id/allBids"
+          element={
+            accessToken ? (
+              <ViewAllBids token={accessToken} />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+
         {/* Routes for Buyer */}
         <Route
           path="/buyer/profile"
@@ -224,7 +236,7 @@ function App() {
         />
         <Route
           path="/admin/users"
-          element={accessToken ? <Users />: <Navigate to="/" /> }
+          element={accessToken ? <Users /> : <Navigate to="/" />}
         />
         <Route
           path="/admin/profile"
