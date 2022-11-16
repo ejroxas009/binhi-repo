@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import * as adsService from "../../../service/buyer/AdvertisementService";
 import * as tipsService from "../../../service/admin/farmingTipsService";
-import BuyerSidebar from "../../../component/buyer/BuyerSidebar";
-import Appbar from "../../../component/shared/appbar/Appbar";
 import Grid from "@mui/material/Grid";
 import FarmingTips from "../../../component/admin/Cards/FarmingTips/FarmingTips";
 import AdminAppbar from "../../../component/admin/appbar/AdminAppbar";

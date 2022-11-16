@@ -223,6 +223,10 @@ function App() {
           element={accessToken ? <AdminDashboardPage /> : <Navigate to="/" />}
         />
         <Route
+          path="/admin/profile"
+          element={accessToken ? <AdminProfile /> : <Navigate to="/" />}
+        />
+        <Route
           path="/admin/users"
           element={accessToken ? <Users />: <Navigate to="/" /> }
         />
