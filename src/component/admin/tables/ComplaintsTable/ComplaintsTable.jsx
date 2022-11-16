@@ -52,7 +52,8 @@ export default function ComplaintsTable({details}) {
           <TableRow>
             <StyledTableCell align="left">Post Details</StyledTableCell>
             <StyledTableCell align="left">User Type</StyledTableCell>
-            <StyledTableCell align="left">User Name</StyledTableCell>
+            <StyledTableCell align="left">Name</StyledTableCell>
+            <StyledTableCell align="left">Screenshot</StyledTableCell>
             <StyledTableCell align="left">Status</StyledTableCell>
             <StyledTableCell align="right">Action</StyledTableCell>
           </TableRow>
@@ -61,11 +62,10 @@ export default function ComplaintsTable({details}) {
           {details.map((item) => (
             <StyledTableRow key={item.complaintId}>
               <StyledTableCell align="left">{item.complaintPost}</StyledTableCell>
-              {/* <StyledTableCell align="left">{item.account}</StyledTableCell>
-              <StyledTableCell align="left">{item.account}</StyledTableCell> */}
+              <StyledTableCell align="left">{item.account.role}</StyledTableCell>
+              <StyledTableCell align="left">{`${item.account.firstName} ${item.account.lastName}`}</StyledTableCell>
               <StyledTableCell align="left">{item.complaintImg}</StyledTableCell>
-              <StyledTableCell align="left">{item.complaintImg}</StyledTableCell>
-              <StyledTableCell align="left">{item.complaintImg}</StyledTableCell>
+              <StyledTableCell align="left">{item.isActive ? "Active":"Inactive"}</StyledTableCell>
               <StyledTableCell align="right">
                 <IconButton sx={{color:Colors.black}}>
                   <VisibilityIcon />

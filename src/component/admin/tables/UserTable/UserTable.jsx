@@ -51,7 +51,7 @@ export default function UserTables ({list}) {
                 <StyledTableCell align="left">{item.username}</StyledTableCell>
                 <StyledTableCell align="left">{`${item.firstName} ${item.lastName}`}</StyledTableCell>
                 <StyledTableCell align="left">{item.role}</StyledTableCell>
-                <StyledTableCell align="center">{item.isActive}</StyledTableCell>
+                <StyledTableCell align="center">{item.isActive ? "Active":"Inactive"}</StyledTableCell>
                 <StyledTableCell align="right">
                   <Button variant="outlined" color="error" sx={{ borderRadius:'20px!important'}}>
                     Block

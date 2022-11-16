@@ -1,14 +1,11 @@
 import React from 'react'
 import { Box, Button, Fab, Grid, ThemeProvider, Typography } from '@mui/material';
 import Banner from '../../../component/shared/banner/banner';
-import NavigationIcon from '@mui/icons-material/Navigation';
 import { Colors } from '../../../styles/Theme/Theme';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import Appbar from '../../../component/shared/appbar';
-import Sidebar from '../../../component/shared/sidebar/Sidebar';
 import { fullWidthClassName, noScrollbarsClassName, RemoveScrollBar } from 'react-remove-scroll-bar';
 import LandingAppbar from './LandingAppbar';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 
 const landingpage = () => {
@@ -27,22 +24,25 @@ const landingpage = () => {
           <Box textAlign='center'>
               <Fab variant="extended" sx={{
               position: "absolute",
-              bottom: (theme) => theme.spacing(45),
+              bottom: (theme) => theme.spacing(10),
               left: (theme) => theme.spacing(90),
-              backgroundColor:Colors.gold
+              backgroundColor:Colors.white,
+              width: '150px'
               }}
+              LinkComponent={Link} to="/login"
               >
-                  Login
-                  <KeyboardArrowRightIcon sx={{ ml: 1 }} />
+                  Sign in
               </Fab>
               <Fab variant="extended" sx={{
               position: "absolute",
-              bottom: (theme) => theme.spacing(45),
+              bottom: (theme) => theme.spacing(10),
               right: (theme) => theme.spacing(90),
-              backgroundColor:Colors.olive
-              }}>
-                  Register
-                  <KeyboardArrowRightIcon sx={{ ml: 2 }} />
+              backgroundColor:Colors.primary,
+              width: '150px',
+              }}
+              LinkComponent={Link} to="/register"
+              >
+                  Sign up
               </Fab>
           </Box>
       </Box>
