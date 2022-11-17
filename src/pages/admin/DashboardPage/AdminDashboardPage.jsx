@@ -5,7 +5,6 @@ import AdminSidebar from '../../../component/admin/sidebar/AdminSidebar'
 const AdminDashboardPage = () => {
   return (
     <>
-      <AdminAppbar/>
       <AdminSidebar/>
     </>
   )

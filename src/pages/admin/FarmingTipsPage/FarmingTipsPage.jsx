@@ -27,7 +27,6 @@ const FarmingTipsPage = () => {
     <>
       <Grid>
         <Grid item xs={12}>
-          <AdminAppbar />
         </Grid>
         <Grid item md={3}>
           <AdminSidebar />

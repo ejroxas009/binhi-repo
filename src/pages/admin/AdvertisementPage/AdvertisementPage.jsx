@@ -51,7 +51,6 @@ const AdvertisementPage = () => {
             )}
       </Box>
       </Container> */}
-      <AdminAppbar/>
       <AdminSidebar/>
       <Box mt={20}>
         {adsList && <MarketPlace adsList={adsList} />}

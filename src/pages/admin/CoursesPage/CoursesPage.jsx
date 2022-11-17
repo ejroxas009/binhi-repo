@@ -25,7 +25,6 @@ const CoursesPage = () => {
   },[courseListToggle])
   return (
     <>
-      <AdminAppbar/>
         <AdminSidebar/>
         <Container fixed>
           <Box mt={20}>

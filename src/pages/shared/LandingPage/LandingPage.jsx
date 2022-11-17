@@ -13,7 +13,6 @@ const landingpage = () => {
   return (
     
     <>
-    <LandingAppbar/>
     <Grid>
       <Box sx={{ display: 'flex' }}>
         <div className={noScrollbarsClassName}/>

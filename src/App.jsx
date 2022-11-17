@@ -45,6 +45,7 @@ import ComplaintsPage from "./pages/admin/ComplaintsPage/ComplaintsPage";
 import CoursesPage from "./pages/admin/CoursesPage/CoursesPage";
 import FarmingTipsPage from "./pages/admin/FarmingTipsPage/FarmingTipsPage";
 import AdvertisementPage from "./pages/admin/AdvertisementPage/AdvertisementPage";
+import Appbar from "./component/shared/Appbar";
 
 function App() {
   const [accessToken, setAccessToken] = React.useState(
@@ -82,13 +83,13 @@ function App() {
   const handleLogout = () => {
     accountService.logout();
     window.location.reload();
-    <Navigate to="/" />
+    Navigate("/")
   };
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-
+      <Appbar onLogout={handleLogout}/>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route

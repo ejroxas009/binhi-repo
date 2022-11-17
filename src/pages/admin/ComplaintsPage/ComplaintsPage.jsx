@@ -25,7 +25,6 @@ const ComplaintsPage = () => {
   },[complaintsListToggle])
   return (
     <>
-      <AdminAppbar/>
       <AdminSidebar/>
       <Container fixed>
           <Box mt={20}>

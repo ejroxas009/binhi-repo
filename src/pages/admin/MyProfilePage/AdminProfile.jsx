@@ -7,9 +7,8 @@ import Profile from '../../../component/shared/Profile'
 const AdminProfile = () => {
   return (
     <>
-      <AdminAppbar/>
       <AdminSidebar/>
-      <Box sx={{marginLeft:25, marginTop:15}}>
+      <Box sx={{marginLeft:5, marginTop:15}}>
       <Profile/>
       </Box>
       
