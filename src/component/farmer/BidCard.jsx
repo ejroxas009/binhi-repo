@@ -13,20 +13,22 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { green } from "@mui/material/colors";
-import SendIcon from "@mui/icons-material/Send";
+import ReportIcon from "@mui/icons-material/Report";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import Button from "@mui/material/Button";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { styled } from "@mui/material/styles";
 import Collapse from "@mui/material/Collapse";
-// import Modal from "@mui/material/Modal";
-// import Box from "@mui/material/Box";
-// import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
+
+//components
+import SendComplainModal from "../../component/shared/SendComplainModal";
+import SuccessComplaintModal from "../../component/shared/SuccessComplaintModal";
 
 //services
 import * as bidService from "../../service/farmer/bids";
 import * as adsService from "../../service/buyer/AdvertisementService";
+import * as complaintService from "../../service/farmer/complaints";
 import {
   getAccountById,
   getAllAccount,
@@ -64,17 +66,22 @@ const BidCard = () => {
   const [accountToggle, setAccountToggle] = useState(false);
   const [accountList, setAccountList] = useState();
   const [accountListToggle, setAccountListToggle] = useState(false);
+
   const [bids, setBids] = useState();
   const [bidsToggle, setBidsToggle] = useState(false);
 
   const [postAds, setPostAds] = useState();
   const [postToggle, setPostToggle] = useState(false);
 
-  const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
-  // const handleChange = (event) => {
-  //   setValue(event.target.value);
-  // };
+  //-----------Complaint------------------
+  const [sendComplainOpen, setSendComplainOpen] = useState(false);
+  const [complaintToggle, setComplaintToggle] = useState(false);
+  const [isComplaintSuccess, setIsComplaintSuccess] = useState(false);
+  const [complaintForm, setComplaintForm] = useState({
+    accountId: "",
+    complaintImg: "",
+    complaintPost: "",
+  });
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -108,15 +115,13 @@ const BidCard = () => {
   const getAllAds = async () => {
     const res = await adsService.getAllAds();
     console.log(res.data);
-
     setPostAds(res.data);
     setPostToggle(!postToggle);
   };
 
   const getAllAccounts = async () => {
     const res = await getAllAccount();
-    console.log(res.data);
-
+    // console.log(res.data);
     setAccountList(res.data);
     setAccountListToggle(!accountListToggle);
   };
@@ -143,14 +148,52 @@ const BidCard = () => {
     console.log(postAds);
   }, [postToggle]);
 
+  //----------------Send Complaint ----------------------
+
+  const handleSendComplainOpen = () => setSendComplainOpen(true);
+
+  const handleSendComplainClose = () => setSendComplainOpen(false);
+
+  const handleComplaintSuccessOpen = () => setIsComplaintSuccess(true);
+  const handleComplaintSuccessClose = () => setIsComplaintSuccess(false);
+
+  const handleSubmitComplaint = (event) => {
+    event.preventDefault();
+    setComplaintForm({ ...complaintForm, accountId: account.accountId });
+    setComplaintToggle(!complaintToggle);
+  };
+
+  const handleChangeComplaint = (event) => {
+    setComplaintForm({
+      ...complaintForm,
+      [event.currentTarget.name]: event.currentTarget.value,
+    });
+  };
+
+  useEffect(() => {
+    const addComplaintsFunction = async () => {
+      if (account) {
+        const res = await complaintService.addComplaints(complaintForm);
+        console.log(res);
+
+        handleComplaintSuccessOpen();
+        console.log(isComplaintSuccess);
+        handleSendComplainClose();
+        setTimeout(handleComplaintSuccessClose, 3000);
+      }
+    };
+
+    addComplaintsFunction();
+  }, [complaintToggle]);
+
   return (
     <React.Fragment>
-      <Grid container spacing={2} justifyContent="center">
+      <Grid container justifyContent="center">
         {bids && (
           <Grid item xs={12} sm={12} md={6} lg={6}>
             {bids.map((bidsDetail) => {
               return (
-                <Card variant="outlined" key={bidsDetail.bidId}>
+                <Card variant="outlined" key={bidsDetail.bidId} sx={{ margin: 2 }}>
                   <CardHeader
                     avatar={
                       <Avatar
@@ -189,12 +232,14 @@ const BidCard = () => {
 
                   <CardActions disableSpacing>
                     <Button
-                      onClick={handleOpen}
                       variant="contained"
                       sx={{ borderRadius: 50 }}
-                      startIcon={<SendIcon />}
+                      startIcon={<ReportIcon />}
+                      onClick={() => {
+                        handleSendComplainOpen();
+                      }}
                     >
-                      Send Complaints
+                      Report
                     </Button>
 
                     <ExpandMore
@@ -225,6 +270,14 @@ const BidCard = () => {
           </Grid>
         )}
       </Grid>
+      <SendComplainModal
+        open={sendComplainOpen}
+        onHandleChange={handleChangeComplaint}
+        onHandleSubmit={handleSubmitComplaint}
+        form={complaintForm}
+        onHandleClose={handleSendComplainClose}
+      />
+      <SuccessComplaintModal open={isComplaintSuccess} />
     </React.Fragment>
   );
 };

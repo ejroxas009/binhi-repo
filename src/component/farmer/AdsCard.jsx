@@ -1,5 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+
 import jwtDecode from "jwt-decode";
 
 //material UI
@@ -31,7 +33,7 @@ const AdsCard = () => {
   const [viewBids, setViewBids] = useState();
   const [bidsToggle, setBidsToggle] = useState(false);
 
-  const [viewBidsOpen, setViewBidsOpen] = useState(false);  
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -52,7 +54,6 @@ const AdsCard = () => {
       const adsList = res.data.filter(
         (ads) => ads.account.accountId == account.accountId
       );
-
       setAds(adsList);
       setAdsToggle(!adsToggle);
     }
@@ -95,9 +96,6 @@ const AdsCard = () => {
   useEffect(() => {
     console.log(viewBids);
   }, [bidsToggle]);
-
-  const handleViewBidOpen = () => setViewBidsOpen(true);
-  
 
   return (
     <>
@@ -154,8 +152,10 @@ const AdsCard = () => {
                         sx={{ borderRadius: 50 }}
                         endIcon={<ViewListIcon />}
                         onClick={() => {
-                            setViewBidsOpen(true);                          
+                          console.log(adsData.postId);
                         }}
+                        LinkComponent={Link}
+                        to={`/farmer/myCurrentAds/${adsData.postId}/allBids`}
                       >
                         All Bids/Offer
                       </Button>

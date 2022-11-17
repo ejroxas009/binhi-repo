@@ -40,7 +40,7 @@ const SendComplainModal = ({
       >
         <Card sx={style}>
           <Grid container item xs={12} justifyContent="center">
-            <CardHeader title="Send Complaint to the admin" />
+            <CardHeader title="Complaint to the Admin!" />
           </Grid>
 
           <CardContent>

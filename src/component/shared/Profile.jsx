@@ -153,7 +153,7 @@ const Profile = () => {
   };
 
   return (
-    <Grid container sx={{ marginLeft: 10, marginTop: 10 }}>
+    <Grid container sx={{ marginLeft: 35, marginTop: 13 }}>
       <Grid item xs={12} sm={12} md={9} lg={9}>
         {account && (
           <Avatar
