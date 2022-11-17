@@ -16,29 +16,30 @@ import Appbar from "../../component/shared/appbar/Appbar";
 const ViewAllBids = () => {
   const params = useParams();
 
-  const [bidsList, setBidsList] = useState();
-  const [bidsListToggle, setBidsListToggle] = useState();
-
-  const getAdsById = async () => {
-    const res = await adsService.getAdsById(+params.id);
-    // console.log(res.data);
-
-    setBidsList(res.data);
-    setBidsListToggle(!bidsListToggle);
-  };
+  const [bids, setBids] = useState();
+  const [bidsToggle, setBidsToggle] = useState(false);
 
   useEffect(() => {
-    getAdsById();
+    const getBidsByAds = async () => {
+      const res = await adsService.getAdsById(+params.id);
+      console.log(res.data);
+      setBids(res.data);
+      setBidsToggle(!bidsToggle);
+    };
+
+    getBidsByAds();
   }, []);
+
+  useEffect(() => {
+    console.log(bids);
+  }, [bidsToggle]);
 
   return (
     <>
       <Appbar />
       <FarmerSidebar />
       <Container fixed>
-        <Box mt={15}>
-          {bidsList && (<ViewAllBidsTable bidsList={bidsList}/> )}
-        </Box>
+        <Box mt={15}>{bids && <ViewAllBidsTable bids={bids} />}</Box>
       </Container>
     </>
   );

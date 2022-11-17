@@ -10,6 +10,7 @@ import AdminSidebar from "../../../component/admin/sidebar/AdminSidebar";
 import { Container } from "@mui/material";
 
 const FarmingTipsPage = () => {
+  
   const [tipList, setTipList] = useState();
   const [tipToggle, setTipToggle] = useState(false);
 

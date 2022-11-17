@@ -159,7 +159,7 @@ const ComplaintsTable = () => {
                       25,
                       { label: "All", value: -1 },
                     ]}
-                    colSpan={3}
+                    colSpan={4}
                     count={complaints.length}
                     rowsPerPage={rowsPerPage}
                     page={page}

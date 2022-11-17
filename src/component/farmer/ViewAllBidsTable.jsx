@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-//components
+// components
 import TablePaginationActions from "../shared/TablePaginationActions";
 
 //material
@@ -44,7 +44,7 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-const ViewAllBidsTable = ({ bidsList }) => {
+const ViewAllBidsTable = ({ bids }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -63,25 +63,17 @@ const ViewAllBidsTable = ({ bidsList }) => {
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
-            <TableRow>
+            <StyledTableRow>
               <StyledTableCell align="center">Bidders Name</StyledTableCell>
               <StyledTableCell align="center">Bid Price</StyledTableCell>
               <StyledTableCell align="center">Bid Message</StyledTableCell>
               <StyledTableCell align="center">Action</StyledTableCell>
-            </TableRow>
+            </StyledTableRow>
           </TableHead>
           <TableBody>
-            {(rowsPerPage > 0
-              ? bidsList.slice(
-                  page * rowsPerPage,
-                  page * rowsPerPage + rowsPerPage
-                )
-              : bidsList
-            ).map((data) => (
+            {bids.bid.map((data) => (
               <StyledTableRow key={data.bidId}>
-                <StyledTableCell align="center">
-                  {data.account.firstName}
-                </StyledTableCell>
+                <StyledTableCell align="center">{`${data.account.firstName} ${data.account.lastName}`}</StyledTableCell>
                 <StyledTableCell align="center">
                   {data.bidPrice}
                 </StyledTableCell>
@@ -102,8 +94,8 @@ const ViewAllBidsTable = ({ bidsList }) => {
             <TableRow>
               <TablePagination
                 rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-                colSpan={3}
-                count={bidsList.length}
+                colSpan={4}
+                count={bids.bid.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 SelectProps={{
