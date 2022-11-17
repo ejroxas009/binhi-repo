@@ -1,52 +1,36 @@
 import React from 'react'
-import { Box, Button, Fab, Grid, ThemeProvider, Typography } from '@mui/material';
+import { Box, Button, Container, Fab, Grid, ThemeProvider, Typography } from '@mui/material';
 import Banner from '../../../component/shared/banner/banner';
 import { Colors } from '../../../styles/Theme/Theme';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { fullWidthClassName, noScrollbarsClassName, RemoveScrollBar } from 'react-remove-scroll-bar';
 import LandingAppbar from './LandingAppbar';
 import { Link } from "react-router-dom";
+import LandingPageCard from '../../../component/shared/Cards/LandingPageCard';
+import FarmerBanner from "../../../assets/images/Banner-new.jpg";
 
 
 const landingpage = () => {
   
   return (
     
-    <>
+    <React.Fragment>
+    <div className={noScrollbarsClassName}/>
+      <div className={fullWidthClassName}/>
+      <RemoveScrollBar/>
+    <Box style={{backgroundImage: FarmerBanner,}}>
     <Grid>
-      <Box sx={{ display: 'flex' }}>
-        <div className={noScrollbarsClassName}/>
-        <div className={fullWidthClassName}/>
-        <RemoveScrollBar/>
-          <Banner />
-          
-          <Box textAlign='center'>
-              <Fab variant="extended" sx={{
-              position: "absolute",
-              bottom: (theme) => theme.spacing(45),
-              right: (theme) => theme.spacing(10),
-              backgroundColor:Colors.gold,
-              width: '100px'
-              }}
-              LinkComponent={Link} to="/login"
-              >
-                  Sign in
-              </Fab>
-              <Fab variant="extended" sx={{
-              position: "absolute",
-              bottom: (theme) => theme.spacing(45),
-              right: (theme) => theme.spacing(30),
-              backgroundColor:Colors.primary,
-              width: '100px'
-              }}
-              LinkComponent={Link} to="/register"
-              >
-                  Sign up
-              </Fab>
-          </Box>
-      </Box>
+    <Box sx={{ display: 'flex' }}>
+      
+        
+    </Box>
+    </Grid>
+    <Grid mt={20}>
+        <LandingPageCard/>
       </Grid>
-    </>
+    </Box>
+    
+    </React.Fragment>
   )
 }
 

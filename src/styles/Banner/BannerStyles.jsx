@@ -34,8 +34,8 @@ export const buttonStyle = {
 export const BannerContainer = styled(Box)(({theme}) => ({
     display: "flex",
     justifyContent: "left",
-    width: "60%",
-    height: "60%",
+    width: "100%",
+    height: "100%",
     padding: "0px 0px",
     background: Colors.light_gray,
     [theme.breakpoints.down("sm")]: {
