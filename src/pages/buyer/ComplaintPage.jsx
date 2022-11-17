@@ -1,28 +1,27 @@
-import React from "react";
-// import { Box, Container } from '@mui/material'
-import Grid from "@mui/material/Grid";
+import React from 'react'
+import { Grid } from '@mui/material'
 
 //components
 import ComplaintsTable from "../../component/farmer/ComplaintsTable";
-import FarmerSidebar from "../../component/farmer/FarmerSidebar";
+import BuyerSidebar from "../../component/buyer/BuyerSidebar";
 import Appbar from "../../component/shared/appbar/Appbar";
 
-const MyComplaints = () => {
+const ComplaintPage = () => {
   return (
-    <>
+   <>
       <Grid container>
         <Grid item xs={12}>
           <Appbar />
         </Grid>
         <Grid item md={3}>
-          <FarmerSidebar />
+          <BuyerSidebar />
         </Grid>
         <Grid item xs={12} sm={12} md={8} lg={8} sx={{ marginTop: 15 }}>
           <ComplaintsTable />
         </Grid>
       </Grid>
-    </>
-  );
-};
+   </>
+  )
+}
 
-export default MyComplaints;
+export default ComplaintPage

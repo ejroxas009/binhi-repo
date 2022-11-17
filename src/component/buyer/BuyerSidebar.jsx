@@ -34,7 +34,7 @@ const BuyerSidebar = () => {
         <Box sx={{ overflow: "auto", marginTop: "20px" }}>
           <List>
             <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link}>
+              <ListItemButton LinkComponent={Link} to="/buyer/dashboard">
                 <ListItemIcon>
                   <DashboardRoundedIcon />
                 </ListItemIcon>
@@ -73,7 +73,9 @@ const BuyerSidebar = () => {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link}>
+              <ListItemButton LinkComponent={Link}
+                to="/buyer/current-bids"
+              >
                 <ListItemIcon>
                   <DashboardRoundedIcon />
                 </ListItemIcon>
@@ -82,7 +84,9 @@ const BuyerSidebar = () => {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link}>
+              <ListItemButton LinkComponent={Link}
+                to="/buyer/current-ads"
+              >
                 <ListItemIcon>
                   <DashboardRoundedIcon />
                 </ListItemIcon>
@@ -91,7 +95,9 @@ const BuyerSidebar = () => {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link}>
+              <ListItemButton LinkComponent={Link}
+                to="/buyer/complaints"
+              >
                 <ListItemIcon>
                   <DashboardRoundedIcon />
                 </ListItemIcon>

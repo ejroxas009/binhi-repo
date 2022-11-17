@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import jwtDecode from "jwt-decode";
 
@@ -26,7 +26,7 @@ import {
 import * as adsService from "../../service/buyer/AdvertisementService";
 import * as bidService from "../../service/farmer/bids";
 
-const AdsCard = () => {
+const CurrentAdsCard = () => {
   const [account, setAccount] = useState();
   const [accountToggle, setAccountToggle] = useState(false);
   const [accountList, setAccountList] = useState();
@@ -107,11 +107,7 @@ const AdsCard = () => {
           <Grid item xs={12} sm={12} md={6} lg={6}>
             {ads.map((adsData) => {
               return (
-                <Card
-                  variant="outlined"
-                  key={adsData.postId}
-                  sx={{ margin: 2, borderRadius: 5 }}
-                >
+                <Card variant="outlined" key={adsData.postId} sx={{ margin: 2, borderRadius: 5 }}>
                   <CardHeader
                     avatar={
                       <Avatar
@@ -134,9 +130,9 @@ const AdsCard = () => {
                         <Typography>{adsData.adsDescription}</Typography>
                         <Typography>₱{adsData.initialPrice}.00</Typography>
                       </Grid>
-                    </Grid>
+                      </Grid>
                   </CardContent>
-                  <CardMedia
+                       <CardMedia
                     component="img"
                     height="350"
                     image={adsData.cropImg}
@@ -152,7 +148,7 @@ const AdsCard = () => {
                           console.log(adsData.postId);
                         }}
                         LinkComponent={Link}
-                        to={`/farmer/current-ads/${adsData.postId}/allBids`}
+                        to={`/buyer/current-ads/${adsData.postId}/allBids`}
                       >
                         All Bids/Offer
                       </Button>
@@ -168,4 +164,4 @@ const AdsCard = () => {
   );
 };
 
-export default AdsCard;
+export default CurrentAdsCard;

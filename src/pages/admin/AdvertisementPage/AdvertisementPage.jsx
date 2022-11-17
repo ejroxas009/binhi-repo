@@ -1,10 +1,8 @@
-import { Box, Container } from '@mui/material'
+import { Box } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import AdminAppbar from '../../../component/admin/appbar/AdminAppbar'
 import AdminSidebar from '../../../component/admin/sidebar/AdminSidebar'
-import AdsTable from '../../../component/admin/tables/AdsTable/AdsTable'
 import MarketPlace from '../../../component/shared/MarketPlace'
-import * as adService from '../../../service/admin/adService'
 import * as adsService from "../../../service/buyer/AdvertisementService";
 
 const AdvertisementPage = () => {
@@ -53,7 +51,7 @@ const AdvertisementPage = () => {
       </Container> */}
       <AdminAppbar/>
       <AdminSidebar/>
-      <Box mt={20}>
+      <Box mt={10}>
         {adsList && <MarketPlace adsList={adsList} />}
       </Box>
       

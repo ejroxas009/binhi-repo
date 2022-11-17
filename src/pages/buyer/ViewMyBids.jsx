@@ -9,11 +9,11 @@ import { Grid } from "@mui/material";
 import * as adsService from "../../service/buyer/AdvertisementService";
 
 //components
-import FarmerSidebar from "../../component/farmer/FarmerSidebar";
+import BuyerSidebar from "../../component/buyer/BuyerSidebar";
 import ViewAllBidsTable from "../../component/farmer/ViewAllBidsTable";
 import Appbar from "../../component/shared/appbar/Appbar";
 
-const ViewAllBids = () => {
+const ViewMyBids = () => {
   const params = useParams();
 
   const [bids, setBids] = useState();
@@ -41,14 +41,14 @@ const ViewAllBids = () => {
           <Appbar />
         </Grid>
         <Grid item md={3}>
-          <FarmerSidebar />
+          <BuyerSidebar />
         </Grid>
         <Grid item xs={12} sm={12} md={8} lg={8} sx={{ marginTop: 15 }}>
-          {bids && <ViewAllBidsTable bids={bids} />}
+            {bids && <ViewAllBidsTable bids={bids} />}
         </Grid>
       </Grid>
     </>
   );
 };
 
-export default ViewAllBids;
+export default ViewMyBids;

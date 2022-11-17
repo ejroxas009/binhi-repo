@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from "react";
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,7 +9,13 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Colors } from '../../../../styles/Theme/Theme';
-import { Button, IconButton } from '@mui/material';
+import { Button } from '@mui/material';
+import TableFooter from "@mui/material/TableFooter";
+import TablePagination from "@mui/material/TablePagination";
+import PropTypes from "prop-types";
+
+//components
+import TablePaginationActions from "../../../shared/TablePaginationActions";
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -31,7 +38,27 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+TablePaginationActions.propTypes = {
+  count: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+  page: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.number.isRequired,
+};
+
 export default function UserTables ({details}) {
+
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  //Pagination
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
   
   return (
       <TableContainer component={Paper}>
@@ -44,7 +71,10 @@ export default function UserTables ({details}) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {details.map((item) => (
+          {(rowsPerPage > 0
+            ? details.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            : details
+          ).map((item) => (
               <StyledTableRow key={item.courseId}>
                 <StyledTableCell align="left">{item.courseDescription}</StyledTableCell>
                 <StyledTableCell align="center">
@@ -58,6 +88,26 @@ export default function UserTables ({details}) {
               </StyledTableRow>
             ))}
           </TableBody>
+          <TableFooter>
+          <TableRow>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+              colSpan={5}
+              count={details.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              SelectProps={{
+                inputProps: {
+                  "aria-label": "rows per page",
+                },
+                native: true,
+              }}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+              ActionsComponent={TablePaginationActions}
+            />
+          </TableRow>
+        </TableFooter>
         </Table>
       </TableContainer>
   );

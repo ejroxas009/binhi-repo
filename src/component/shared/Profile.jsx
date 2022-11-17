@@ -14,18 +14,18 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import { Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
-import IconButton from "@mui/material/IconButton";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import EditIcon from "@mui/icons-material/Edit";
 import LockIcon from "@mui/icons-material/Lock";
 import SaveIcon from "@mui/icons-material/Save";
 import ChangePWModal from "./ChangePWModal";
 import ChangeProfileImageModal from "./ChangeProfileImageModal";
+import { toast } from "react-toastify";
+
 const Profile = () => {
   const [account, setAccount] = useState();
   const [toggle, setToggle] = useState(false);
@@ -98,6 +98,7 @@ const Profile = () => {
   //------------Change profile Image ------------------
   const handleOpenProfileImage = () => setProfileImageOpen(true);
   const handleCloseProfileImage = () => setProfileImageOpen(false);
+
   const uploadProfileImage = async () => {
     if (profileImageUpload == null) return;
     const profileImageRef = ref(
@@ -107,6 +108,7 @@ const Profile = () => {
     setProfileImageRef(profileImageRef);
     try {
       console.log("uploading");
+
       await uploadBytes(profileImageRef, profileImageUpload);
       const url = await getDownloadURL(profileImageRef);
 
@@ -125,7 +127,7 @@ const Profile = () => {
     setProfileImageToggle(!profileImageToggle);
     console.log(profileImgForm);
 
-    alert("success");
+    alert("Profile Image Sucessfully Uploaded!");
   };
 
   //----ProfileImage toggle----
