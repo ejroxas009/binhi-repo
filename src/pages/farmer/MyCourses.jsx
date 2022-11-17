@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Container } from "@mui/material";
+import { Grid } from "@mui/material";
 
 import EnrolledCourses from "../../component/farmer/EnrolledCourses";
 import FarmerSidebar from "../../component/farmer/FarmerSidebar";
@@ -8,13 +8,17 @@ import Appbar from "../../component/shared/appbar/Appbar";
 const MyCourses = () => {
   return (
     <>
-      <Appbar />
-      <FarmerSidebar />
-      <Container fixed>
-        <Box mt={20}>
+     <Grid container>
+        <Grid item xs={12}>
+          <Appbar />
+        </Grid>
+        <Grid item md={3}>
+          <FarmerSidebar />
+        </Grid>
+        <Grid item xs={12} sm={12} md={8} lg={8} sx={{ marginTop: 15 }}>
           <EnrolledCourses />
-        </Box>
-      </Container>
+        </Grid>
+      </Grid>
     </>
   );
 };

@@ -106,7 +106,7 @@ const BidCard = () => {
       const bidList = res.data.filter(
         (bids) => bids.account.accountId == account.accountId
       );
-      // console.log(bidList);
+      console.log(bidList);
       setBids(bidList);
       setBidsToggle(!bidsToggle);
     }
@@ -193,7 +193,7 @@ const BidCard = () => {
           <Grid item xs={12} sm={12} md={6} lg={6}>
             {bids.map((bidsDetail) => {
               return (
-                <Card variant="outlined" key={bidsDetail.bidId} sx={{ margin: 2 }}>
+                <Card variant="outlined" key={bidsDetail.bidId} sx={{ margin: 2, borderRadius: 5 }}>
                   <CardHeader
                     avatar={
                       <Avatar
@@ -209,7 +209,7 @@ const BidCard = () => {
                     }
                     title={accountList.map((account) => {
                       if (account.accountId == bidsDetail.account.accountId) {
-                        return account.firstName;
+                        return account.username;
                       }
                     })}
                     subheader="Date"
@@ -257,11 +257,11 @@ const BidCard = () => {
                         DETAILS OF YOUR OFFER:
                       </Typography>
                       <Typography>BID DATE: {bidsDetail.bidDate}</Typography>
-                      <Typography>BID PRICE: {bidsDetail.bidPrice}</Typography>
+                      <Typography>BID PRICE: ₱{bidsDetail.bidPrice}.00</Typography>
                       <Typography paragraph>
                         BID MESSAGE: {bidsDetail.bidMsg}
                       </Typography>
-                      <Typography>STATUS: {bidsDetail.isApproved}</Typography>
+                      <Typography>STATUS: Active / (Approve?) (Paid?)</Typography>
                     </CardContent>
                   </Collapse>
                 </Card>

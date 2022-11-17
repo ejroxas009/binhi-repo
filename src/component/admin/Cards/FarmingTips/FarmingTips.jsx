@@ -1,28 +1,13 @@
 import React, { useEffect, useState } from "react";
-import CardHeader from "@mui/material/CardHeader";
 import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { CardActionArea, CardActions, Fab, Typography } from "@mui/material";
-import Avatar from "@mui/material/Avatar";
-import SendIcon from "@mui/icons-material/Send";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import IconButton from "@mui/material/IconButton";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 
-import SendBidModal from "../../../shared/SendBidModal";
 import jwtDecode from "jwt-decode";
 import { getAccountById } from "../../../../service/shared/accountService";
-import * as bidService from "../../../../service/farmer/bids";
-import * as complaintService from "../../../../service/farmer/complaints";
-import SuccessBidModal from "../../../shared/SuccessBidModal";
-import SendComplainModal from "../../../shared/SendComplainModal";
-import SuccessComplaintModal from "../../../shared/SuccessComplaintModal";
-import * as adsService from "../../../../service/buyer/AdvertisementService";
 import * as tipsService from "../../../../service/admin/farmingTipsService";
 import TipsModal from "../../modals/FarmingTips/TipsModal";
 import { Colors } from "../../../../styles/Theme/Theme";
@@ -46,6 +31,7 @@ const FarmingTips = ({ tipsList, onSetAdsListToggle, adsListToggle }) => {
   //-------Menu -------------
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -127,7 +113,7 @@ const FarmingTips = ({ tipsList, onSetAdsListToggle, adsListToggle }) => {
       {/* Start of Card */}
       <Grid container="row" columnSpacing={{ xs: 12, sm: 3, md: 6, lg: 6 }} >
           {tipsList.map((contents) => (
-          <Card sx={{ marginLeft:3, marginTop:2,height:300,width: 345, borderRadius:'20px' }}>
+          <Card sx={{ marginLeft:35, marginTop:2,height:250,width: 250, borderRadius:'20px' }}>
           <CardActionArea href={contents.farmingTipsLink}>
             {contents && (
             <CardMedia
