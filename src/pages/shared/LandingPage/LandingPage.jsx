@@ -8,6 +8,7 @@ import LandingAppbar from './LandingAppbar';
 import { Link } from "react-router-dom";
 import LandingPageCard from '../../../component/shared/Cards/LandingPageCard';
 import FarmerBanner from "../../../assets/images/Banner-new.jpg";
+import Appbar from '../../../component/shared/Appbar';
 
 
 const landingpage = () => {
@@ -21,7 +22,9 @@ const landingpage = () => {
     <Box style={{backgroundImage: FarmerBanner,}}>
     <Grid>
     <Box sx={{ display: 'flex' }}>
-      
+      <Typography>
+
+      </Typography>
         
     </Box>
     </Grid>

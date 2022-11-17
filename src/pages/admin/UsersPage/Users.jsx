@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import AdminAppbar from '../../../component/admin/appbar/AdminAppbar'
 import AdminSidebar from '../../../component/admin/sidebar/AdminSidebar'
 import UserTable from '../../../component/admin/tables/UserTable/UserTable'
+import Appbar from '../../../component/shared/Appbar'
 import * as userService from '../../../service/admin/userService'
 
 
@@ -29,6 +30,7 @@ const Users = () => {
 
   return (
     <>
+        <Appbar/>
         <AdminSidebar/>
         <Container fixed>
           <Box mt={20}>

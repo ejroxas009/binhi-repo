@@ -82,26 +82,17 @@ function App() {
 
   const handleLogout = () => {
     accountService.logout();
-    window.location.reload();
     Navigate("/")
+    window.location.reload();
+    
   };
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Appbar onLogout={handleLogout}/>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route
-          path="/login"
-          element={
-            accessToken ? (
-              <Navigate to="/" />
-            ) : (
-              <LoginPage onSetAccessToken={setAccessToken} />
-            )
-          }
-        />
+        <Route path="/login" element={<LoginPage onSetAccessToken={setAccessToken} />} />
         <Route path="/register" element={<RegisterPage />} />
 
         {/* Routes for Farmer */}

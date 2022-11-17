@@ -9,7 +9,7 @@ import image from "../../../assets/images/Logo.png";
 
 export default function LandingPageCard() {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ marginLeft:10, height: 500, width: 500, borderRadius: 5 }}>
       <CardMedia
         component="img"
         alt="green iguana"
@@ -21,13 +21,12 @@ export default function LandingPageCard() {
           BINHI
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          Tagline
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+      <CardActions sx={{justifyContent: "center", marginTop:20}}>
+        <Button variant="contained">Login</Button>
+        <Button variant="outlined" >Register</Button>
       </CardActions>
     </Card>
   );

@@ -13,7 +13,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
-
+import { Navigate, useNavigate } from "react-router-dom";
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 
@@ -33,8 +33,10 @@ import { LogoStyle } from "../../styles/Appbar/AppbarStyles";
 import Logo from "../../assets/images/Logo.png";
 import { Container, IconButton, Menu, MenuItem, Tooltip } from "@mui/material";
 
-export default function Appbar({onLogout}){
-     
+export default function Appbar({accessToken}){
+  
+  const navigate = useNavigate();
+
   const [account, setAccount] = React.useState();
   const [toggle, setToggle] = React.useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -224,9 +226,9 @@ export default function Appbar({onLogout}){
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {account && (
+                {(accessToken && account) && (
                     <Avatar
-                        alt="Remy Sharp"
+                        alt="Profile"
                         src={account.profileImg}
                         sx={{ width: 50, height: 50 }}
                     />
@@ -251,8 +253,10 @@ export default function Appbar({onLogout}){
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={() => {
+                  localStorage.removeItem("accessToken");
+                  navigate("/");
                   handleCloseUserMenu();
-                  onLogout();
+                  
                 }}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>

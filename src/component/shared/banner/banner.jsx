@@ -10,7 +10,6 @@ export default function Banner(){
 
     return(
         <BannerContainer>
-            <BannerImage src={FarmerBanner} />
         </BannerContainer>
     );
 }
