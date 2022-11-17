@@ -78,11 +78,11 @@ function App() {
   //   },
   // });
 
-  // const handleLogout = () => {
-  //   accountService.logout();
-  //   window.location.reload();
-  //   navigate("/");
-  // };
+  const handleLogout = () => {
+    accountService.logout();
+    window.location.reload();
+    <Navigate to="/" />
+  };
 
   return (
     <ThemeProvider theme={theme}>

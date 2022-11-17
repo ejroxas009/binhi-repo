@@ -24,10 +24,10 @@ const landingpage = () => {
           <Box textAlign='center'>
               <Fab variant="extended" sx={{
               position: "absolute",
-              bottom: (theme) => theme.spacing(10),
-              left: (theme) => theme.spacing(90),
-              backgroundColor:Colors.white,
-              width: '150px'
+              bottom: (theme) => theme.spacing(45),
+              right: (theme) => theme.spacing(10),
+              backgroundColor:Colors.gold,
+              width: '100px'
               }}
               LinkComponent={Link} to="/login"
               >
@@ -35,10 +35,10 @@ const landingpage = () => {
               </Fab>
               <Fab variant="extended" sx={{
               position: "absolute",
-              bottom: (theme) => theme.spacing(10),
-              right: (theme) => theme.spacing(90),
+              bottom: (theme) => theme.spacing(45),
+              right: (theme) => theme.spacing(30),
               backgroundColor:Colors.primary,
-              width: '150px',
+              width: '100px'
               }}
               LinkComponent={Link} to="/register"
               >
