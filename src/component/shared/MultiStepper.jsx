@@ -4,6 +4,8 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import { Grid } from "@mui/material";
+import CardContent from "@mui/material/CardContent";
+import Card from "@mui/material/Card";
 
 const MultiStepper = ({ steps, step }) => {
   return (

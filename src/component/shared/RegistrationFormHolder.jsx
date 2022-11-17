@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import MultiStepper from "./MultiStepper";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
@@ -13,6 +15,7 @@ import RegistrationForm1 from "./RegistrationForm1";
 import RegistrationForm2 from "./RegistrationForm2";
 import RegistrationForm3 from "./RegistrationForm3";
 import * as accountService from "../../service/shared/accountService";
+import Appbar from "../../component/shared/appbar/Appbar";
 
 const RegistrationFormHolder = () => {
   let temp;
@@ -124,22 +127,33 @@ const RegistrationFormHolder = () => {
 
   return (
     <>
+      <Appbar />
       <Grid
         container
         justifyContent="center"
         component="form"
         onSubmit={handleSubmit}
       >
-        <Grid container>
-          <MultiStepper step={step} steps={steps} />
-        </Grid>
+        {/* <Grid container justifyContent="center" spacing={2}>
+          <Grid item xs={12} md={6} sm={6} lg={6}>
+            <Card>
+              <CardContent>
+                <MultiStepper step={step} steps={steps} />
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid> */}
 
-        <Grid container>
+        <Grid container sx={{ marginTop: 15 }}>
           {step == 0 && (
             <RegistrationForm1
               onHandleChange={handleChange}
               accountForm={accountForm}
               onSetAccountForm={setAccountForm}
+              step={step}
+              steps={steps}
+              handlePrev={handlePrev}
+              handleNext={handleNext}
             />
           )}
 
@@ -148,6 +162,10 @@ const RegistrationFormHolder = () => {
               onHandleChange={handleChange}
               accountForm={accountForm}
               onSetAccountForm={setAccountForm}
+              step={step}
+              steps={steps}
+              handlePrev={handlePrev}
+              handleNext={handleNext}
             />
           )}
 
@@ -157,20 +175,57 @@ const RegistrationFormHolder = () => {
               accountForm={accountForm}
               onSetAccountForm={setAccountForm}
               onSetImageUpload={setImageUpload}
+              step={step}
+              steps={steps}
+              handlePrev={handlePrev}
+              handleNext={handleNext}
             />
           )}
         </Grid>
-        <Grid container justifyContent="center" style={{ marginTop: "20px" }}>
-          <Button type="button" onClick={handlePrev}>
+        {/* <Grid container justifyContent="center" style={{ marginTop: "20px" }}>
+          <Button
+            type="button"
+            onClick={handlePrev}
+            variant="contained"
+            sx={{ borderRadius: 50 }}
+            startIcon={<ArrowBackIosNewIcon />}
+          >
             Previous
           </Button>
-          {step === steps.length - 1 && <Button type="submit">Submit</Button>}
+          {step === steps.length - 1 && (
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{
+                borderRadius: 50,
+                width: "130px",
+                maxWidth: "150px",
+                minWidth: "130px",
+                marginLeft: 2,
+              }}
+              endIcon={<ArrowForwardIosIcon />}
+            >
+              Submit
+            </Button>
+          )}
           {step !== steps.length - 1 && (
-            <Button type="button" onClick={handleNext}>
+            <Button
+              type="button"
+              onClick={handleNext}
+              variant="contained"
+              sx={{
+                borderRadius: 50,
+                width: "130px",
+                maxWidth: "150px",
+                minWidth: "130px",
+                marginLeft: 2,
+              }}
+              endIcon={<ArrowForwardIosIcon />}
+            >
               Next
             </Button>
           )}
-        </Grid>
+        </Grid> */}
       </Grid>
     </>
   );
