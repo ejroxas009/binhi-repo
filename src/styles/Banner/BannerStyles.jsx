@@ -33,7 +33,7 @@ export const buttonStyle = {
 
 export const BannerContainer = styled(Box)(({theme}) => ({
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "left",
     width: "100%",
     height: "100%",
     padding: "0px 0px",

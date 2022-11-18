@@ -1,53 +1,67 @@
 import React from 'react'
-import { Box, Button, Fab, Grid, ThemeProvider, Typography } from '@mui/material';
+import { Box, Button, Container, Fab, Grid, ThemeProvider, Typography } from '@mui/material';
 import Banner from '../../../component/shared/banner/banner';
 import { Colors } from '../../../styles/Theme/Theme';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { fullWidthClassName, noScrollbarsClassName, RemoveScrollBar } from 'react-remove-scroll-bar';
 import LandingAppbar from './LandingAppbar';
 import { Link } from "react-router-dom";
+import LandingPageCard from '../../../component/shared/Cards/LandingPageCard';
+import FarmerBanner from "../../../assets/images/farmerbanner.jpg";
+import Appbar from '../../../component/shared/Appbar';
+
 
 
 const landingpage = () => {
   
   return (
     
-    <>
-    <LandingAppbar/>
-    <Grid>
-      <Box sx={{ display: 'flex' }}>
-        <div className={noScrollbarsClassName}/>
-        <div className={fullWidthClassName}/>
-        <RemoveScrollBar/>
-          <Banner />
-          
-          <Box textAlign='center'>
-              <Fab variant="extended" sx={{
-              position: "absolute",
-              bottom: (theme) => theme.spacing(10),
-              left: (theme) => theme.spacing(90),
-              backgroundColor:Colors.white,
-              width: '150px'
-              }}
-              LinkComponent={Link} to="/login"
-              >
-                  Sign in
-              </Fab>
-              <Fab variant="extended" sx={{
-              position: "absolute",
-              bottom: (theme) => theme.spacing(10),
-              right: (theme) => theme.spacing(90),
-              backgroundColor:Colors.primary,
-              width: '150px',
-              }}
-              LinkComponent={Link} to="/register"
-              >
-                  Sign up
-              </Fab>
-          </Box>
-      </Box>
+    <React.Fragment>
+    <Appbar/>
+    <div className={noScrollbarsClassName}/>
+      <div className={fullWidthClassName}/>
+      <RemoveScrollBar/>
+    <Box sx={{
+      display: 'flex',
+      height:"100vh",
+      width:"100vw",
+      backgroundColor: 'primary.white',
+      backgroundImage: `url(${FarmerBanner})`,
+      backgroundRepeat  : 'no-repeat',
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      flexGrow: 1,
+      marginTop: 10
+    }}>
+      <Grid container spacing={2}>
+        <Grid mt={10}  container
+          direction="row"
+          justifyContent="center"
+          alignItems="center" >
+
+          <Button 
+          size="large" 
+          variant="contained" 
+          LinkComponent={Link} 
+          to="/login" 
+          sx={{borderRadius:5, marginRight:2}}>
+            Login
+          </Button>
+
+          <Button 
+          size="large" 
+          variant="outlined" 
+          LinkComponent={Link} 
+          to="/register" 
+          sx={{borderRadius:5, marginLeft:2}} >
+            Register
+          </Button>
+
+        </Grid>
       </Grid>
-    </>
+    </Box>
+    
+    </React.Fragment>
   )
 }
 

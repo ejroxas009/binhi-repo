@@ -50,6 +50,7 @@ import ComplaintsPage from "./pages/admin/ComplaintsPage/ComplaintsPage";
 import CoursesPage from "./pages/admin/CoursesPage/CoursesPage";
 import FarmingTipsPage from "./pages/admin/FarmingTipsPage/FarmingTipsPage";
 import AdvertisementPage from "./pages/admin/AdvertisementPage/AdvertisementPage";
+import Appbar from "./component/shared/Appbar";
 
 function App() {
   const [accessToken, setAccessToken] = React.useState(
@@ -84,28 +85,19 @@ function App() {
   //   },
   // });
 
-  // const handleLogout = () => {
-  //   accountService.logout();
-  //   window.location.reload();
-  //   navigate("/");
-  // };
+  const handleLogout = () => {
+    accountService.logout();
+    Navigate("/")
+    window.location.reload();
+    
+  };
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route
-          path="/login"
-          element={
-            accessToken ? (
-              <Navigate to="/" />
-            ) : (
-              <LoginPage onSetAccessToken={setAccessToken} />
-            )
-          }
-        />
+        <Route path="/login" element={<LoginPage onSetAccessToken={setAccessToken} />} />
         <Route path="/register" element={<RegisterPage />} />
 
         {/* Routes for Farmer */}
@@ -204,6 +196,10 @@ function App() {
         <Route
           path="/admin/dashboard"
           element={accessToken ? <AdminDashboardPage /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/admin/profile"
+          element={accessToken ? <AdminProfile /> : <Navigate to="/" />}
         />
         <Route
           path="/admin/users"

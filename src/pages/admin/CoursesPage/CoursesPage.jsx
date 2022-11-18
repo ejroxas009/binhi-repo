@@ -1,8 +1,9 @@
-import { Grid } from '@mui/material'
+import { Box, Container } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import AdminAppbar from '../../../component/admin/appbar/AdminAppbar'
 import AdminSidebar from '../../../component/admin/sidebar/AdminSidebar'
 import CoursesTable from '../../../component/admin/tables/CoursesTable/CoursesTable'
+import Appbar from '../../../component/shared/Appbar'
 import * as courseService from '../../../service/admin/courseService'
 
 const CoursesPage = () => {
@@ -25,19 +26,15 @@ const CoursesPage = () => {
   },[courseListToggle])
   return (
     <>
-        <Grid container>
-        <Grid item xs={12}>
-          <AdminAppbar />
-        </Grid>
-        <Grid item md={3}>
-          <AdminSidebar />
-        </Grid>
-        <Grid item xs={12} sm={12} md={8} lg={8} sx={{ marginTop: 15 }}>
-        {courseList &&(
+        <Appbar/>
+        <AdminSidebar/>
+        <Container fixed>
+          <Box mt={20}>
+            {courseList &&(
               <CoursesTable details={courseList}/>
             )}
-        </Grid>
-      </Grid>
+          </Box>
+        </Container>
     </>
   )
 }

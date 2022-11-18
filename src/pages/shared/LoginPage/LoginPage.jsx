@@ -138,7 +138,7 @@ export function LoginPage({ onSetAccessToken }) {
             <Grid item xs={12}>
               <Button
                 onClick={() => {
-                  Swal.fire("Registration currently under maintenance");
+                  navigate("/register");
                 }}
               >
                 Register Here
