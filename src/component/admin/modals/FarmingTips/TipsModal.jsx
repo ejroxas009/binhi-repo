@@ -172,9 +172,8 @@ const TipsModal = ({
                   variant="contained"
                   sx={{ borderRadius: 50, margin: 1 }}
                   type="submit"
-                  endIcon={<SendIcon />}
                 >
-                  Send
+                  Save
                 </Button>
                 <Button
                   variant="outlined"
