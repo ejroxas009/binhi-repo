@@ -36,6 +36,11 @@ import theme from "./styles/Theme/Theme";
 import ProfilePage from "./pages/buyer/ProfilePage";
 import MyTransacionPage from "./pages/buyer/MyTransacionPage";
 import MarketPlacePage from "./pages/buyer/MarketPlacePage";
+import CurrentBidsPage from "./pages/buyer/CurrentBidsPage";
+import CurrentAdsPage from "./pages/buyer/CurrentAdsPage";
+import ComplaintPage from "./pages/buyer/ComplaintPage";
+import ViewMyBids from "./pages/buyer/ViewMyBids";
+import BuyerDashboardPage from "./pages/buyer/BuyerDashboardPage";
 
 //pages - admin
 import Users from "./pages/admin/UsersPage/Users";
@@ -98,110 +103,59 @@ function App() {
         {/* Routes for Farmer */}
         <Route
           path="/farmer/dashboard"
-          element={
-            accessToken ? (
-              <FarmerDashboardPage token={accessToken} />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
+          element={accessToken ? <FarmerDashboardPage /> : <Navigate to="/" />}
         />
 
         <Route
-          path="/farmer/myProfile"
-          element={
-            accessToken ? (
-              <MyProfile token={accessToken} />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
+          path="/farmer/profile"
+          element={accessToken ? <MyProfile /> : <Navigate to="/" />}
         />
 
         <Route
           path="/farmer/marketplace"
-          element={
-            accessToken ? (
-              <MarketplacePage token={accessToken} />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
+          element={accessToken ? <MarketplacePage /> : <Navigate to="/" />}
         />
 
         <Route
-          path="/farmer/transactions"
-          element={
-            accessToken ? (
-              <TransactionHistory token={accessToken} />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
+          path="/farmer/transaction-history"
+          element={accessToken ? <TransactionHistory /> : <Navigate to="/" />}
         />
 
         <Route
           path="/farmer/courses"
-          element={
-            accessToken ? <Courses token={accessToken} /> : <Navigate to="/" />
-          }
+          element={accessToken ? <Courses /> : <Navigate to="/" />}
         />
 
         <Route
-          path="/farmer/myCurrentBids"
-          element={
-            accessToken ? (
-              <MyCurrentBids token={accessToken} />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
+          path="/farmer/current-bids"
+          element={accessToken ? <MyCurrentBids /> : <Navigate to="/" />}
         />
 
         <Route
-          path="/farmer/myCurrentAds"
-          element={
-            accessToken ? (
-              <MyCurrentAds token={accessToken} />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
+          path="/farmer/current-ads"
+          element={accessToken ? <MyCurrentAds /> : <Navigate to="/" />}
         />
         <Route
-          path="/farmer/myComplaints"
-          element={
-            accessToken ? (
-              <MyComplaints token={accessToken} />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
+          path="/farmer/complaints"
+          element={accessToken ? <MyComplaints /> : <Navigate to="/" />}
         />
 
         <Route
-          path="/farmer/myCourses"
-          element={
-            accessToken ? (
-              <MyCourses token={accessToken} />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
+          path="/farmer/enrolled-courses"
+          element={accessToken ? <MyCourses /> : <Navigate to="/" />}
         />
 
         <Route
-          path="/farmer/myCurrentAds/:id/allBids"
-          element={
-            accessToken ? (
-              <ViewAllBids token={accessToken} />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
+          path="/farmer/current-ads/:id/allBids"
+          element={accessToken ? <ViewAllBids /> : <Navigate to="/" />}
         />
 
         {/* Routes for Buyer */}
+        <Route
+          path="/buyer/dashboard"
+          element={accessToken ? <BuyerDashboardPage /> : <Navigate to="/" />}
+        />
+
         <Route
           path="/buyer/profile"
           element={
@@ -219,6 +173,23 @@ function App() {
         <Route
           path="/buyer/marketplace"
           element={accessToken ? <MarketPlacePage /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/buyer/current-bids"
+          element={accessToken ? <CurrentBidsPage /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/buyer/current-ads"
+          element={accessToken ? <CurrentAdsPage /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/buyer/complaints"
+          element={accessToken ? <ComplaintPage /> : <Navigate to="/" />}
+        />
+
+        <Route
+          path="/buyer/current-ads/:id/allBids"
+          element={accessToken ? <ViewMyBids /> : <Navigate to="/" />}
         />
 
         {/* Routes for admin */}

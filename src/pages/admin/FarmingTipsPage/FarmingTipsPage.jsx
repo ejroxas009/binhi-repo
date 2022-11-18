@@ -8,6 +8,7 @@ import { Container } from "@mui/material";
 import Appbar from "../../../component/shared/Appbar";
 
 const FarmingTipsPage = () => {
+  
   const [tipList, setTipList] = useState();
   const [tipToggle, setTipToggle] = useState(false);
 
@@ -35,7 +36,6 @@ const FarmingTipsPage = () => {
         </Grid>
         <Container>
           <Grid item xs={12} sm={12} md={12} lg={12} mt={15}>
-            
             {tipList && (
               <FarmingTips
                 tipsList={tipList}

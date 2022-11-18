@@ -1,4 +1,4 @@
-import { Box, Container } from '@mui/material'
+import { Grid } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import AdminAppbar from '../../../component/admin/appbar/AdminAppbar'
 import AdminSidebar from '../../../component/admin/sidebar/AdminSidebar'
@@ -26,15 +26,19 @@ const ComplaintsPage = () => {
   },[complaintsListToggle])
   return (
     <>
-      <Appbar/>
-      <AdminSidebar/>
-      <Container fixed>
-          <Box mt={20}>
-            {complaintsList &&(
+        <Grid container>
+        <Grid item xs={12}>
+          <AdminAppbar />
+        </Grid>
+        <Grid item md={3}>
+          <AdminSidebar />
+        </Grid>
+        <Grid item xs={12} sm={12} md={8} lg={8} sx={{ marginTop: 15 }}>
+        {complaintsList &&(
               <ComplaintsTable details={complaintsList}/>
             )}
-          </Box>
-        </Container>
+        </Grid>
+      </Grid>
     </>
   )
 }

@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import { Grid } from "@mui/material";
 
 const MultiStepper = ({ steps, step }) => {
   return (

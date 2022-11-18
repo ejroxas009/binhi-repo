@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
 import Grid from "@mui/material/Grid";
 import CardContent from "@mui/material/CardContent";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Typography } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
@@ -12,6 +10,10 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import CardHeader from "@mui/material/CardHeader";
+import { green } from "@mui/material/colors";
+import ReportIcon from "@mui/icons-material/Report";
+import CardMedia from "@mui/material/CardMedia";
 
 import SendBidModal from "./SendBidModal";
 import jwtDecode from "jwt-decode";
@@ -266,30 +268,18 @@ const MarketPlace = ({ adsList, onSetAdsListToggle, adsListToggle }) => {
           {adsList.map((ads) => {
             if (ads.active) {
               return (
-                <Card key={ads.postId} sx={{ margin: 2, borderRadius: 5 }}>
-                  <CardContent>
-                    <Grid
-                      container
-                      alignItems="center"
-                      justifyContent="flex-start"
-                      spacing={2}
-                    >
-                      <Grid item xs={1}>
-                        <Avatar
-                          alt="Remy Sharp"
-                          src={ads.account.profileImg}
-                          sx={{ width: 50, height: 50 }}
-                        />
-                      </Grid>
-                      <Grid
-                        container
-                        item
-                        xs={11}
-                        justifyContent="flex-start"
-                      >{`${ads.account.firstName} ${ads.account.lastName}`}</Grid>
-                    </Grid>
-                    <Grid container item justifyContent="flex-end">
-                      <IconButton onClick={handleClick}>
+                <Card variant="outlined" key={ads.postId} sx={{ margin: 2, borderRadius: 5 }}>
+                  <CardHeader
+                    avatar={
+                      <Avatar
+                        sx={{ bgcolor: green[900] }}
+                        aria-label="profile"
+                        src={ads.account.profileImg}
+                      ></Avatar>
+                    }
+                    action={
+                      <IconButton aria-label="settings">
+                        <IconButton onClick={handleClick}>
                         <MoreVertIcon />
                       </IconButton>
                       <Menu
@@ -307,33 +297,32 @@ const MarketPlace = ({ adsList, onSetAdsListToggle, adsListToggle }) => {
                             handleSendComplainOpen();
                           }}
                         >
-                          Send complain to admin
+                          <ReportIcon />
+                          Report to Admin
                         </MenuItem>
                       </Menu>
-                    </Grid>
-                    <Grid />
-                  </CardContent>
+                      </IconButton>
+                    }
+                    title={`${ads.account.firstName} ${ads.account.lastName}`}
+                    subheader={ads.postDate}
+                  />
+
                   <CardContent>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <Typography>{ads.adsDescription}</Typography>
+                        <Typography>₱{ads.initialPrice}.00</Typography>
                       </Grid>
-                      {ads.cropImg && (
-                        <Grid
-                          container
-                          item
-                          justifyContent="center"
-                          xs={12}
-                          lg={12}
-                        >
-                          <img
-                            src={ads.cropImg}
-                            style={{ height: "35vh", width: "40vw" }}
-                          />
-                        </Grid>
-                      )}
-                    </Grid>
+                      </Grid>
                   </CardContent>
+                      {ads.cropImg && (
+                       <CardMedia
+                       component="img"
+                       height="350"
+                       image={ads.cropImg}
+                       alt="Crop Image"
+                     />
+                      )}
                   <CardContent>
                     <Grid container item justifyContent="flex-end">
                       <Button

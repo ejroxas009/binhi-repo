@@ -130,8 +130,8 @@ const ComplaintsTable = () => {
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell align="center">Image</StyledTableCell>
-              <StyledTableCell align="center">Post</StyledTableCell>
+              <StyledTableCell align="center">Image Proof (Optional)</StyledTableCell>
+              <StyledTableCell align="center">Post Message</StyledTableCell>
               <StyledTableCell align="center">Status</StyledTableCell>
             </TableRow>
               </TableHead>
@@ -146,7 +146,7 @@ const ComplaintsTable = () => {
                   <StyledTableRow key={data.complaintId}>
                     <StyledTableCell align="center">{data.complaintImg}</StyledTableCell>
                     <StyledTableCell align="center">{data.complaintPost}</StyledTableCell>
-                    <StyledTableCell align="center">{data.isRead}</StyledTableCell>
+                    <StyledTableCell align="center">(Read)  (Resolve)</StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>
@@ -159,7 +159,7 @@ const ComplaintsTable = () => {
                       25,
                       { label: "All", value: -1 },
                     ]}
-                    colSpan={3}
+                    colSpan={4}
                     count={complaints.length}
                     rowsPerPage={rowsPerPage}
                     page={page}

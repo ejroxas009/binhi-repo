@@ -4,8 +4,19 @@ Todo List (Deadline Wednesday) Priority
 - Button View All Bids Offer, another page, table and have button that accept bids 
 (My Current Ads, sa Ads Card) 
 
+-------------------------------------------------------------------------
+Deadline: Monday
+*Dry-Run
 
 
+Action Buttons
+Details of Card
+
+Enroll Page
+-Enroll button
+-Status
+
+--------------------------------------------------------------------------
 My Complaints
 - Status
 
@@ -14,4 +25,8 @@ Courses page
 
 My Courses Page 
 - Get the enrolled courses
-- 
+
+
+---------------------------------------------------------------------------
+Wednesday
+UI

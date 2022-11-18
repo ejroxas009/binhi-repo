@@ -43,7 +43,7 @@ const FarmerSidebar = () => {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link} to="/farmer/myProfile">
+              <ListItemButton LinkComponent={Link} to="/farmer/profile">
                 <ListItemIcon>
                   <DashboardRoundedIcon />
                 </ListItemIcon>
@@ -61,7 +61,7 @@ const FarmerSidebar = () => {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link} to="/farmer/transactions">
+              <ListItemButton LinkComponent={Link} to="/farmer/transaction-history">
                 <ListItemIcon>
                   <DashboardRoundedIcon />
                 </ListItemIcon>
@@ -70,7 +70,7 @@ const FarmerSidebar = () => {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link} to="/farmer/Courses">
+              <ListItemButton LinkComponent={Link} to="/farmer/courses">
                 <ListItemIcon>
                   <DashboardRoundedIcon />
                 </ListItemIcon>
@@ -79,7 +79,7 @@ const FarmerSidebar = () => {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link} to="/farmer/myCurrentBids">
+              <ListItemButton LinkComponent={Link} to="/farmer/current-bids">
                 <ListItemIcon>
                   <DashboardRoundedIcon />
                 </ListItemIcon>
@@ -88,7 +88,7 @@ const FarmerSidebar = () => {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link} to="/farmer/myCurrentAds">
+              <ListItemButton LinkComponent={Link} to="/farmer/current-ads">
                 <ListItemIcon>
                   <DashboardRoundedIcon />
                 </ListItemIcon>
@@ -97,7 +97,7 @@ const FarmerSidebar = () => {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link} to="/farmer/myComplaints">
+              <ListItemButton LinkComponent={Link} to="/farmer/complaints">
                 <ListItemIcon>
                   <DashboardRoundedIcon />
                 </ListItemIcon>
@@ -106,7 +106,7 @@ const FarmerSidebar = () => {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link} to="/farmer/myCourses">
+              <ListItemButton LinkComponent={Link} to="/farmer/enrolled-courses">
                 <ListItemIcon>
                   <DashboardRoundedIcon />
                 </ListItemIcon>
