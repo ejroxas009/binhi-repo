@@ -214,6 +214,14 @@ const MarketPlace = ({ adsList, onSetAdsListToggle, adsListToggle }) => {
     addPostFunction();
   }, [postToggle]);
 
+  const reverseAdsList = () => {
+    let reverseList;
+    if (adsList) {
+      reverseList = adsList.reverse();
+    }
+    return reverseList;
+  };
+
   //------------End Post Ads ----------------------------
 
   return (
@@ -265,10 +273,14 @@ const MarketPlace = ({ adsList, onSetAdsListToggle, adsListToggle }) => {
         </Grid>
 
         <Grid item xs={12} sm={12} md={6} lg={6}>
-          {adsList.map((ads) => {
+          {[...adsList].reverse().map((ads) => {
             if (ads.active) {
               return (
-                <Card variant="outlined" key={ads.postId} sx={{ margin: 2, borderRadius: 5 }}>
+                <Card
+                  variant="outlined"
+                  key={ads.postId}
+                  sx={{ margin: 2, borderRadius: 5 }}
+                >
                   <CardHeader
                     avatar={
                       <Avatar
@@ -280,65 +292,72 @@ const MarketPlace = ({ adsList, onSetAdsListToggle, adsListToggle }) => {
                     action={
                       <IconButton aria-label="settings">
                         <IconButton onClick={handleClick}>
-                        <MoreVertIcon />
-                      </IconButton>
-                      <Menu
-                        id="basic-menu"
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        MenuListProps={{
-                          "aria-labelledby": "basic-button",
-                        }}
-                      >
-                        <MenuItem
-                          onClick={() => {
-                            handleClose();
-                            handleSendComplainOpen();
+                          <MoreVertIcon />
+                        </IconButton>
+                        <Menu
+                          id="basic-menu"
+                          anchorEl={anchorEl}
+                          open={open}
+                          onClose={handleClose}
+                          MenuListProps={{
+                            "aria-labelledby": "basic-button",
                           }}
                         >
-                          <ReportIcon />
-                          Report to Admin
-                        </MenuItem>
-                      </Menu>
+                          <MenuItem
+                            onClick={() => {
+                              handleClose();
+                              handleSendComplainOpen();
+                            }}
+                          >
+                            <ReportIcon />
+                            Report to Admin
+                          </MenuItem>
+                        </Menu>
                       </IconButton>
                     }
                     title={`${ads.account.firstName} ${ads.account.lastName}`}
-                    subheader={ads.postDate}
+                    subheader={ads.postDate && ads.postDate.substring(0, 10)}
                   />
 
                   <CardContent>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography>{ads.adsDescription}</Typography>
-                        <Typography>₱{ads.initialPrice}.00</Typography>
+                        <Typography>{`Description: ${ads.adsDescription}`}</Typography>
+                        <Typography>
+                          Budget: ₱{ads.initialPrice}.00 per kilogram
+                        </Typography>
+                        <Typography>
+                          Needed Quantity:{ads.cropQuantity} kilograms
+                        </Typography>
                       </Grid>
-                      </Grid>
-                  </CardContent>
-                      {ads.cropImg && (
-                       <CardMedia
-                       component="img"
-                       height="350"
-                       image={ads.cropImg}
-                       alt="Crop Image"
-                     />
-                      )}
-                  <CardContent>
-                    <Grid container item justifyContent="flex-end">
-                      <Button
-                        variant="contained"
-                        sx={{ borderRadius: 50 }}
-                        endIcon={<SendIcon />}
-                        onClick={() => {
-                          setPostId(ads.postId);
-                          setPostIdToggle(!postIdToggle);
-                          setSendBidOpen(true);
-                        }}
-                      >
-                        Send Bid
-                      </Button>
                     </Grid>
                   </CardContent>
+                  {ads.cropImg && (
+                    <CardMedia
+                      component="img"
+                      height="350"
+                      image={ads.cropImg}
+                      alt="Crop Image"
+                    />
+                  )}
+                  {account && ads.account.accountId !== account.accountId && (
+                    <CardContent>
+                      <Grid container item justifyContent="flex-end">
+                        <Button
+                          variant="contained"
+                          sx={{ borderRadius: 50 }}
+                          endIcon={<SendIcon />}
+                          onClick={() => {
+                            setPostId(ads.postId);
+                            setPostIdToggle(!postIdToggle);
+                            setSendBidOpen(true);
+                          }}
+                        >
+                          Send Bid
+                        </Button>
+                      </Grid>
+                    </CardContent>
+                  )}
                 </Card>
               );
             }
@@ -362,7 +381,9 @@ const MarketPlace = ({ adsList, onSetAdsListToggle, adsListToggle }) => {
         onHandleChange={handleChangeComplaint}
         onHandleSubmit={handleSubmitComplaint}
         form={complaintForm}
+        onSetForm={setComplaintForm}
         onHandleClose={handleSendComplainClose}
+        account={account}
       />
       <SuccessComplaintModal open={isComplaintSuccess} />
       {account && (

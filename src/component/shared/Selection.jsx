@@ -28,6 +28,12 @@ const Selection = ({ list, onHandleChange, name, label, value }) => {
                   {item.role}
                 </option>
               );
+            } else if (item.cropId) {
+              return (
+                <option key={item.cropId} value={item.cropId}>
+                  {item.cropName}
+                </option>
+              );
             }
           })}
         </NativeSelect>

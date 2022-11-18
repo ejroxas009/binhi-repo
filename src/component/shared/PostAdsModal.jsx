@@ -16,7 +16,8 @@ import { useEffect } from "react";
 import * as adsService from "../../service/buyer/AdvertisementService";
 import UploadingModal from "./UploadingModal";
 import UploadSuccessModal from "./UploadSuccessModal";
-
+import * as cropService from "../../service/admin/cropService";
+import Selection from "./Selection";
 const style = {
   position: "absolute",
   top: "50%",
@@ -45,6 +46,8 @@ const PostAdsModal = ({
   const [postImageToggle, setPostImageToggle] = useState(false);
   const [uploadingOpen, setUploadingOpen] = useState(false);
   const [uploadingSuccessOpen, setUploadingSuccessOpen] = useState(false);
+  const [cropList, setCropList] = useState();
+  const [cropListToggle, setCropListToggle] = useState(false);
 
   const uploadPostImage = async () => {
     if (postImageUpload !== null) {
@@ -101,6 +104,22 @@ const PostAdsModal = ({
     };
     uploadPost();
   }, [postImageToggle]);
+
+  //--------Crop Category-------------
+  useEffect(() => {
+    const getAllCropsFunction = async () => {
+      const res = await cropService.getAllCrops();
+      setCropList(res.data);
+      setCropListToggle(!cropListToggle);
+    };
+
+    getAllCropsFunction();
+  }, []);
+
+  useEffect(() => {
+    console.log(cropList);
+  }, [cropListToggle]);
+
   return (
     <div>
       <Modal
@@ -119,12 +138,20 @@ const PostAdsModal = ({
           <CardContent>
             <Grid container spacing={2} justifyContent="center">
               <Grid item xs={12}>
-                <TextField
+                {/* <TextField
                   label="Category"
                   name="cropId"
                   fullWidth
                   value={form.cropId}
                   onChange={onHandleChange}
+                /> */}
+
+                <Selection
+                  list={cropList}
+                  onHandleChange={onHandleChange}
+                  name="cropId"
+                  label="Category"
+                  value={form.cropId}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -200,7 +227,10 @@ const PostAdsModal = ({
       </Modal>
 
       <UploadingModal open={uploadingOpen} />
-      <UploadSuccessModal open={uploadingSuccessOpen} />
+      <UploadSuccessModal
+        open={uploadingSuccessOpen}
+        message="Your ads is successfully posted!"
+      />
     </div>
   );
 };

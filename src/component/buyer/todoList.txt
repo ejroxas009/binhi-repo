@@ -14,9 +14,12 @@ MarketPlace Page
 
 Tuesday
 Confirmation for post
-DashBoard and AppBar for each pages
-Email and SMS study
+DashBoard and AppBar for each pages - done
+Email and SMS study - done
 
 Wednesday
-Registration
+Registration -done
 Payment Method
+
+
+
