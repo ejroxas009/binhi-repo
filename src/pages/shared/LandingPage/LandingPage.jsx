@@ -17,7 +17,7 @@ const landingpage = () => {
   return (
     
     <React.Fragment>
-    <Appbar/>
+    <LandingAppbar/>
     <div className={noScrollbarsClassName}/>
       <div className={fullWidthClassName}/>
       <RemoveScrollBar/>

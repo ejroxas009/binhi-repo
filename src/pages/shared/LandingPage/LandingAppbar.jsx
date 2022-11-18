@@ -224,13 +224,6 @@ export default function LandingAppbar(){
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {account && (
-                    <Avatar
-                        alt="Remy Sharp"
-                        src={account.profileImg}
-                        sx={{ width: 50, height: 50 }}
-                    />
-                    )}
               </IconButton>
             </Tooltip>
             <Menu
