@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import AdminAppbar from '../../../component/admin/appbar/AdminAppbar'
 import AdminSidebar from '../../../component/admin/sidebar/AdminSidebar'
 import CoursesTable from '../../../component/admin/tables/CoursesTable/CoursesTable'
+import Appbar from '../../../component/shared/Appbar'
 import * as courseService from '../../../service/admin/courseService'
 
 const CoursesPage = () => {
@@ -25,6 +26,7 @@ const CoursesPage = () => {
   },[courseListToggle])
   return (
     <>
+        <Appbar/>
         <AdminSidebar/>
         <Container fixed>
           <Box mt={20}>

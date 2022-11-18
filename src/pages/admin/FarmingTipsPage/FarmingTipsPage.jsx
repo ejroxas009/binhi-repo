@@ -5,6 +5,7 @@ import FarmingTips from "../../../component/admin/Cards/FarmingTips/FarmingTips"
 import AdminAppbar from "../../../component/admin/appbar/AdminAppbar";
 import AdminSidebar from "../../../component/admin/sidebar/AdminSidebar";
 import { Container } from "@mui/material";
+import Appbar from "../../../component/shared/Appbar";
 
 const FarmingTipsPage = () => {
   const [tipList, setTipList] = useState();
@@ -27,6 +28,7 @@ const FarmingTipsPage = () => {
     <>
       <Grid>
         <Grid item xs={12}>
+          <Appbar/>
         </Grid>
         <Grid item md={3}>
           <AdminSidebar />

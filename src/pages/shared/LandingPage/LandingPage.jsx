@@ -7,7 +7,7 @@ import { fullWidthClassName, noScrollbarsClassName, RemoveScrollBar } from 'reac
 import LandingAppbar from './LandingAppbar';
 import { Link } from "react-router-dom";
 import LandingPageCard from '../../../component/shared/Cards/LandingPageCard';
-import FarmerBanner from "../../../assets/images/Banner-new.jpg";
+import FarmerBanner from "../../../assets/images/farmerbanner.jpg";
 import Appbar from '../../../component/shared/Appbar';
 
 
@@ -24,19 +24,39 @@ const landingpage = () => {
     <Box sx={{
       display: 'flex',
       height:"100vh",
+      width:"100vw",
       backgroundColor: 'primary.white',
       backgroundImage: `url(${FarmerBanner})`,
       backgroundRepeat  : 'no-repeat',
       backgroundPosition: 'center',
-      backgroundSize: 'auto',
-      flexGrow: 1
+      backgroundSize: 'cover',
+      flexGrow: 1,
+      marginTop: 10
     }}>
       <Grid container spacing={2}>
-        <Grid mt={25} xs={9} >
-          <LandingPageCard/>
-        </Grid>
-        <Grid mt={20} xs={3} >
-          
+        <Grid mt={10}  container
+          direction="row"
+          justifyContent="center"
+          alignItems="center" >
+
+          <Button 
+          size="large" 
+          variant="contained" 
+          LinkComponent={Link} 
+          to="/login" 
+          sx={{borderRadius:5, marginRight:2}}>
+            Login
+          </Button>
+
+          <Button 
+          size="large" 
+          variant="outlined" 
+          LinkComponent={Link} 
+          to="/register" 
+          sx={{borderRadius:5, marginLeft:2}} >
+            Register
+          </Button>
+
         </Grid>
       </Grid>
     </Box>
