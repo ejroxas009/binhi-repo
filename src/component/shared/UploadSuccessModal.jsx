@@ -21,7 +21,7 @@ const style = {
   p: 4,
 };
 
-const UploadSuccessModal = ({ open }) => {
+const UploadSuccessModal = ({ open, message }) => {
   return (
     <div>
       <Modal
@@ -32,7 +32,7 @@ const UploadSuccessModal = ({ open }) => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Your ads is successfully posted!
+            {message}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Thank you!

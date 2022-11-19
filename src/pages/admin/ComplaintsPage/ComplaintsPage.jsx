@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import AdminAppbar from '../../../component/admin/appbar/AdminAppbar'
 import AdminSidebar from '../../../component/admin/sidebar/AdminSidebar'
 import ComplaintsTable from '../../../component/admin/tables/ComplaintsTable/ComplaintsTable'
+import Appbar from '../../../component/shared/Appbar'
 import * as complaintService from '../../../service/admin/complaintService'
 
 const ComplaintsPage = () => {
@@ -27,7 +28,7 @@ const ComplaintsPage = () => {
     <>
         <Grid container>
         <Grid item xs={12}>
-          <AdminAppbar />
+          <Appbar />
         </Grid>
         <Grid item md={3}>
           <AdminSidebar />
