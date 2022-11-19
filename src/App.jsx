@@ -85,12 +85,7 @@ function App() {
   //   },
   // });
 
-  const handleLogout = () => {
-    accountService.logout();
-    Navigate("/")
-    window.location.reload();
-    
-  };
+  
 
   return (
     <ThemeProvider theme={theme}>
