@@ -35,3 +35,8 @@ export function changePW(id, form) {
 export function changeProfileImage(id, url) {
   return http.put(`/account/change-profileImg/${id}`, url);
 }
+
+export function getCurrentUser() {
+  // console.log("getCurrentUser()");
+  return http.get("");
+}
