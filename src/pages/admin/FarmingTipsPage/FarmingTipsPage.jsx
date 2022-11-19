@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import * as adsService from "../../../service/buyer/AdvertisementService";
 import * as tipsService from "../../../service/admin/farmingTipsService";
-import BuyerSidebar from "../../../component/buyer/BuyerSidebar";
 import Appbar from "../../../component/shared/appbar/Appbar";
 import Grid from "@mui/material/Grid";
 import FarmingTips from "../../../component/admin/Cards/FarmingTips/FarmingTips";
 import AdminAppbar from "../../../component/admin/appbar/AdminAppbar";
 import AdminSidebar from "../../../component/admin/sidebar/AdminSidebar";
-import { Container } from "@mui/material";
 
 const FarmingTipsPage = () => {
   
@@ -36,7 +33,6 @@ const FarmingTipsPage = () => {
         <Grid item md={3}>
           <AdminSidebar />
         </Grid>
-        <Container>
           <Grid item xs={12} sm={12} md={12} lg={12} mt={15}>
             {tipList && (
               <FarmingTips
@@ -46,7 +42,6 @@ const FarmingTipsPage = () => {
               />
             )}
           </Grid>
-        </Container>
       </Grid>
     </>
   );

@@ -16,7 +16,7 @@ import { green } from "@mui/material/colors";
 import ReportIcon from "@mui/icons-material/Report";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import Button from "@mui/material/Button";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
 import { styled } from "@mui/material/styles";
 import Collapse from "@mui/material/Collapse";
 import Grid from "@mui/material/Grid";
@@ -248,7 +248,8 @@ const BidCard = () => {
                       aria-expanded={expanded}
                       aria-label="show more"
                     >
-                      <ExpandMoreIcon />
+                      <ExpandCircleDownIcon/>
+                      
                     </ExpandMore>
                   </CardActions>
                   <Collapse in={expanded} timeout="auto" unmountOnExit>
