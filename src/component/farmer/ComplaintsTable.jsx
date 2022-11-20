@@ -22,9 +22,30 @@ import TableFooter from "@mui/material/TableFooter";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { TableHead } from "@mui/material";
+import { Card, CardMedia, Grid, TableHead, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Colors } from "../../styles/Theme/Theme";
+import Chip from "@mui/material/Chip";
+
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Draggable from "react-draggable";
+import ReadMoreIcon from "@mui/icons-material/ReadMore";
+
+function PaperComponent(props) {
+  return (
+    <Draggable
+      handle="#draggable-dialog-title"
+      cancel={'[class*="MuiDialogContent-root"]'}
+    >
+      <Paper {...props} />
+    </Draggable>
+  );
+}
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -64,6 +85,8 @@ const ComplaintsTable = () => {
 
   const [complaints, setComplaints] = useState();
   const [complaintsToggle, setComplaintsToggle] = useState(false);
+
+  const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -113,6 +136,14 @@ const ComplaintsTable = () => {
     console.log(complaints);
   }, [complaintsToggle]);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   //Pagination
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -125,16 +156,18 @@ const ComplaintsTable = () => {
 
   return (
     <>
+      <h1>My Complaints</h1>
       {complaints && (
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
               <TableRow>
                 <StyledTableCell align="center">
-                  Image Proof (Optional)
+
+                  Image Proof (Screenshot/s)
                 </StyledTableCell>
-                <StyledTableCell align="center">Post Message</StyledTableCell>
                 <StyledTableCell align="center">Status</StyledTableCell>
+                <StyledTableCell align="center">Actions</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -150,10 +183,65 @@ const ComplaintsTable = () => {
                     {data.complaintImg}
                   </StyledTableCell>
                   <StyledTableCell align="center">
-                    {data.complaintPost}
+                    {data.read ? (
+                      <Chip label="Read" color="primary" />
+                    ) : (
+                      <Chip label="Unread" color="warning" />
+                    )}
                   </StyledTableCell>
                   <StyledTableCell align="center">
-                    (Read) (Resolve)
+                    <Button variant="outlined" onClick={handleClickOpen}>
+                      <ReadMoreIcon />
+                    </Button>
+                    <Dialog
+                      open={open}
+                      onClose={handleClose}
+                      PaperComponent={PaperComponent}
+                      aria-labelledby="draggable-dialog-title"
+                    >
+                      <DialogTitle
+                        style={{ cursor: "move" }}
+                        id="draggable-dialog-title"
+                      >
+                        Complaint Details
+                      </DialogTitle>
+                      <DialogContent>
+                        <DialogContentText>
+                          <Typography>
+                            Complaint ID: {data.complaintId}
+                          </Typography>
+                          <Typography paragraph>
+                            Post Message: {data.complaintPost}
+                          </Typography>
+                          <Typography paragraph>
+                            Status: 
+                            {data.resolved ? (
+                              <Chip label="Resolved" color="primary" />
+                            ) : (
+                              <Chip label="UnResolved" color="warning" />
+                            )}
+                          </Typography>
+                          <Card elevation={5}>
+                            <CardMedia
+                              component="img"
+                              height="250"
+                              image={data.complaintImg}
+                              alt="Screenshot"
+                            />
+                          </Card>
+                        </DialogContentText>
+                      </DialogContent>
+                      <DialogActions>
+                        <Button
+                          autoFocus
+                          variant="contained"
+                          sx={{ borderRadius: 50 }}
+                          onClick={handleClose}
+                        >
+                          Ok
+                        </Button>
+                      </DialogActions>
+                    </Dialog>
                   </StyledTableCell>
                 </StyledTableRow>
               ))}

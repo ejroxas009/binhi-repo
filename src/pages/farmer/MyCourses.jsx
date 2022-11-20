@@ -15,7 +15,7 @@ const MyCourses = () => {
         <Grid item md={3}>
           <FarmerSidebar />
         </Grid>
-        <Grid item xs={12} sm={12} md={8} lg={8} sx={{ marginTop: 15 }}>
+        <Grid item xs={12} sm={12} md={8} lg={8} sx={{ marginTop: 10 }}>
           <EnrolledCourses />
         </Grid>
       </Grid>
