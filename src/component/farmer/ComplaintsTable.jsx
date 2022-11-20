@@ -129,7 +129,7 @@ const ComplaintsTable = () => {
   }, [accountToggle]);
 
   useEffect(() => {
-    // console.log(accountList);
+    console.log(accountList);
   }, [accountListToggle]);
 
   useEffect(() => {
@@ -163,6 +163,7 @@ const ComplaintsTable = () => {
             <TableHead>
               <TableRow>
                 <StyledTableCell align="center">
+
                   Image Proof (Screenshot/s)
                 </StyledTableCell>
                 <StyledTableCell align="center">Status</StyledTableCell>

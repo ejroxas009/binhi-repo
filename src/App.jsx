@@ -42,6 +42,7 @@ import CurrentAdsPage from "./pages/buyer/CurrentAdsPage";
 import ComplaintPage from "./pages/buyer/ComplaintPage";
 import ViewMyBids from "./pages/buyer/ViewMyBids";
 import BuyerDashboardPage from "./pages/buyer/BuyerDashboardPage";
+import MyOrders from "./component/shared/MyOrders";
 
 //pages - admin
 import Users from "./pages/admin/UsersPage/Users";
@@ -86,14 +87,25 @@ function App() {
   //   },
   // });
 
+
+  const handleLogout = () => {
+    accountService.logout();
+    Navigate("/");
+    window.location.reload();
+  };
+
   
+
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<LoginPage onSetAccessToken={setAccessToken} />} />
+        <Route
+          path="/login"
+          element={<LoginPage onSetAccessToken={setAccessToken} />}
+        />
         <Route path="/register" element={<RegisterPage />} />
 
         {/* Routes for Farmer */}
@@ -191,6 +203,11 @@ function App() {
         <Route
           path="/buyer/current-ads/:id/allBids"
           element={accessToken ? <ViewMyBids /> : <Navigate to="/" />}
+        />
+
+        <Route
+          path="/buyer/my-orders"
+          element={accessToken ? <MyOrders /> : <Navigate to="/" />}
         />
 
         {/* Routes for admin */}
