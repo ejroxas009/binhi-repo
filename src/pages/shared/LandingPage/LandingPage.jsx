@@ -16,6 +16,7 @@ import * as accountService from "../../../service/shared/accountService"
 
 const landingpage = () => {
   const accessToken = accountService.getAccessToken(); 
+  
   return (
     
     <React.Fragment>
