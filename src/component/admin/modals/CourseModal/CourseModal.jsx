@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -17,11 +17,11 @@ import * as courseService from "../../../../service/admin/courseService";
 import UploadingModal from "../../../shared/UploadingModal";
 import UploadSuccessModal from "../../../shared/UploadSuccessModal";
 
-
 //DatePicker
 import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker, DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { Input } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -50,17 +50,6 @@ const CourseModal = ({
   const [uploadingOpen, setUploadingOpen] = useState(false);
   const [uploadingSuccessOpen, setUploadingSuccessOpen] = useState(false);
 
-  const uploadPostImage = async () => {
-      setPostImageRef(postImageRef);
-      try {
-        console.log("uploading");
-        await uploadBytes(postImageRef, postImageUpload);
-        const url = await getDownloadURL(postImageRef);
-
-        return url;
-      } catch {}
-  };
-
   const handleUploadingOpen = () => setUploadingOpen(true);
   const handleUploadingClose = () => setUploadingOpen(false);
   const handleUploadingSuccessOpen = () => setUploadingSuccessOpen(true);
@@ -68,21 +57,42 @@ const CourseModal = ({
 
   const handleSubmitPostAds = async (event) => {
     event.preventDefault();
-    const url = await uploadPostImage();
-    console.log(url);
     onSetForm({
       ...form,
       courseId: id,
+      onHandleSubmit
     });
 
     setPostImageToggle(!postImageToggle);
   };
 
+  useEffect(() => {
+    const uploadPost = async () => {
+      if (form.courseName !== "") {
+        handleUploadingOpen();
+        try {
+          const res = await courseService.addCourse(form);
+          if (res.status == 200) {
+            onHandleClose();
+            setTimeout(handleUploadingClose, 1000);
+            setTimeout(handleUploadingSuccessOpen, 1000);
+            setTimeout(handleUploadingSuccessClose, 4000);
+            //onSetAdsListToggle(!adsListToggle);
+            setTimeout(window.location.reload, 5500);
+          }
+          console.log(res);
+        } catch {}
+      }
+    };
+    uploadPost();
+  }, [postImageToggle]);
+
   //DatePicker
-  const [value, setValue] = React.useState();
-  const handleChange = (newValue) => {
-    setValue(newValue);
+  const [date, setDate] = React.useState();
+  const handleChange = (newDate) => {
+    setDate(newDate);
   };
+  const customInputRef = useRef();
 
   return (
     <div>
@@ -92,7 +102,7 @@ const CourseModal = ({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         component="form"
-        onSubmit={onHandleSubmit}
+        onSubmit={handleSubmitPostAds}
       >
         <Card sx={style}>
           <Grid container item xs={12} justifyContent="center">
@@ -137,9 +147,9 @@ const CourseModal = ({
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateTimePicker
                     label="Start Time"
-                    value={`${form.startTime} - ${form.endTime}`}
+                    value={date}
                     onChange={handleChange}
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={(value) => <TextField {...value} />}
                     />
                 </LocalizationProvider>
               </Grid>
@@ -147,9 +157,19 @@ const CourseModal = ({
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateTimePicker
                     label="End Time"
-                    value={`${form.startDate} - ${form.endDate}`}
+                    value={date}
+                    PopperProps={{ anchorEl: customInputRef.current }}
                     onChange={handleChange}
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={({
+                        form,
+                        ref,
+                        onChange
+                    }) => 
+                    <TextField 
+                    value={`${form.startDate} - ${form.endDate}`} 
+                    ref={customInputRef}
+                    onChange={onChange}
+                    />}
                     />
                 </LocalizationProvider>
               </Grid>
