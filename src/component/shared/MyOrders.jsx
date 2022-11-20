@@ -3,7 +3,7 @@ import * as transService from "../../service/buyer/MyTransactionService";
 import { getAccountById } from "../../service/shared/accountService";
 import jwtDecode from "jwt-decode";
 import ReceivedListTable from "./ReceivedListTable";
-import PaymentListTable from "./PaymentListTable";
+import ForPaymentListTable from "./ForPaymentListTable";
 
 //--MUI--
 import Card from "@mui/material/Card";
@@ -12,14 +12,13 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 
-const MyTransaction = () => {
-  const [adsList, setAdsList] = useState();
-  const [myPaidList, setMyPaidList] = useState();
-  const [myReceivedList, setMyReceivedList] = useState();
+const MyOrders = () => {
+  const [myPaymentList, setMyPaymentList] = useState();
+  const [myToReceiveList, setMyToReceiveList] = useState();
   const [account, setAccount] = useState();
   const [toggle, setToggle] = useState(false);
-  const [myPaidListToggle, setMyPaidListToggle] = useState(false);
-  const [myReceivedListToggle, setMyReceivedListToggle] = useState(false);
+  const [myPaymentListToggle, setMyPaymentListToggle] = useState(false);
+  const [myToReceiveListToggle, setMyToReceiveListToggle] = useState(false);
   const [isPaymentTable, setIsPaymentTable] = useState(true);
 
   useEffect(() => {
@@ -34,57 +33,53 @@ const MyTransaction = () => {
     getCurrentAccount(decoded.id);
   }, []);
 
-  //   useEffect(() => {
-  //     console.log(account);
-  //     console.log(myPaidList);
-  //   }, [toggle]);
-
   const getAllPaymentFunction = async () => {
     const res = await transService.getAllCropPayment();
     //console.log(res.data);
     if (account) {
       const myPayment = res.data.filter(
         (payment) =>
-          payment.account.accountId == account.accountId && payment.paid == true
+          payment.account.accountId == account.accountId &&
+          payment.paid == false
       );
 
-      setMyPaidList(myPayment);
-      setMyPaidListToggle(!myPaidListToggle);
+      setMyPaymentList(myPayment);
+      setMyPaymentListToggle(!myPaymentListToggle);
     }
   };
 
-  const getAllReceivedFunction = async () => {
+  const getAllToReceiveFunction = async () => {
     const res = await transService.getAllCropReceived();
 
     if (account) {
       const myReceived = res.data.filter(
         (item) =>
-          item.account.accountId == account.accountId && item.received == true
+          item.account.accountId == account.accountId && item.received == false
       );
 
-      setMyReceivedList(myReceived);
-      setMyReceivedListToggle(!myReceivedListToggle);
+      setMyToReceiveList(myReceived);
+      setMyToReceiveListToggle(!myToReceiveListToggle);
     }
   };
 
   const handlePaymentPage = () => {
     setIsPaymentTable(true);
   };
-  const handleReceivedProductPage = () => {
+  const handleToReceiveProductPage = () => {
     setIsPaymentTable(false);
   };
 
   useEffect(() => {
     getAllPaymentFunction();
-    getAllReceivedFunction();
+    getAllToReceiveFunction();
   }, [toggle]);
 
   useEffect(() => {
-    console.log(myPaidList);
-  }, [myPaidListToggle]);
+    console.log(myPaymentList);
+  }, [myPaymentListToggle]);
   useEffect(() => {
-    console.log(myReceivedList);
-  }, [myReceivedListToggle]);
+    console.log(myToReceiveList);
+  }, [myToReceiveListToggle]);
 
   return (
     <>
@@ -106,25 +101,25 @@ const MyTransaction = () => {
                     sx={{ borderRadius: 50, margin: 1 }}
                     variant={isPaymentTable ? "outlined" : "contained"}
                   >
-                    Payment History
+                    For Payment
                   </Button>
                   <Button
-                    onClick={handleReceivedProductPage}
+                    onClick={handleToReceiveProductPage}
                     sx={{ borderRadius: 50, margin: 1 }}
                     variant={isPaymentTable ? "contained" : "outlined"}
                   >
-                    Products Received
+                    To Receive
                   </Button>
                 </CardContent>
               </Grid>
 
               <Grid item xs={12} md={9}>
                 <CardContent>
-                  {myReceivedList && !isPaymentTable && (
-                    <ReceivedListTable details={myReceivedList} />
+                  {myToReceiveList && isPaymentTable && (
+                    <ForPaymentListTable details={myPaymentList} />
                   )}
-                  {myPaidList && isPaymentTable && (
-                    <PaymentListTable details={myPaidList} />
+                  {myPaymentList && !isPaymentTable && (
+                    <ReceivedListTable details={myToReceiveList} />
                   )}
                 </CardContent>
               </Grid>
@@ -136,4 +131,4 @@ const MyTransaction = () => {
   );
 };
 
-export default MyTransaction;
+export default MyOrders;

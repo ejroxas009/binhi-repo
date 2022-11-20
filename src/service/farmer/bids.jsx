@@ -14,3 +14,7 @@ export function addBid(form) {
 export function getCurrentUser() {
   return http.get();
 }
+
+export function acceptBid(adsId, bidId) {
+  return http.put(`/bid/accept-bid2/${adsId}/${bidId}`);
+}

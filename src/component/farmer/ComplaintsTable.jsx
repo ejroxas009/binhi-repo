@@ -23,8 +23,8 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { TableHead } from "@mui/material";
-import { styled } from '@mui/material/styles';
-import { Colors } from '../../styles/Theme/Theme';
+import { styled } from "@mui/material/styles";
+import { Colors } from "../../styles/Theme/Theme";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -37,11 +37,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
+  "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
   // hide last border
-  '&:last-child td, &:last-child th': {
+  "&:last-child td, &:last-child th": {
     border: 0,
   },
 }));
@@ -106,7 +106,7 @@ const ComplaintsTable = () => {
   }, [accountToggle]);
 
   useEffect(() => {
-    // console.log(accountList);
+    console.log(accountList);
   }, [accountListToggle]);
 
   useEffect(() => {
@@ -126,57 +126,60 @@ const ComplaintsTable = () => {
   return (
     <>
       {complaints && (
-          <TableContainer component={Paper}>
+        <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell align="center">Image Proof (Optional)</StyledTableCell>
-              <StyledTableCell align="center">Post Message</StyledTableCell>
-              <StyledTableCell align="center">Status</StyledTableCell>
-            </TableRow>
-              </TableHead>
-              <TableBody>
-                {(rowsPerPage > 0
-                  ? complaints.slice(
-                      page * rowsPerPage,
-                      page * rowsPerPage + rowsPerPage
-                    )
-                  : complaints
-                ).map((data) => (
-                  <StyledTableRow key={data.complaintId}>
-                    <StyledTableCell align="center">{data.complaintImg}</StyledTableCell>
-                    <StyledTableCell align="center">{data.complaintPost}</StyledTableCell>
-                    <StyledTableCell align="center">(Read)  (Resolve)</StyledTableCell>
-                  </StyledTableRow>
-                ))}
-              </TableBody>
-              <TableFooter>
-                <TableRow>
-                  <TablePagination
-                    rowsPerPageOptions={[
-                      5,
-                      10,
-                      25,
-                      { label: "All", value: -1 },
-                    ]}
-                    colSpan={4}
-                    count={complaints.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    SelectProps={{
-                      inputProps: {
-                        "aria-label": "rows per page",
-                      },
-                      native: true,
-                    }}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                    ActionsComponent={TablePaginationActions}
-                  />
-                </TableRow>
-              </TableFooter>
-            </Table>
-          </TableContainer>
+            <TableHead>
+              <TableRow>
+                <StyledTableCell align="center">
+                  Image Proof (Optional)
+                </StyledTableCell>
+                <StyledTableCell align="center">Post Message</StyledTableCell>
+                <StyledTableCell align="center">Status</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {(rowsPerPage > 0
+                ? complaints.slice(
+                    page * rowsPerPage,
+                    page * rowsPerPage + rowsPerPage
+                  )
+                : complaints
+              ).map((data) => (
+                <StyledTableRow key={data.complaintId}>
+                  <StyledTableCell align="center">
+                    {data.complaintImg}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {data.complaintPost}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    (Read) (Resolve)
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                  colSpan={4}
+                  count={complaints.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  SelectProps={{
+                    inputProps: {
+                      "aria-label": "rows per page",
+                    },
+                    native: true,
+                  }}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                  ActionsComponent={TablePaginationActions}
+                />
+              </TableRow>
+            </TableFooter>
+          </Table>
+        </TableContainer>
       )}
     </>
   );

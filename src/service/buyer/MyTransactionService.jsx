@@ -9,5 +9,13 @@ export function getAllCropPayment() {
 }
 
 export function getAllCropReceived() {
-  return http.get("crop-received");
+  return http.get("/crop-received");
+}
+
+export function addCropPayment(form) {
+  return http.post("/crop-payment", form);
+}
+
+export function addCropReceived(form) {
+  return http.post("crop-received", form);
 }
