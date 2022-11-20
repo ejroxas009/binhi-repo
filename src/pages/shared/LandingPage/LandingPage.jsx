@@ -10,9 +10,12 @@ import LandingPageCard from '../../../component/shared/Cards/LandingPageCard';
 import FarmerBanner from "../../../assets/images/farmerbanner.jpg";
 import Appbar from '../../../component/shared/Appbar';
 
+import * as accountService from "../../../service/shared/accountService"
+
 
 
 const landingpage = () => {
+  const accessToken = accountService.getAccessToken(); 
   
   return (
     
@@ -34,11 +37,26 @@ const landingpage = () => {
       marginTop: 10
     }}>
       <Grid container spacing={2}>
-        <Grid mt={10}  container
+      {( accessToken ) ? (
+          <Grid mt={10}  container
+          direction="row"
+          justifyContent="center"
+          alignItems="center">
+            <Button 
+            size="large" 
+            variant="contained" 
+            LinkComponent={Link} 
+            to="/admin/dashboard" 
+            sx={{borderRadius:5, marginLeft:2}} >
+              Go to Dashboard
+            </Button>
+          </Grid>
+        ) : (
+          <Grid mt={10}  container
           direction="row"
           justifyContent="center"
           alignItems="center" >
-
+        
           <Button 
           size="large" 
           variant="contained" 
@@ -56,8 +74,8 @@ const landingpage = () => {
           sx={{borderRadius:5, marginLeft:2}} >
             Register
           </Button>
-
         </Grid>
+        )}
       </Grid>
     </Box>
     
