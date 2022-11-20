@@ -86,7 +86,7 @@ export function LoginPage({ onSetAccessToken }) {
       onSubmit={handleSubmit}
     >
       <Grid item xs={10} sm={10} md={6} lg={4} xl={4} mt={15}>
-        <Card>
+        <Card elevation={3}>
           <CardHeader title="LOGIN" />
           <CardContent>
             <Grid container spacing={2}>

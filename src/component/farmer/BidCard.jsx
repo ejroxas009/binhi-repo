@@ -14,12 +14,12 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { green } from "@mui/material/colors";
 import ReportIcon from "@mui/icons-material/Report";
-import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import Button from "@mui/material/Button";
 import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
 import { styled } from "@mui/material/styles";
 import Collapse from "@mui/material/Collapse";
 import Grid from "@mui/material/Grid";
+import Chip from "@mui/material/Chip";
 
 //components
 import SendComplainModal from "../../component/shared/SendComplainModal";
@@ -73,6 +73,9 @@ const BidCard = () => {
   const [postAds, setPostAds] = useState();
   const [postToggle, setPostToggle] = useState(false);
 
+  const [ads, setAds] = useState();
+  const [adsToggle, setAdsToggle] = useState(false);
+
   //-----------Complaint------------------
   const [sendComplainOpen, setSendComplainOpen] = useState(false);
   const [complaintToggle, setComplaintToggle] = useState(false);
@@ -98,6 +101,13 @@ const BidCard = () => {
     };
     getCurrentAccount(decoded.id);
   }, []);
+  
+  const getAdById = async () => {
+    const res = await adsService.getAdsById();
+    console.log(res.data);
+    setAds(res.data);
+    setAdsToggle(!adsToggle);
+  }
 
   const getAllBids = async () => {
     const res = await bidService.getAllBid();
@@ -132,6 +142,7 @@ const BidCard = () => {
 
   useEffect(() => {
     getAllBids();
+    getAdById();
     getAllAds();
     getAllAccounts();
   }, [accountToggle]);
@@ -139,6 +150,10 @@ const BidCard = () => {
   useEffect(() => {
     console.log(accountList);
   }, [accountListToggle]);
+
+  useEffect(() => {
+    console.log(ads);
+  }, [adsToggle]);
 
   useEffect(() => {
     console.log(bids);
@@ -204,15 +219,11 @@ const BidCard = () => {
                     }
                     action={
                       <IconButton aria-label="settings">
-                        <StarBorderOutlinedIcon />
+                        {/* <StarBorderOutlinedIcon /> */}
                       </IconButton>
                     }
-                    title={accountList.map((account) => {
-                      if (account.accountId == bidsDetail.account.accountId) {
-                        return account.username;
-                      }
-                    })}
-                    subheader="Date"
+                    // title={`${ads.account.firstName} ${ads.account.lastName}`}
+                    // subheader={ads.postDate && ads.postDate.substring(0, 10)}
                   />
                   <CardContent>
                     <Typography variant="body2" color="text.secondary">
@@ -262,7 +273,12 @@ const BidCard = () => {
                       <Typography paragraph>
                         BID MESSAGE: {bidsDetail.bidMsg}
                       </Typography>
-                      <Typography>STATUS: Active / (Approve?) (Paid?)</Typography>
+                      <Typography>STATUS: 
+                            {bidsDetail.isActive ? (
+                              <Chip label="Accepted" color="primary" />
+                            ) : (
+                              <Chip label="Your Bid is not accepted" color="warning" />
+                            )}</Typography>
                     </CardContent>
                   </Collapse>
                 </Card>

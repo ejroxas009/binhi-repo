@@ -59,6 +59,8 @@ const CoursesList = ({ details }) => {
   };
 
   return (
+    <>
+  <h1>Courses</h1>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
@@ -118,6 +120,7 @@ const CoursesList = ({ details }) => {
         </TableFooter>
       </Table>
     </TableContainer>
+    </>
   );
 };
 
