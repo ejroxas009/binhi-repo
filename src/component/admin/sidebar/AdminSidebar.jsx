@@ -234,6 +234,15 @@ export default function AdminSidebar() {
               </ListItem>
 
               <ListItem disablePadding>
+                <ListItemButton LinkComponent={Link} to="/admin/crops">
+                  <ListItemIcon>
+                    <DashboardRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Crops"} />
+                </ListItemButton>
+              </ListItem>
+
+              <ListItem disablePadding>
                 <ListItemButton LinkComponent={Link} to="/admin/users">
                   <ListItemIcon>
                     <DashboardRoundedIcon />
