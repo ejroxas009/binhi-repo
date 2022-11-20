@@ -9,6 +9,7 @@ import {
 import { v4 } from "uuid";
 import { storage } from "../../service/shared/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import GCashModal from "./GCashModal";
 
 //----MUI-----------
 import Grid from "@mui/material/Grid";
@@ -24,6 +25,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import SaveIcon from "@mui/icons-material/Save";
 import ChangePWModal from "./ChangePWModal";
 import ChangeProfileImageModal from "./ChangeProfileImageModal";
+import Typography from "@mui/material/Typography";
 import { toast } from "react-toastify";
 
 const Profile = () => {
@@ -46,6 +48,7 @@ const Profile = () => {
   const [profileImageRef, setProfileImageRef] = useState(null);
   const [profileImageUrl, setProfileImageUrl] = useState("");
   const [profileImageToggle, setProfileImageToggle] = useState(false);
+  const [GcashModalOpen, setGCashModalOpen] = useState(false);
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     const decoded = jwtDecode(token);
@@ -154,6 +157,11 @@ const Profile = () => {
     setIsEdit(false);
   };
 
+  //-------------GCash-----------------------
+
+  const handleGCashModalOpen = () => setGCashModalOpen(true);
+  const handleGCashModalClose = () => setGCashModalOpen(false);
+
   return (
     <Grid container sx={{ marginLeft: 35, marginTop: 13 }}>
       <Grid item xs={12} sm={12} md={9} lg={9}>
@@ -183,7 +191,6 @@ const Profile = () => {
           <Card>
             <Grid container>
               <Grid item xs={4}>
-                {" "}
                 <CardHeader
                   title={`${account.firstName} ${account.lastName}`}
                   subheader={`@${account.username}`}
@@ -191,7 +198,6 @@ const Profile = () => {
               </Grid>
               <Grid item xs={4}></Grid>
               <Grid container item xs={4} justifyContent="flex-end">
-                {" "}
                 <CardHeader
                   title={
                     isEdit ? (
@@ -352,6 +358,52 @@ const Profile = () => {
                     disabled={!isEdit}
                   />
                 </Grid>
+                <Grid item xs={12} sm={12} md={4} lg={4}>
+                  <TextField
+                    label="Bank Name "
+                    name="bankName"
+                    value={account.bankName}
+                    onChange={handleChange}
+                    sx={{ margin: 1 }}
+                    fullWidth
+                    disabled={!isEdit}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={12} md={4} lg={4}>
+                  <TextField
+                    label="Account Name"
+                    name="bankAccountName"
+                    value={account.bankAccountName}
+                    onChange={handleChange}
+                    sx={{ margin: 1 }}
+                    fullWidth
+                    disabled={!isEdit}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={12} md={4} lg={4}>
+                  <TextField
+                    label="Account Number"
+                    name="bankAccountNumber"
+                    value={account.bankAccountNumber}
+                    onChange={handleChange}
+                    sx={{ margin: 1 }}
+                    fullWidth
+                    disabled={!isEdit}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                  <Card>
+                    <CardContent>
+                      <Button
+                        variant="outlined"
+                        fullWidth
+                        onClick={handleGCashModalOpen}
+                      >
+                        <Typography>G-Cash QR</Typography>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </Grid>
                 <Grid container item xs={12} justifyContent="flex-end">
                   <Button
                     variant="contained"
@@ -384,6 +436,13 @@ const Profile = () => {
         onHandleSubmit={handleSubmitProfileImage}
         onSetImageUpload={setProfileImageUpload}
       />
+      {account && (
+        <GCashModal
+          open={GcashModalOpen}
+          account={account}
+          onHandleClose={handleGCashModalClose}
+        />
+      )}
     </Grid>
   );
 };

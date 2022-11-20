@@ -107,6 +107,7 @@ const EnrolledCourses = () => {
 
   return (
     <>
+  <h1>My Courses</h1>
     {enrolledCourse && (
     <TableContainer component={Paper}>
     <Table sx={{ minWidth: 700 }} aria-label="customized table">

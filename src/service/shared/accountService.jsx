@@ -40,3 +40,7 @@ export function getCurrentUser() {
   // console.log("getCurrentUser()");
   return http.get("");
 }
+
+export function uploadGCashQR(id, form) {
+  return http.put(`account/change-gcash-qr/${id}`, form);
+}

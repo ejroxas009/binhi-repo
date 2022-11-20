@@ -31,7 +31,7 @@ const FarmTipsCard = ({ tipsList }) => {
 
   return (
     <>
-
+   
       {/* Start of Card */}
       <Grid container="row" columnSpacing={{ xs: 12, sm: 3, md: 6, lg: 6 }}>
         {tipsList.map((contents) => (

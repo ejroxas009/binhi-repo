@@ -25,6 +25,15 @@ const RadioButton = ({ label, onHandleChange, list, value, name }) => {
                 label={item.gender}
               />
             );
+          } else if (item.paymentMode) {
+            return (
+              <FormControlLabel
+                key={item.paymentModeId}
+                value={item.paymentMode}
+                control={<Radio />}
+                label={item.paymentMode}
+              />
+            );
           }
         })}
       </RadioGroup>
