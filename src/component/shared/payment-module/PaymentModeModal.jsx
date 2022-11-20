@@ -1,9 +1,14 @@
-import * as React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import RadioButton from "../RadioButton";
+import Grid from "@mui/material/Grid";
+import SendIcon from "@mui/icons-material/Send";
+import * as transactionService from "../../../service/buyer/MyTransactionService";
+import GCashPaymentMode from "./GCashPaymentMode";
+import BankTransferPaymentMode from "../BankTransferPaymentMode";
 
 const style = {
   position: "absolute",
@@ -31,13 +36,39 @@ const paymentMode = [
     paymentMode: "Bank Transfer",
   },
 ];
-const PaymentModeModal = ({ open, handleClose, handleOpen }) => {
+const PaymentModeModal = ({
+  open,
+  onHandleClose,
+  handleOpen,
+  paymentId,
+  onHandleChange,
+  form,
+  onSetForm,
+  paymentMethod,
+  bidWinner,
+}) => {
+  const [paymentMethodOpen, setPaymentMethodOpen] = useState(false);
+  const handleProceedToCheckout = async () => {
+    console.log(form);
+    if (paymentId) {
+      const res = await transactionService.setPaymentMethod(paymentId, form);
+      console.log(res);
+    }
+    handlePaymentMethodOpen();
+    // if (paymentMethod == "G Cash") {
+    //   console.log("G cash");
+    //   handlePaymentMethodOpen();
+    // }
+  };
+
+  const handlePaymentMethodOpen = () => setPaymentMethodOpen(true);
+  const handlePaymentMethodClose = () => setPaymentMethodOpen(false);
+
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
       <Modal
         open={open}
-        onClose={handleClose}
+        onClose={onHandleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -46,9 +77,49 @@ const PaymentModeModal = ({ open, handleClose, handleOpen }) => {
             Payment Method
           </Typography>
 
-          <RadioButton list={paymentMode} />
+          <RadioButton
+            list={paymentMode}
+            onHandleChange={onHandleChange}
+            name="changePaymentMethod"
+            value={form.changePaymentMethod}
+          />
+          <Grid container justifyContent="center" spacing={2}>
+            <Grid item>
+              <Button
+                variant="outlined"
+                sx={{ borderRadius: 50 }}
+                onClick={onHandleClose}
+              >
+                Cancel
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                variant="contained"
+                sx={{ borderRadius: 50 }}
+                endIcon={<SendIcon />}
+                onClick={handleProceedToCheckout}
+              >
+                Proceed to Checkout
+              </Button>
+            </Grid>
+          </Grid>
         </Box>
       </Modal>
+      {paymentMethod == "G Cash" && (
+        <GCashPaymentMode
+          open={paymentMethodOpen}
+          onHandleClose={handlePaymentMethodClose}
+          bidWinner={bidWinner}
+        />
+      )}
+      {paymentMethod == "Bank Transfer" && (
+        <BankTransferPaymentMode
+          open={paymentMethodOpen}
+          onHandleClose={handlePaymentMethodClose}
+          bidWinner={bidWinner}
+        />
+      )}
     </div>
   );
 };

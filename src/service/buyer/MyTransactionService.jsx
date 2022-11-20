@@ -19,3 +19,7 @@ export function addCropPayment(form) {
 export function addCropReceived(form) {
   return http.post("crop-received", form);
 }
+
+export function setPaymentMethod(paymentId, form) {
+  return http.put(`/crop-payment/change-payment-mode/${paymentId}`, form);
+}
