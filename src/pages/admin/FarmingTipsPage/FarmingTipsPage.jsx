@@ -34,7 +34,6 @@ const FarmingTipsPage = () => {
         <Grid item md={3}>
           <AdminSidebar />
         </Grid>
-        <Container>
           <Grid item xs={12} sm={12} md={12} lg={12} mt={15}>
             {tipList && (
               <FarmingTips
@@ -44,7 +43,6 @@ const FarmingTipsPage = () => {
               />
             )}
           </Grid>
-        </Container>
       </Grid>
     </>
   );

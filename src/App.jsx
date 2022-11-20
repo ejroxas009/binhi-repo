@@ -16,7 +16,7 @@ import RegisterPage from "./pages/shared/RegisterPage";
 //LandingPage
 import LandingPage from "./pages/shared/LandingPage/LandingPage";
 
-//farmerPages
+//pages - farmer
 import FarmerDashboardPage from "./pages/farmer/FarmerDashboardPage";
 import MyProfile from "./pages/farmer/MyProfile";
 import MarketplacePage from "./pages/farmer/MarketplacePage";
@@ -27,6 +27,7 @@ import MyCurrentAds from "./pages/farmer/MyCurrentAds";
 import MyComplaints from "./pages/farmer/MyComplaints";
 import MyCourses from "./pages/farmer/MyCourses";
 import ViewAllBids from "./pages/farmer/ViewAllBids";
+import FarmTipsTab from "./pages/farmer/FarmTipsTab";
 
 //service
 import * as accountService from "./service/shared/accountService";
@@ -138,6 +139,11 @@ function App() {
         <Route
           path="/farmer/enrolled-courses"
           element={accessToken ? <MyCourses /> : <Navigate to="/" />}
+        />
+
+        <Route
+          path="/farmer/farming-tips"
+          element={accessToken ? <FarmTipsTab /> : <Navigate to="/" />}
         />
 
         <Route
