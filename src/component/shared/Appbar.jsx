@@ -1,60 +1,49 @@
 import React, { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
 import AppBar from '@mui/material/AppBar';
-import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import { Navigate, useNavigate } from "react-router-dom";
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 
-import { v4 } from "uuid";
-import { storage } from "../../service/shared/firebase";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import {
-  getAccountById,
-  changePW,
-  changeProfileImage,
-  editAccount,
-} from "../../service/shared/accountService";
+import * as accountService from "../../service/shared/accountService"
+
+import { getAccountById, changeProfileImage } from "../../service/shared/accountService";
 import jwtDecode from "jwt-decode";
+
 //----MUI-----------
 import Avatar from "@mui/material/Avatar";
 import { LogoStyle } from "../../styles/Appbar/AppbarStyles";
 import Logo from "../../assets/images/Logo.png";
-import { Container, IconButton, Menu, MenuItem, Tooltip } from "@mui/material";
+import { Button, Container, IconButton, Menu, MenuItem, Tooltip } from "@mui/material";
 
-export default function Appbar({accessToken}){
+
+
+
+export default function Appbar({ onLogout }){
   
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    accountService.logout();
+    navigate("/")
+    window.location.reload();
+    
+  };
+ 
   const [account, setAccount] = React.useState();
   const [toggle, setToggle] = React.useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  const [open, setOpen] = useState(false);
   const [profileImageOpen, setProfileImageOpen] = useState(false);
-  const [confirmNewPW, setConfirmNewPW] = useState("");
-  const [changePWForm, setChangePWForm] = useState({
-    oldPassword: "",
-    newPassword: "",
-  });
+
   const [profileImgForm, setProfileImgForm] = useState({
     profileImage: "",
   });
-  const [proileImgToggle, setProfileImgToggle] = useState(false);
 
-  const [profileImageUpload, setProfileImageUpload] = useState(null);
-  const [profileImageRef, setProfileImageRef] = useState(null);
-  const [profileImageUrl, setProfileImageUrl] = useState("");
+  //accessToken
+  const accessToken = accountService.getAccessToken(); 
+
   const [profileImageToggle, setProfileImageToggle] = useState(false);
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -74,69 +63,9 @@ export default function Appbar({accessToken}){
     // console.log(profileImg);
   }, [toggle]);
 
-  const handleChange = (event) => {
-    setAccount({
-      ...account,
-      [event.currentTarget.name]: event.currentTarget.value,
-    });
-  };
-
-  //------For change password----------------------
-  const handlePWChange = (event) => {
-    setChangePWForm({
-      ...changePWForm,
-      [event.currentTarget.name]: event.currentTarget.value,
-    });
-  };
-
-  const handleConfirmNewPWChange = (event) => {
-    setConfirmNewPW(event.target.value);
-  };
-
-  const handleChangePWSubmit = async (event) => {
-    event.preventDefault();
-    console.log(changePWForm);
-    console.log(account);
-    const res = await changePW(account.accountId, changePWForm);
-    console.log(res);
-  };
-
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  //-------end of change password -------------
-
   //------------Change profile Image ------------------
   const handleOpenProfileImage = () => setProfileImageOpen(true);
   const handleCloseProfileImage = () => setProfileImageOpen(false);
-  const uploadProfileImage = async () => {
-    if (profileImageUpload == null) return;
-    const profileImageRef = ref(
-      storage,
-      `profile-image-testing/${profileImageUpload.name + v4()}`
-    );
-    setProfileImageRef(profileImageRef);
-    try {
-      console.log("uploading");
-      await uploadBytes(profileImageRef, profileImageUpload);
-      const url = await getDownloadURL(profileImageRef);
-
-      return url;
-    } catch {}
-  };
-
-  const handleSubmitProfileImage = async (event) => {
-    event.preventDefault();
-    console.log("Submitted");
-    const url = await uploadProfileImage();
-    console.log(typeof url);
-    setProfileImgForm({
-      profileImage: url,
-    });
-    setProfileImageToggle(!profileImageToggle);
-    console.log(profileImgForm);
-
-    alert("success");
-  };
 
   //----ProfileImage toggle----
   useEffect(() => {
@@ -152,15 +81,6 @@ export default function Appbar({accessToken}){
 
     changeProfileImageFunction();
   }, [profileImageToggle]);
-
-  //---------end of profileImage---------------
-
-  const handleSubmitEditAccount = async (event) => {
-    event.preventDefault();
-    const res = await editAccount(account.accountId, account);
-    console.log(res);
-    setIsEdit(false);
-  };
 
 
   //From MUI
@@ -183,7 +103,7 @@ export default function Appbar({accessToken}){
   };
 
   const settings = ['Logout'];
-    return(
+  return(
     <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar>
           <Typography
@@ -225,15 +145,17 @@ export default function Appbar({accessToken}){
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
+            
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {account && (
+              {( account && (
                     <Avatar
-                        alt="Profile"
+                        alt="Profile Image"
                         src={account.profileImg}
                         sx={{ width: 50, height: 50 }}
                     />
-                    )}
+                    ))}
               </IconButton>
+              
             </Tooltip>
             <Menu
               sx={{ mt: '45px' }}
@@ -252,12 +174,12 @@ export default function Appbar({accessToken}){
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={() => {
-                  localStorage.removeItem("accessToken");
-                  navigate("/");
+                <MenuItem key={setting} 
+                onClick={() => {
                   handleCloseUserMenu();
-                  
-                }}>
+                  handleLogout();
+                }}
+                >
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}

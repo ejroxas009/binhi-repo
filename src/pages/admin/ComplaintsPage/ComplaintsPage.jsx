@@ -28,7 +28,7 @@ const ComplaintsPage = () => {
     <>
         <Grid container>
         <Grid item xs={12}>
-          <AdminAppbar />
+          <Appbar />
         </Grid>
         <Grid item md={3}>
           <AdminSidebar />

@@ -113,6 +113,15 @@ const FarmerSidebar = () => {
                 <ListItemText primary={"My Courses"} />
               </ListItemButton>
             </ListItem>
+
+            <ListItem disablePadding>
+              <ListItemButton LinkComponent={Link} to="/farmer/farming-tips">
+                <ListItemIcon>
+                  <DashboardRoundedIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Farming Tips"} />
+              </ListItemButton>
+            </ListItem>
           </List>
         </Box>
       </Drawer>
