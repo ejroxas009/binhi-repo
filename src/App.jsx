@@ -52,6 +52,7 @@ import CoursesPage from "./pages/admin/CoursesPage/CoursesPage";
 import FarmingTipsPage from "./pages/admin/FarmingTipsPage/FarmingTipsPage";
 import AdvertisementPage from "./pages/admin/AdvertisementPage/AdvertisementPage";
 import Appbar from "./component/shared/Appbar";
+import CropsPage from "./pages/admin/Crops/CropsPage";
 
 function App() {
   const [accessToken, setAccessToken] = React.useState(
@@ -225,6 +226,10 @@ function App() {
         <Route
           path="/admin/ads"
           element={accessToken ? <AdvertisementPage /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/admin/crops"
+          element={accessToken ? <CropsPage /> : <Navigate to="/" />}
         />
       </Routes>
     </ThemeProvider>
