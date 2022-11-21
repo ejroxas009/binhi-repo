@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -14,8 +14,15 @@ import PropTypes from "prop-types";
 import TableFooter from "@mui/material/TableFooter";
 import TablePagination from "@mui/material/TablePagination";
 
+import jwtDecode from "jwt-decode";
+import { toast, ToastContainer } from "react-toastify";
+
 //components
 import TablePaginationActions from "../shared/TablePaginationActions";
+
+//services
+import * as courseService from "../../service/admin/courseService";
+import { getAccountById } from "../../service/shared/accountService";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -44,9 +51,36 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
+const randomstring = require("randomstring");
+
 const CoursesList = ({ details }) => {
+  const [account, setAccount] = useState();
+  const [toggle, setToggle] = useState(false);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [ enrollForm, setEnrollForm ] = useState({
+    enrollId: "",
+    accountId: "",
+    courseId: "",
+  });
+  const [coursesId, setCoursesId] = useState();
+  const [ enrollFormToggle, setEnrollFormToggle] = useState(false);
+  const [enrollButtonToggle, setEnrollButtonToggle] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    const decoded = jwtDecode(token);
+    const getCurrentAccount = async (id) => {
+      const res = await getAccountById(id);
+      setAccount(res.data);
+      setToggle(!toggle);
+    };
+    getCurrentAccount(decoded.id);
+  }, []);
+
+  useEffect(() => {
+    console.log(account);
+  }, [toggle]);
 
   //Pagination
   const handleChangePage = (event, newPage) => {
@@ -58,68 +92,128 @@ const CoursesList = ({ details }) => {
     setPage(0);
   };
 
+  //--------------Enroll Course Function---------------------------
+  const handleEnrollCourse = async (accountId, courseId) => {
+    const enrollIdRef  =
+    "EnrollRef-" +
+    randomstring.generate({
+      length: 10,
+      charset: "alphanumeric",
+    });
+
+    setEnrollForm({
+      enrollId: enrollIdRef,
+      accountId,
+      courseId,
+    });
+    setCoursesId(courseId);
+    setEnrollFormToggle(!enrollFormToggle);
+
+  };
+
+  useEffect(() => {
+    const enrolledCourseFunction = async () => {
+      if (enrollForm.enrollId !== "") {
+        const res = await courseService.postCourseEnroll(enrollForm);
+        setEnrollButtonToggle(!enrollButtonToggle);
+        
+        console.log(enrollForm);
+        console.log(res);
+      }
+    };
+
+    enrolledCourseFunction();
+  }, [enrollFormToggle]);
+
+  useEffect(() => {
+    console.log(enrollButtonToggle);
+  }, [enrollButtonToggle]);
+
+  const showToastMessage = () => {
+    toast.success('Course Enrolled Successfully !', {
+        position: toast.POSITION.TOP_RIGHT
+    });
+};
+
+
   return (
     <>
-  <h1>Courses</h1>
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align="center">Course Description</StyledTableCell>
-            <StyledTableCell align="center">Schedule</StyledTableCell>
-            <StyledTableCell align="center">Action</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {(rowsPerPage > 0
-            ? details.slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage
-              )
-            : details
-          ).map((item) => (
-            <StyledTableRow key={item.courseId}>
+      <h1>Courses</h1>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell align="center">Course ID</StyledTableCell>
+              <StyledTableCell align="center">Course Name</StyledTableCell>
               <StyledTableCell align="center">
-                {item.courseDescription}
+                Course Description
               </StyledTableCell>
-              <StyledTableCell align="center">
-                {`${item.startTime} - ${item.endTime} | ${item.startDate} - ${item.endDate}`}
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                <Button
-                  variant="outlined"
-                  color="success"
-                  sx={{ borderRadius: "20px!important" }}
-                  
-                >
-                  Enroll
-                </Button>
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-              colSpan={4}
-              count={details.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                inputProps: {
-                  "aria-label": "rows per page",
-                },
-                native: true,
-              }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
-      </Table>
-    </TableContainer>
+              <StyledTableCell align="center">Schedule</StyledTableCell>
+              <StyledTableCell align="center">Action</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {(rowsPerPage > 0
+              ? details.slice(
+                  page * rowsPerPage,
+                  page * rowsPerPage + rowsPerPage
+                )
+              : details
+            ).map((item) => (
+              <StyledTableRow key={item.courseId}>
+                <StyledTableCell align="center">
+                  {item.courseId}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {item.courseName}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {item.courseDescription}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {`${item.startTime} - ${item.endTime} | ${item.startDate} - ${item.endDate}`}
+                </StyledTableCell>
+                <StyledTableCell>
+                  <Button
+                    variant="outlined"
+                    color="success"
+                    sx={{ borderRadius: "20px!important" }}
+                    onClick={() => {
+                      handleEnrollCourse(
+                        account.accountId,
+                        item.courseId
+                      )
+                    }}
+                  >
+                    Enroll
+                  </Button>
+                  <ToastContainer />
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                colSpan={4}
+                count={details.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                SelectProps={{
+                  inputProps: {
+                    "aria-label": "rows per page",
+                  },
+                  native: true,
+                }}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+              />
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </TableContainer>
     </>
   );
 };

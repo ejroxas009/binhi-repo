@@ -45,17 +45,6 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 275,
-  bgcolor: "background.paper",
-  borderRadius: "10px",
-  boxShadow: 24,
-  p: 4,
-};
 
 const BidCard = () => {
   const [value, setValue] = React.useState();
@@ -102,12 +91,12 @@ const BidCard = () => {
     getCurrentAccount(decoded.id);
   }, []);
   
-  const getAdById = async () => {
-    const res = await adsService.getAdsById();
-    console.log(res.data);
-    setAds(res.data);
-    setAdsToggle(!adsToggle);
-  }
+  // const getAdById = async () => {
+  //   const res = await adsService.getAdsById(id);
+  //   console.log(res.data);
+  //   setAds(res.data);
+  //   setAdsToggle(!adsToggle);
+  // }
 
   const getAllBids = async () => {
     const res = await bidService.getAllBid();
@@ -142,7 +131,7 @@ const BidCard = () => {
 
   useEffect(() => {
     getAllBids();
-    getAdById();
+    // getAdById();
     getAllAds();
     getAllAccounts();
   }, [accountToggle]);
@@ -151,9 +140,9 @@ const BidCard = () => {
     console.log(accountList);
   }, [accountListToggle]);
 
-  useEffect(() => {
-    console.log(ads);
-  }, [adsToggle]);
+  // useEffect(() => {
+  //   console.log(ads);
+  // }, [adsToggle]);
 
   useEffect(() => {
     console.log(bids);

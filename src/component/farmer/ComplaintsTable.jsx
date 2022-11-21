@@ -22,7 +22,7 @@ import TableFooter from "@mui/material/TableFooter";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Card, CardMedia, Grid, TableHead, Typography } from "@mui/material";
+import { Card, CardMedia, TableHead, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Colors } from "../../styles/Theme/Theme";
 import Chip from "@mui/material/Chip";
@@ -119,6 +119,10 @@ const ComplaintsTable = () => {
     setAccountListToggle(!accountListToggle);
   };
 
+  const getComplaintById = async () => {
+    const res = await complaintService.getComplaintsById();
+  };
+
   useEffect(() => {
     console.log(account);
   }, [accountToggle]);
@@ -126,6 +130,7 @@ const ComplaintsTable = () => {
   useEffect(() => {
     getAllComplaints();
     getAllAccounts();
+    getComplaintById();
   }, [accountToggle]);
 
   useEffect(() => {
@@ -163,8 +168,7 @@ const ComplaintsTable = () => {
             <TableHead>
               <TableRow>
                 <StyledTableCell align="center">
-
-                  Image Proof (Screenshot/s)
+                  Complaint Message
                 </StyledTableCell>
                 <StyledTableCell align="center">Status</StyledTableCell>
                 <StyledTableCell align="center">Actions</StyledTableCell>
@@ -180,7 +184,7 @@ const ComplaintsTable = () => {
               ).map((data) => (
                 <StyledTableRow key={data.complaintId}>
                   <StyledTableCell align="center">
-                    {data.complaintImg}
+                    {data.complaintPost}
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     {data.read ? (
@@ -206,20 +210,23 @@ const ComplaintsTable = () => {
                         Complaint Details
                       </DialogTitle>
                       <DialogContent>
-                        <DialogContentText>
+                        <DialogContentText >
                           <Typography>
                             Complaint ID: {data.complaintId}
+                            {console.log(data.complaintId)}
                           </Typography>
                           <Typography paragraph>
                             Post Message: {data.complaintPost}
+                            {console.log(data.complaintPost)}
                           </Typography>
                           <Typography paragraph>
-                            Status: 
+                            Status:
                             {data.resolved ? (
                               <Chip label="Resolved" color="primary" />
                             ) : (
                               <Chip label="UnResolved" color="warning" />
-                            )}
+                            )}{" "}
+                            {console.log(data.resolved)}
                           </Typography>
                           <Card elevation={5}>
                             <CardMedia

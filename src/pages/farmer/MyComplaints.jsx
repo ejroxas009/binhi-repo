@@ -3,9 +3,10 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 
 //components
-import ComplaintsTable from "../../component/farmer/ComplaintsTable";
+// import ComplaintsTable from "../../component/farmer/ComplaintsTable";
 import FarmerSidebar from "../../component/farmer/FarmerSidebar";
 import Appbar from "../../component/shared/appbar/Appbar";
+import Complaints from "../../component/farmer/Complaints";
 
 const MyComplaints = () => {
   return (
@@ -18,7 +19,7 @@ const MyComplaints = () => {
           <FarmerSidebar />
         </Grid>
         <Grid item xs={12} sm={12} md={8} lg={8} sx={{ marginTop: 10 }}>
-          <ComplaintsTable />
+          <Complaints />
         </Grid>
       </Grid>
     </>
