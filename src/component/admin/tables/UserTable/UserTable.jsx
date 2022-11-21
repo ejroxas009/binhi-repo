@@ -17,6 +17,9 @@ import PropTypes from "prop-types";
 //components
 import TablePaginationActions from "../../../shared/TablePaginationActions";
 
+//Service
+import * as userService from "../../../../service/admin/userService"
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: Colors.primary,
@@ -58,6 +61,11 @@ export default function UserTables({ list }) {
     setPage(0);
   };
 
+  //for block 
+  const handleBlockUser = async (id) => {
+    const res = await userService.blockUser(id);
+    console.log(res);
+  }
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -83,13 +91,20 @@ export default function UserTables({ list }) {
                 {item.isActive ? "Active" : "Inactive"}
               </StyledTableCell>
               <StyledTableCell align="right">
+                {/* nakaternary operator */}
+                {item.accountId && (
                 <Button
                   variant="outlined"
                   color="error"
                   sx={{ borderRadius: "20px!important" }}
+                  onClick = {() => {
+                    handleBlockUser(item.accountId)
+                    console.log(item.accountId)
+                 }} 
                 >
-                  Block
+                  Deactivate
                 </Button>
+                )}
               </StyledTableCell>
             </StyledTableRow>
           ))}
