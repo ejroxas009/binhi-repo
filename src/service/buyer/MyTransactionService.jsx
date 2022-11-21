@@ -23,3 +23,19 @@ export function addCropReceived(form) {
 export function setPaymentMethod(paymentId, form) {
   return http.put(`/crop-payment/change-payment-mode/${paymentId}`, form);
 }
+
+export function markAsPaid(paymentId) {
+  return http.put(`crop-payment/mark-as-paid/${paymentId}`);
+}
+
+export function sendProofOfPayment(paymentId, form) {
+  return http.put(`crop-payment/send-proof-of-payment/${paymentId}`, form);
+}
+
+export function receivePayment(paymentId) {
+  return http.put(`/crop-payment/receive-payment/${paymentId}`);
+}
+
+export function receiveCrop(receiveId) {
+  return http.put(`/crop-received/receive-crop/${receiveId}`);
+}

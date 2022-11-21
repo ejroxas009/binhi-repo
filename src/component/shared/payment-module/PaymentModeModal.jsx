@@ -111,6 +111,7 @@ const PaymentModeModal = ({
           open={paymentMethodOpen}
           onHandleClose={handlePaymentMethodClose}
           bidWinner={bidWinner}
+          paymentId={paymentId}
         />
       )}
       {paymentMethod == "Bank Transfer" && (
@@ -118,6 +119,7 @@ const PaymentModeModal = ({
           open={paymentMethodOpen}
           onHandleClose={handlePaymentMethodClose}
           bidWinner={bidWinner}
+          paymentId={paymentId}
         />
       )}
     </div>

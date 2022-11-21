@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,18 +7,17 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
+import SendIcon from "@mui/icons-material/Send";
 import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Link } from "react-router-dom";
-
-import TablePagination from "@mui/material/TablePagination";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import * as transactionService from "../../service/buyer/MyTransactionService";
 
-const ReceivedListTable = ({ details }) => {
-  const handleReceiveProduct = async (receiveId) => {
-    const res = await transactionService.receiveCrop(receiveId);
+const ReceivePaymentTable = (details) => {
+  const handleReceivePayment = async (paymentId) => {
+    const res = await transactionService.receivePayment(paymentId);
     console.log(res);
   };
   return (
@@ -30,34 +29,57 @@ const ReceivedListTable = ({ details }) => {
               Order Reference
             </TableCell>
             <TableCell align="center" sx={{ color: "white" }}>
-              Account Name
+              Customer Name
             </TableCell>
             <TableCell align="center" sx={{ color: "white" }}>
-              Crop
+              Crop Name
             </TableCell>
             <TableCell align="center" sx={{ color: "white" }}>
               Quantity
             </TableCell>
             <TableCell align="center" sx={{ color: "white" }}>
-              Receive
+              Accepted Bid Price
+            </TableCell>
+            <TableCell align="center" sx={{ color: "white" }}>
+              Total Amount
+            </TableCell>
+            <TableCell align="center" sx={{ color: "white" }}>
+              Payment Method
+            </TableCell>
+            <TableCell align="center" sx={{ color: "white" }}>
+              Proof of Payment
+            </TableCell>
+            <TableCell align="center" sx={{ color: "white" }}>
+              Receive Payment
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {details.map((detail) => (
+          {details.details.map((detail) => (
             <TableRow
-              key={detail.cropReceivedId}
+              key={detail.paymentId}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell align="center">{detail.orderIdRef}</TableCell>
+              <TableCell align="center">{`${detail.account.firstName} ${detail.account.middleName} ${detail.account.lastName}`}</TableCell>
               <TableCell align="center">
-                {`${detail.bid.account.firstName} ${detail.bid.account.middleName} ${detail.bid.account.lastName}`}
-              </TableCell>
-              <TableCell align="center">
-                {detail.advertisement.cropName}
+                {detail.advertisement.crop.cropName}
               </TableCell>
               <TableCell align="center">
                 {detail.advertisement.cropQuantity}
+              </TableCell>
+              <TableCell align="center">{detail.bid.bidPrice}</TableCell>
+              <TableCell align="center">
+                {detail.advertisement.cropQuantity * detail.bid.bidPrice}
+              </TableCell>
+              <TableCell align="center">
+                <Button>{detail.paymentMode}</Button>
+              </TableCell>
+
+              <TableCell align="center">
+                <IconButton>
+                  <VisibilityIcon />
+                </IconButton>
               </TableCell>
 
               <TableCell align="center">
@@ -65,7 +87,7 @@ const ReceivedListTable = ({ details }) => {
                   variant="contained"
                   sx={{ borderRadius: 50 }}
                   onClick={() => {
-                    handleReceiveProduct(detail.cropReceivedId);
+                    handleReceivePayment(detail.paymentId);
                   }}
                 >
                   Receive
@@ -79,10 +101,14 @@ const ReceivedListTable = ({ details }) => {
   );
 };
 
-export default ReceivedListTable;
+export default ReceivePaymentTable;
 
-//OrderRefId
+//OrderReference
 //AccountName
-//Crop Name
+//CropName
+//Bid Price
 //Quantity
-//Receive
+//Amount
+//paymentMode
+//View Proof of payment
+//Toggle Paid

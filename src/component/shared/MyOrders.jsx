@@ -4,6 +4,7 @@ import { getAccountById } from "../../service/shared/accountService";
 import jwtDecode from "jwt-decode";
 import ReceivedListTable from "./ReceivedListTable";
 import ForPaymentListTable from "./ForPaymentListTable";
+import ReceivePaymentTable from "./ReceivePaymentTable";
 
 //--MUI--
 import Card from "@mui/material/Card";
@@ -15,11 +16,15 @@ import Grid from "@mui/material/Grid";
 const MyOrders = () => {
   const [myPaymentList, setMyPaymentList] = useState();
   const [myToReceiveList, setMyToReceiveList] = useState();
+  const [myReceivePaymentList, setMyReceivePaymentList] = useState();
   const [account, setAccount] = useState();
   const [toggle, setToggle] = useState(false);
   const [myPaymentListToggle, setMyPaymentListToggle] = useState(false);
   const [myToReceiveListToggle, setMyToReceiveListToggle] = useState(false);
-  const [isPaymentTable, setIsPaymentTable] = useState(true);
+  const [myReceivePaymentListToggle, setMyReceivePaymentListToggle] =
+    useState(false);
+  const [isPaymentTable, setIsPaymentTable] = useState("for payment");
+  const [pageToggle, setPageToggle] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -45,6 +50,17 @@ const MyOrders = () => {
 
       setMyPaymentList(myPayment);
       setMyPaymentListToggle(!myPaymentListToggle);
+
+      const receivePayment = res.data.filter(
+        (receivePayment) =>
+          receivePayment.bid.account.accountId == account.accountId &&
+          receivePayment.bid.approved &&
+          receivePayment.markAsPaid &&
+          receivePayment.paid == false
+      );
+      console.log(receivePayment);
+      setMyReceivePaymentList(receivePayment);
+      setMyReceivePaymentListToggle(!myReceivePaymentListToggle);
     }
   };
 
@@ -63,11 +79,21 @@ const MyOrders = () => {
   };
 
   const handlePaymentPage = () => {
-    setIsPaymentTable(true);
+    setIsPaymentTable("for payment");
+    setPageToggle(!pageToggle);
   };
   const handleToReceiveProductPage = () => {
-    setIsPaymentTable(false);
+    setIsPaymentTable("to receive");
+    setPageToggle(!pageToggle);
   };
+  const handleReceivePaymentPage = () => {
+    setIsPaymentTable("receive payment");
+    setPageToggle(!pageToggle);
+  };
+
+  useEffect(() => {
+    console.log(isPaymentTable);
+  }, [pageToggle]);
 
   useEffect(() => {
     getAllPaymentFunction();
@@ -81,6 +107,10 @@ const MyOrders = () => {
     console.log(myToReceiveList);
   }, [myToReceiveListToggle]);
 
+  useEffect(() => {
+    console.log(myReceivePaymentList);
+  }, [myReceivePaymentListToggle]);
+
   return (
     <>
       <Grid container justifyContent="center">
@@ -89,38 +119,69 @@ const MyOrders = () => {
             <Grid container justifyContent="center" spacing={0}>
               <Grid item xs={12}>
                 <CardHeader
-                  title={
-                    isPaymentTable ? "Payment History" : "Products Received"
-                  }
+                  title={isPaymentTable ? "Payment" : "Receive Product"}
                 />
               </Grid>
               <Grid container item xs={12} justifyContent="center">
                 <CardContent>
                   <Button
-                    onClick={handlePaymentPage}
+                    onClick={() => {
+                      handlePaymentPage();
+
+                      console.log(isPaymentTable);
+                    }}
                     sx={{ borderRadius: 50, margin: 1 }}
-                    variant={isPaymentTable ? "outlined" : "contained"}
+                    variant={
+                      isPaymentTable == "for payment" ? "outlined" : "contained"
+                    }
                   >
                     For Payment
                   </Button>
                   <Button
-                    onClick={handleToReceiveProductPage}
+                    onClick={() => {
+                      handleToReceiveProductPage();
+
+                      console.log(isPaymentTable);
+                    }}
                     sx={{ borderRadius: 50, margin: 1 }}
-                    variant={isPaymentTable ? "contained" : "outlined"}
+                    variant={
+                      isPaymentTable == "to receive" ? "outlined" : "contained"
+                    }
                   >
                     To Receive
+                  </Button>
+                  <Button
+                    sx={{ borderRadius: 50, margin: 1 }}
+                    variant={
+                      isPaymentTable == "receive payment"
+                        ? "outlined"
+                        : "contained"
+                    }
+                    onClick={() => {
+                      handleReceivePaymentPage();
+                      console.log(isPaymentTable);
+                    }}
+                  >
+                    Receive Payment
                   </Button>
                 </CardContent>
               </Grid>
 
               <Grid item xs={12} md={9}>
                 <CardContent>
-                  {myToReceiveList && isPaymentTable && (
+                  {myToReceiveList && isPaymentTable == "for payment" && (
                     <ForPaymentListTable details={myPaymentList} />
                   )}
-                  {myPaymentList && !isPaymentTable && (
+                  {myPaymentList && isPaymentTable == "to receive" && (
                     <ReceivedListTable details={myToReceiveList} />
                   )}
+                  {myReceivePaymentList &&
+                    isPaymentTable == "receive payment" && (
+                      <ReceivePaymentTable details={myReceivePaymentList} />
+                    )}
+                  {/* {myPaymentList && isPaymentTable == "receive payment" && (
+                    <ReceivePaymentTable details={myPaymentList} />
+                  )} */}
                 </CardContent>
               </Grid>
             </Grid>
