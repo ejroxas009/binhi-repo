@@ -61,11 +61,22 @@ const FarmerSidebar = () => {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link} to="/farmer/transaction-history">
+              <ListItemButton
+                LinkComponent={Link}
+                to="/farmer/transaction-history"
+              >
                 <ListItemIcon>
                   <DashboardRoundedIcon />
                 </ListItemIcon>
                 <ListItemText primary={"Transaction History"} />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton LinkComponent={Link} to="/farmer/my-orders">
+                <ListItemIcon>
+                  <DashboardRoundedIcon />
+                </ListItemIcon>
+                <ListItemText primary={"My Orders"} />
               </ListItemButton>
             </ListItem>
 
@@ -106,7 +117,10 @@ const FarmerSidebar = () => {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link} to="/farmer/enrolled-courses">
+              <ListItemButton
+                LinkComponent={Link}
+                to="/farmer/enrolled-courses"
+              >
                 <ListItemIcon>
                   <DashboardRoundedIcon />
                 </ListItemIcon>

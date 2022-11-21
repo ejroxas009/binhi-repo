@@ -14,8 +14,15 @@ import EditIcon from "@mui/icons-material/Edit";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import * as transactionService from "../../service/buyer/MyTransactionService";
+import ViewProofOfPayment from "./ViewProofOfPayment";
 
 const ReceivePaymentTable = (details) => {
+  const [proofOfPaymentOpen, setProofOfPaymentOpen] = useState(false);
+  const [proofOfPayment, setProofOfPayment] = useState();
+
+  const handleProofOfPaymentOpen = () => setProofOfPaymentOpen(true);
+  const handleProofOfPaymentClose = () => setProofOfPaymentOpen(false);
+
   const handleReceivePayment = async (paymentId) => {
     const res = await transactionService.receivePayment(paymentId);
     console.log(res);
@@ -49,9 +56,6 @@ const ReceivePaymentTable = (details) => {
             <TableCell align="center" sx={{ color: "white" }}>
               Proof of Payment
             </TableCell>
-            <TableCell align="center" sx={{ color: "white" }}>
-              Receive Payment
-            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -77,26 +81,26 @@ const ReceivePaymentTable = (details) => {
               </TableCell>
 
               <TableCell align="center">
-                <IconButton>
-                  <VisibilityIcon />
-                </IconButton>
-              </TableCell>
-
-              <TableCell align="center">
-                <Button
-                  variant="contained"
-                  sx={{ borderRadius: 50 }}
+                <IconButton
                   onClick={() => {
-                    handleReceivePayment(detail.paymentId);
+                    setProofOfPayment(detail.proofOfPayment);
+                    handleProofOfPaymentOpen();
                   }}
                 >
-                  Receive
-                </Button>
+                  <VisibilityIcon />
+                </IconButton>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
+      {proofOfPayment && (
+        <ViewProofOfPayment
+          open={proofOfPaymentOpen}
+          onHandleClose={handleProofOfPaymentClose}
+          proofOfPayment={proofOfPayment}
+        />
+      )}
     </TableContainer>
   );
 };

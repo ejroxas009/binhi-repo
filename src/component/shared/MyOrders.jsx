@@ -5,6 +5,7 @@ import jwtDecode from "jwt-decode";
 import ReceivedListTable from "./ReceivedListTable";
 import ForPaymentListTable from "./ForPaymentListTable";
 import ReceivePaymentTable from "./ReceivePaymentTable";
+import ToReceiveListTable from "./ToReceiveListTable";
 
 //--MUI--
 import Card from "@mui/material/Card";
@@ -167,13 +168,14 @@ const MyOrders = () => {
                 </CardContent>
               </Grid>
 
-              <Grid item xs={12} md={9}>
+              <Grid item xs={12} md={12}>
                 <CardContent>
                   {myToReceiveList && isPaymentTable == "for payment" && (
                     <ForPaymentListTable details={myPaymentList} />
                   )}
+
                   {myPaymentList && isPaymentTable == "to receive" && (
-                    <ReceivedListTable details={myToReceiveList} />
+                    <ToReceiveListTable details={myToReceiveList} />
                   )}
                   {myReceivePaymentList &&
                     isPaymentTable == "receive payment" && (

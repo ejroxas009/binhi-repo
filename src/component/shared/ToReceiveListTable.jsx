@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 import TablePagination from "@mui/material/TablePagination";
 import * as transactionService from "../../service/buyer/MyTransactionService";
 
-const ReceivedListTable = ({ details }) => {
+const ToReceiveListTable = ({ details }) => {
   const handleReceiveProduct = async (receiveId) => {
     const res = await transactionService.receiveCrop(receiveId);
     console.log(res);
@@ -38,6 +38,9 @@ const ReceivedListTable = ({ details }) => {
             <TableCell align="center" sx={{ color: "white" }}>
               Quantity
             </TableCell>
+            <TableCell align="center" sx={{ color: "white" }}>
+              Receive
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -56,6 +59,18 @@ const ReceivedListTable = ({ details }) => {
               <TableCell align="center">
                 {detail.advertisement.cropQuantity}
               </TableCell>
+
+              <TableCell align="center">
+                <Button
+                  variant="contained"
+                  sx={{ borderRadius: 50 }}
+                  onClick={() => {
+                    handleReceiveProduct(detail.cropReceivedId);
+                  }}
+                >
+                  Receive
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -64,7 +79,7 @@ const ReceivedListTable = ({ details }) => {
   );
 };
 
-export default ReceivedListTable;
+export default ToReceiveListTable;
 
 //OrderRefId
 //AccountName

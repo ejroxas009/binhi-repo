@@ -73,20 +73,16 @@ const BuyerSidebar = () => {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link}
-                to="/buyer/current-bids"
-              >
+              <ListItemButton LinkComponent={Link} to="/buyer/my-orders">
                 <ListItemIcon>
                   <DashboardRoundedIcon />
                 </ListItemIcon>
-                <ListItemText primary={"My Current Bids"} />
+                <ListItemText primary={"My Orders"} />
               </ListItemButton>
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link}
-                to="/buyer/current-ads"
-              >
+              <ListItemButton LinkComponent={Link} to="/buyer/current-ads">
                 <ListItemIcon>
                   <DashboardRoundedIcon />
                 </ListItemIcon>
@@ -95,9 +91,7 @@ const BuyerSidebar = () => {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link}
-                to="/buyer/complaints"
-              >
+              <ListItemButton LinkComponent={Link} to="/buyer/complaints">
                 <ListItemIcon>
                   <DashboardRoundedIcon />
                 </ListItemIcon>
