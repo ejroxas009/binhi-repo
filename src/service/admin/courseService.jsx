@@ -12,9 +12,10 @@ export function getCourseEnroll(){
   return http.get("/enroll-course")
 }
 
-export function postCourseEnroll(){
-  return http.post("/enroll-course")
+export function postCourseEnroll(form){
+  return http.post("/enroll-course", form)
 }
+
 export function getAccessToken() {
     return localStorage.getItem("accessToken");
   }

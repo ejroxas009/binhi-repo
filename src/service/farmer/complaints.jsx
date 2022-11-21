@@ -7,3 +7,4 @@ export function getAllComplaints() {
 export function addComplaints(form) {
   return http.post("/complaints", form);
 }
+
