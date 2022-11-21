@@ -19,7 +19,10 @@ import TablePaginationActions from "../../../shared/TablePaginationActions";
 
 //Service
 import * as userService from "../../../../service/admin/userService"
+import { useEffect } from "react";
 
+
+//TableStyles
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: Colors.primary,
@@ -40,6 +43,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+//TablePagination
 TablePaginationActions.propTypes = {
   count: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
@@ -47,9 +51,12 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
+
+//Main Function
 export default function UserTables({ list }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [account, setAccount] = useState();
 
   //Pagination
   const handleChangePage = (event, newPage) => {
@@ -61,11 +68,22 @@ export default function UserTables({ list }) {
     setPage(0);
   };
 
-  //for block 
-  const handleBlockUser = async (id) => {
+  //for block and unblock
+  const handleActiveUser = async (id,event) => {
     const res = await userService.blockUser(id);
     console.log(res);
+    window.location.reload();
   }
+
+  const handleChange = (event) => {
+    setAccount({
+      ...account,
+      [event.currentTarget.name]: event.currentTarget.value,
+    });
+    console.log(setAccount);
+  };
+
+  
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -74,7 +92,7 @@ export default function UserTables({ list }) {
             <StyledTableCell align="left">Username</StyledTableCell>
             <StyledTableCell align="left">Name</StyledTableCell>
             <StyledTableCell align="left">User Type</StyledTableCell>
-            <StyledTableCell align="center">Status</StyledTableCell>
+            <StyledTableCell align="center">Details</StyledTableCell>
             <StyledTableCell align="right">Action </StyledTableCell>
           </TableRow>
         </TableHead>
@@ -88,21 +106,38 @@ export default function UserTables({ list }) {
               <StyledTableCell align="left">{`${item.firstName} ${item.lastName}`}</StyledTableCell>
               <StyledTableCell align="left">{item.role}</StyledTableCell>
               <StyledTableCell align="center">
-                {item.isActive ? "Active" : "Inactive"}
+                View Details
               </StyledTableCell>
               <StyledTableCell align="right">
-                {/* nakaternary operator */}
-                {item.accountId && (
+                {(item.active) ? (
                 <Button
                   variant="outlined"
                   color="error"
+                  name="active"
+                  value={item.active}
                   sx={{ borderRadius: "20px!important" }}
+                  onChange={handleChange}
                   onClick = {() => {
-                    handleBlockUser(item.accountId)
+                    handleActiveUser(item.accountId)
                     console.log(item.accountId)
                  }} 
                 >
                   Deactivate
+                </Button>
+                ) : (
+                  <Button
+                  variant="outlined"
+                  color="success"
+                  name="active"
+                  value={item.active}
+                  sx={{ borderRadius: "20px!important" }}
+                  onChange={handleChange}
+                  onClick = {() => {
+                    handleActiveUser(item.accountId)
+                    console.log(item.accountId)
+                 }} 
+                >
+                  Activate
                 </Button>
                 )}
               </StyledTableCell>
