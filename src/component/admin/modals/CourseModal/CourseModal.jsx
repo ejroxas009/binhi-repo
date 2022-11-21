@@ -20,7 +20,7 @@ import UploadSuccessModal from "../../../shared/UploadSuccessModal";
 //DatePicker
 import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker, DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { DatePicker, DateTimePicker, LocalizationProvider, MobileDatePicker, TimePicker } from "@mui/x-date-pickers";
 import { Input } from "@mui/material";
 
 const style = {
@@ -88,9 +88,9 @@ const CourseModal = ({
   }, [postImageToggle]);
 
   //DatePicker
-  const [date, setDate] = React.useState();
+  const [date, setDate] = React.useState(null);
   const handleChange = (newDate) => {
-    setDate(newDate);
+    console.log(date);
   };
   const customInputRef = useRef();
 
@@ -145,32 +145,52 @@ const CourseModal = ({
               </Grid>
               <Grid item xs={12}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DateTimePicker
-                    label="Start Time"
-                    value={date}
-                    onChange={handleChange}
-                    renderInput={(value) => <TextField {...value} />}
-                    />
+                <TimePicker
+                  label="Start Time"
+                  value={form.startTime}
+                  onChange={(newDate) =>{
+                    onSetForm({...form, startTime: newDate})
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
                 </LocalizationProvider>
               </Grid>
               <Grid item xs={12}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DateTimePicker
-                    label="End Time"
-                    value={date}
-                    PopperProps={{ anchorEl: customInputRef.current }}
-                    onChange={handleChange}
-                    renderInput={({
-                        form,
-                        ref,
-                        onChange
-                    }) => 
-                    <TextField 
-                    value={`${form.startDate} - ${form.endDate}`} 
-                    ref={customInputRef}
-                    onChange={onChange}
-                    />}
-                    />
+                <TimePicker
+                  label="End Time"
+                  value={form.endTime}
+                  onChange={(newDate) =>{
+                    onSetForm({...form, endTime: newDate})
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+                </LocalizationProvider>
+              </Grid>
+              <Grid item xs={12}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <MobileDatePicker
+                  label="Start Date"
+                  inputFormat="MM/DD/YYYY"
+                  value={form.startDate}
+                  onChange={(newDate) =>{
+                    onSetForm({...form, startDate: newDate})
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+                </LocalizationProvider>
+              </Grid>
+              <Grid item xs={12}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <MobileDatePicker
+                  label="End Date"
+                  inputFormat="MM/DD/YYYY"
+                  value={form.endDate}
+                  onChange={(newDate) =>{
+                    onSetForm({...form, endDate: newDate})
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
                 </LocalizationProvider>
               </Grid>
               <Grid container item xs={12} justifyContent="center">

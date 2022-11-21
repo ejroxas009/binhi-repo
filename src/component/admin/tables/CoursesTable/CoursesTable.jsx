@@ -192,7 +192,7 @@ export default function CoursesTable ({coursesList, onSetCourseListToggle, cours
                 <StyledTableCell align="left">{item.courseName}</StyledTableCell>
                 <StyledTableCell align="left">{item.courseDescription}</StyledTableCell>
                 <StyledTableCell align="center">
-                    {`${item.startTime} - ${item.endTime} | ${item.startDate} - ${item.endDate}`}
+                    {`${item.startTime} - ${item.endTime} | ${item.startDate.substring(0,10)} - ${item.endDate.substring(0,10)}`}
                 </StyledTableCell>
                 <StyledTableCell align="left">{item.courseLink}</StyledTableCell>
                 <StyledTableCell align="right">
