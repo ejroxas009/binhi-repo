@@ -28,20 +28,21 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 700,
+  height: 700,
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
+  borderRadius: 5,
 };
 
-const AddAdminModal = ({
+const ViewDetailsModal = ({
   open,
   onHandleClose,
   onHandleSubmit,
-  form,
-  onSetForm,
   onHandleChange,
   id,
+  list,
 }) => {
   const [postImageUpload, setPostImageUpload] = useState(null);
   const [postImageRef, setPostImageRef] = useState(null);
@@ -55,38 +56,6 @@ const AddAdminModal = ({
   const handleUploadingSuccessOpen = () => setUploadingSuccessOpen(true);
   const handleUploadingSuccessClose = () => setUploadingSuccessOpen(false);
 
-  const handleSubmitPostAds = async (event) => {
-    event.preventDefault();
-    onSetForm({
-      ...form,
-      accountId: id,
-      onHandleSubmit
-    });
-
-    setPostImageToggle(!postImageToggle);
-  };
-
-  useEffect(() => {
-    const uploadPost = async () => {
-      if (form.firstName !== "") {
-        handleUploadingOpen();
-        try {
-          const res = await userService.addUser(form);
-          if (res.status == 200) {
-            onHandleClose();
-            setTimeout(handleUploadingClose, 1000);
-            setTimeout(handleUploadingSuccessOpen, 1000);
-            setTimeout(handleUploadingSuccessClose, 4000);
-            //onSetAdsListToggle(!adsListToggle);
-            setTimeout(window.location.reload, 5500);
-          }
-          console.log(res);
-        } catch {}
-      }
-    };
-    uploadPost();
-  }, [postImageToggle]);
-
   return (
     <div>
       <Modal
@@ -95,21 +64,21 @@ const AddAdminModal = ({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         component="form"
-        onSubmit={handleSubmitPostAds}
       >
         <Card sx={style}>
           <Grid container item xs={12} justifyContent="center">
-            <CardHeader title="Add an Admin User" />
+            <CardHeader title="User Details" />
           </Grid>
-
-          <CardContent>
+          {list.map((details) => (
+          <CardContent key={details.accountId}>
+            
             <Grid container spacing={2} justifyContent="center">
               <Grid item xs={12}>
                 <TextField
                   label="First Name"
                   name="firstName"
                   fullWidth
-                  value={form.firstName}
+                  value={details.firstName}
                   onChange={onHandleChange}
                 />
               </Grid>
@@ -118,7 +87,7 @@ const AddAdminModal = ({
                     label="Middle Name"
                     name="middleName"
                     fullWidth
-                    value={form.middleName}
+                    value={details.middleName}
                     onChange={onHandleChange}
                     />
               </Grid>
@@ -127,7 +96,7 @@ const AddAdminModal = ({
                   label="Last Name"
                   name="lastName"
                   fullWidth
-                  value={form.lastName}
+                  value={details.lastName}
                   onChange={onHandleChange}
                 />
               </Grid>
@@ -136,7 +105,7 @@ const AddAdminModal = ({
                   label="Username"
                   name="username"
                   fullWidth
-                  value={form.username}
+                  value={details.username}
                   onChange={onHandleChange}
                 />
               </Grid>
@@ -146,7 +115,7 @@ const AddAdminModal = ({
                   label="User Type"
                   name="role"
                   fullWidth
-                  value={form.role}
+                  value={details.role}
                   onChange={onHandleChange}
                 />
               </Grid>
@@ -168,6 +137,7 @@ const AddAdminModal = ({
               </Grid>
             </Grid>
           </CardContent>
+          ))}
         </Card>
       </Modal>
 
@@ -177,4 +147,4 @@ const AddAdminModal = ({
   );
 };
 
-export default AddAdminModal;
+export default ViewDetailsModal;

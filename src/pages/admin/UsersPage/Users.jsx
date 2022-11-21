@@ -1,6 +1,7 @@
 import { Box, Container } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import AdminAppbar from '../../../component/admin/appbar/AdminAppbar'
+import ViewDetailsModal from '../../../component/admin/modals/ViewDetailsModal/ViewDetailsModal'
 import AdminSidebar from '../../../component/admin/sidebar/AdminSidebar'
 import UserTable from '../../../component/admin/tables/UserTable/UserTable'
 import Appbar from '../../../component/shared/Appbar'
@@ -28,6 +29,12 @@ const Users = () => {
     console.log(userList);
   },[userListToggle])
 
+
+  //View Details Modal
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const handleDetailsOpen = () => setDetailsOpen(true);
+  const handleDetailsClose = () => setDetailsOpen(false);
+
   return (
     <>
         <Appbar/>
@@ -35,7 +42,11 @@ const Users = () => {
         <Container fixed>
           <Box mt={20}>
             {userList &&(
-              <UserTable list={userList}/>
+              <UserTable 
+              list={userList}
+              onSetUserListToggle={setUserListToggle}
+              userListToggle={userListToggle}
+              />
             )}
           </Box>
         </Container>

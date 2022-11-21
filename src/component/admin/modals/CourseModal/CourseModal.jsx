@@ -78,7 +78,7 @@ const CourseModal = ({
             setTimeout(handleUploadingSuccessOpen, 1000);
             setTimeout(handleUploadingSuccessClose, 4000);
             //onSetAdsListToggle(!adsListToggle);
-            setTimeout(window.location.reload, 5500);
+            window.location.reload()
           }
           console.log(res);
         } catch {}

@@ -4,8 +4,8 @@ export function viewAccount() {
     return http.get("/account");
   }
 
-export function addUser() {
-  return http.post("/register");
+export function addUser(account) {
+  return http.post("/account/register", account);
 }
   
 export function getAccountById(id) {
