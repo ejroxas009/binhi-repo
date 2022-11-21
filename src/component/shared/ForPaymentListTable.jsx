@@ -15,6 +15,9 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import PaymentModeModal from "./payment-module/PaymentModeModal";
 import * as transactionService from "../../service/buyer/MyTransactionService";
 import GCashPaymentMode from "./payment-module/GCashPaymentMode";
+import ListIcon from "@mui/icons-material/List";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 const ForPaymentListTable = ({ details }) => {
   const [paymentModeModalOpen, setPaymentModeModalOpen] = useState(false);
@@ -23,7 +26,7 @@ const ForPaymentListTable = ({ details }) => {
     changePaymentMethod: "",
   });
   const [bidWinner, setBidWinner] = useState();
-
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const handlePaymentModeModalOpen = () => setPaymentModeModalOpen(true);
   const handlePaymentModeModalClose = () => setPaymentModeModalOpen(false);
 
@@ -44,8 +47,24 @@ const ForPaymentListTable = ({ details }) => {
     console.log(paymentMethodForm);
     console.log(bidWinner);
     setBidWinner(bidWinner);
+    handleClose();
   };
 
+  //---------For Menu--------
+
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleMarkAsPaid = async (paymentId) => {
+    const res = await transactionService.markAsPaid(paymentId);
+    console.log(res);
+    handleClose();
+  };
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -65,6 +84,9 @@ const ForPaymentListTable = ({ details }) => {
             </TableCell>
             <TableCell align="center" sx={{ color: "white" }}>
               Total Amount
+            </TableCell>
+            <TableCell align="center" sx={{ color: "white" }}>
+              Payment Status
             </TableCell>
             <TableCell align="center" sx={{ color: "white" }}>
               Actions
@@ -99,9 +121,12 @@ const ForPaymentListTable = ({ details }) => {
                     }
                   })}
                 </TableCell>
+                <TableCell align="center">
+                  {detail.markAsPaid ? "Paid" : "Unpaid"}
+                </TableCell>
 
                 <TableCell align="center">
-                  <Button
+                  {/* <Button
                     variant="outlined"
                     sx={{ borderRadius: 50 }}
                     endIcon={<SendIcon />}
@@ -115,7 +140,47 @@ const ForPaymentListTable = ({ details }) => {
                     }}
                   >
                     Proceed to payment
-                  </Button>
+                  </Button> */}
+                  <IconButton
+                    id="basic-button"
+                    aria-controls={open ? "basic-menu" : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? "true" : undefined}
+                    onClick={handleClick}
+                  >
+                    <ListIcon />
+                  </IconButton>
+                  <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                      "aria-labelledby": "basic-button",
+                    }}
+                  >
+                    <MenuItem
+                      onClick={() => {
+                        const bidWinner = detail.advertisement.bid.find(
+                          (bid) => {
+                            if (bid.approved) {
+                              return bid;
+                            }
+                          }
+                        );
+                        handleProceedToPayment(detail.paymentId, bidWinner);
+                      }}
+                    >
+                      Proceed to Payment
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        handleMarkAsPaid(detail.paymentId);
+                      }}
+                    >
+                      Mark as Paid
+                    </MenuItem>
+                  </Menu>
                 </TableCell>
               </TableRow>
             ))}

@@ -28,6 +28,7 @@ import MyComplaints from "./pages/farmer/MyComplaints";
 import MyCourses from "./pages/farmer/MyCourses";
 import ViewAllBids from "./pages/farmer/ViewAllBids";
 import FarmTipsTab from "./pages/farmer/FarmTipsTab";
+import MyOrdersPage from "./pages/farmer/MyOrdersPage";
 
 //service
 import * as accountService from "./service/shared/accountService";
@@ -88,15 +89,11 @@ function App() {
   //   },
   // });
 
-
   const handleLogout = () => {
     accountService.logout();
     Navigate("/");
     window.location.reload();
   };
-
-  
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -162,6 +159,10 @@ function App() {
         <Route
           path="/farmer/current-ads/:id/allBids"
           element={accessToken ? <ViewAllBids /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/farmer/my-orders"
+          element={accessToken ? <MyOrdersPage /> : <Navigate to="/" />}
         />
 
         {/* Routes for Buyer */}

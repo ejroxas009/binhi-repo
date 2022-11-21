@@ -59,13 +59,15 @@ const ViewAllBidsTable = ({ bids }) => {
     orderIdRef: "",
     accountId: "",
     advertisementId: "",
+    bidId: "",
   });
   const [cropPaymentFormToggle, setCropPaymentFormToggle] = useState(false);
   const [cropReceivedForm, setCropReceivedForm] = useState({
     accountId: "",
     advertisementId: "",
+    bidId: "",
   });
-  const [bidId, setBidId] = useState();
+  const [bidIdState, setBidIdState] = useState();
   const [adsId, setAdsId] = useState();
   const [acceptButtonToggle, setAcceptButtonToggle] = useState(false);
 
@@ -107,13 +109,16 @@ const ViewAllBidsTable = ({ bids }) => {
       orderIdRef: orderRef,
       accountId,
       advertisementId,
+      bidId,
     });
 
     setCropReceivedForm({
+      orderIdRef: orderRef,
       accountId,
       advertisementId,
+      bidId,
     });
-    setBidId(bidId);
+    setBidIdState(bidId);
     setAdsId(advertisementId);
     setCropPaymentFormToggle(!cropPaymentFormToggle);
   };
@@ -123,7 +128,7 @@ const ViewAllBidsTable = ({ bids }) => {
       if (cropPaymentForm.orderIdRef !== "") {
         const res = await transService.addCropPayment(cropPaymentForm);
         const res2 = await transService.addCropReceived(cropReceivedForm);
-        const res3 = await bidService.acceptBid(adsId, bidId);
+        const res3 = await bidService.acceptBid(adsId, bidIdState);
         setAcceptButtonToggle(!acceptButtonToggle);
 
         console.log(cropPaymentForm);
