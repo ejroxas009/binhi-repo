@@ -13,7 +13,7 @@ import { v4 } from "uuid";
 import { storage } from "../../../../service/shared/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useEffect } from "react";
-import * as courseService from "../../../../service/admin/courseService";
+import * as userService from "../../../../service/admin/userService";
 import UploadingModal from "../../../shared/UploadingModal";
 import UploadSuccessModal from "../../../shared/UploadSuccessModal";
 
@@ -34,7 +34,7 @@ const style = {
   p: 4,
 };
 
-const CourseModal = ({
+const AddAdminModal = ({
   open,
   onHandleClose,
   onHandleSubmit,
@@ -59,7 +59,7 @@ const CourseModal = ({
     event.preventDefault();
     onSetForm({
       ...form,
-      courseId: id,
+      accountId: id,
       onHandleSubmit
     });
 
@@ -68,17 +68,17 @@ const CourseModal = ({
 
   useEffect(() => {
     const uploadPost = async () => {
-      if (form.courseName !== "") {
+      if (form.firstName !== "") {
         handleUploadingOpen();
         try {
-          const res = await courseService.addCourse(form);
+          const res = await userService.addUser(form);
           if (res.status == 200) {
             onHandleClose();
             setTimeout(handleUploadingClose, 1000);
             setTimeout(handleUploadingSuccessOpen, 1000);
             setTimeout(handleUploadingSuccessClose, 4000);
             //onSetAdsListToggle(!adsListToggle);
-            window.location.reload()
+            setTimeout(window.location.reload, 5500);
           }
           console.log(res);
         } catch {}
@@ -86,13 +86,6 @@ const CourseModal = ({
     };
     uploadPost();
   }, [postImageToggle]);
-
-  //DatePicker
-  const [date, setDate] = React.useState(null);
-  const handleChange = (newDate) => {
-    console.log(date);
-  };
-  const customInputRef = useRef();
 
   return (
     <div>
@@ -106,92 +99,56 @@ const CourseModal = ({
       >
         <Card sx={style}>
           <Grid container item xs={12} justifyContent="center">
-            <CardHeader title="Add a Course" />
+            <CardHeader title="Add an Admin User" />
           </Grid>
 
           <CardContent>
             <Grid container spacing={2} justifyContent="center">
               <Grid item xs={12}>
                 <TextField
-                  label="Course Name"
-                  name="courseName"
+                  label="First Name"
+                  name="firstName"
                   fullWidth
-                  value={form.courseName}
+                  value={form.firstName}
                   onChange={onHandleChange}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  label="Course Description"
-                  name="courseDescription"
+                    label="Middle Name"
+                    name="middleName"
+                    fullWidth
+                    value={form.middleName}
+                    onChange={onHandleChange}
+                    />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Last Name"
+                  name="lastName"
                   fullWidth
-                  value={form.courseDescription}
+                  value={form.lastName}
                   onChange={onHandleChange}
-                  inputProps={{
-                    style: {
-                      height: "80px",
-                    },
-                  }}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  label="Course Link"
-                  name="courseLink"
+                  label="Username"
+                  name="username"
                   fullWidth
-                  value={form.courseLink}
+                  value={form.username}
                   onChange={onHandleChange}
                 />
               </Grid>
               <Grid item xs={12}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <TimePicker
-                  label="Start Time"
-                  value={form.startTime}
-                  onChange={(newDate) =>{
-                    onSetForm({...form, startTime: newDate})
-                  }}
-                  renderInput={(params) => <TextField {...params} />}
+                <TextField
+                disabled
+                  label="User Type"
+                  name="role"
+                  fullWidth
+                  value={form.role}
+                  onChange={onHandleChange}
                 />
-                </LocalizationProvider>
-              </Grid>
-              <Grid item xs={12}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <TimePicker
-                  label="End Time"
-                  value={form.endTime}
-                  onChange={(newDate) =>{
-                    onSetForm({...form, endTime: newDate})
-                  }}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-                </LocalizationProvider>
-              </Grid>
-              <Grid item xs={12}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <MobileDatePicker
-                  label="Start Date"
-                  inputFormat="MM/DD/YYYY"
-                  value={form.startDate}
-                  onChange={(newDate) =>{
-                    onSetForm({...form, startDate: newDate})
-                  }}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-                </LocalizationProvider>
-              </Grid>
-              <Grid item xs={12}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <MobileDatePicker
-                  label="End Date"
-                  inputFormat="MM/DD/YYYY"
-                  value={form.endDate}
-                  onChange={(newDate) =>{
-                    onSetForm({...form, endDate: newDate})
-                  }}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-                </LocalizationProvider>
               </Grid>
               <Grid container item xs={12} justifyContent="center">
                 <Button
@@ -220,4 +177,4 @@ const CourseModal = ({
   );
 };
 
-export default CourseModal;
+export default AddAdminModal;
