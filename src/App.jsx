@@ -28,7 +28,7 @@ import MyComplaints from "./pages/farmer/MyComplaints";
 import MyCourses from "./pages/farmer/MyCourses";
 import ViewAllBids from "./pages/farmer/ViewAllBids";
 import FarmTipsTab from "./pages/farmer/FarmTipsTab";
-import MyOrdersPage from "./pages/farmer/MyOrdersPage";
+import MyOrdersPage2 from "./pages/farmer/MyOrdersPage2";
 
 //service
 import * as accountService from "./service/shared/accountService";
@@ -43,7 +43,7 @@ import CurrentAdsPage from "./pages/buyer/CurrentAdsPage";
 import ComplaintPage from "./pages/buyer/ComplaintPage";
 import ViewMyBids from "./pages/buyer/ViewMyBids";
 import BuyerDashboardPage from "./pages/buyer/BuyerDashboardPage";
-import MyOrders from "./component/shared/MyOrders";
+import MyOrdersPage from "./pages/buyer/MyOrdersPage";
 
 //pages - admin
 import Users from "./pages/admin/UsersPage/Users";
@@ -162,7 +162,7 @@ function App() {
         />
         <Route
           path="/farmer/my-orders"
-          element={accessToken ? <MyOrdersPage /> : <Navigate to="/" />}
+          element={accessToken ? <MyOrdersPage2 /> : <Navigate to="/" />}
         />
 
         {/* Routes for Buyer */}
@@ -209,7 +209,7 @@ function App() {
 
         <Route
           path="/buyer/my-orders"
-          element={accessToken ? <MyOrders /> : <Navigate to="/" />}
+          element={accessToken ? <MyOrdersPage /> : <Navigate to="/" />}
         />
 
         {/* Routes for admin */}

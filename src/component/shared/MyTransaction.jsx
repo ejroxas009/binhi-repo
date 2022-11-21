@@ -4,6 +4,7 @@ import { getAccountById } from "../../service/shared/accountService";
 import jwtDecode from "jwt-decode";
 import ReceivedListTable from "./ReceivedListTable";
 import PaymentListTable from "./PaymentListTable";
+import ProductsDeliveredListTable from "./ProductsDeliveredListTable";
 
 //--MUI--
 import Card from "@mui/material/Card";
@@ -16,11 +17,14 @@ const MyTransaction = () => {
   const [adsList, setAdsList] = useState();
   const [myPaidList, setMyPaidList] = useState();
   const [myReceivedList, setMyReceivedList] = useState();
+  const [productsDeliveredList, setMyProductsDeliveredList] = useState();
   const [account, setAccount] = useState();
   const [toggle, setToggle] = useState(false);
   const [myPaidListToggle, setMyPaidListToggle] = useState(false);
   const [myReceivedListToggle, setMyReceivedListToggle] = useState(false);
-  const [isPaymentTable, setIsPaymentTable] = useState(true);
+  const [productsDeliveredListToggle, setProductsDeliveredListToggle] =
+    useState(false);
+  const [isPaymentTable, setIsPaymentTable] = useState("payment");
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -64,14 +68,25 @@ const MyTransaction = () => {
 
       setMyReceivedList(myReceived);
       setMyReceivedListToggle(!myReceivedListToggle);
+
+      const productsDelivered = res.data.filter(
+        (item) =>
+          item.bid.account.accountId == account.accountId && item.received
+      );
+      setMyProductsDeliveredList(productsDelivered);
+      setProductsDeliveredListToggle(!productsDeliveredListToggle);
     }
   };
 
   const handlePaymentPage = () => {
-    setIsPaymentTable(true);
+    setIsPaymentTable("payment");
   };
   const handleReceivedProductPage = () => {
-    setIsPaymentTable(false);
+    setIsPaymentTable("receive product");
+  };
+
+  const handleProductsDeliveredPage = () => {
+    setIsPaymentTable("products delivered");
   };
 
   useEffect(() => {
@@ -85,6 +100,9 @@ const MyTransaction = () => {
   useEffect(() => {
     console.log(myReceivedList);
   }, [myReceivedListToggle]);
+  useEffect(() => {
+    console.log(productsDeliveredList);
+  }, [productsDeliveredList]);
 
   return (
     <>
@@ -104,28 +122,51 @@ const MyTransaction = () => {
                   <Button
                     onClick={handlePaymentPage}
                     sx={{ borderRadius: 50, margin: 1 }}
-                    variant={isPaymentTable ? "outlined" : "contained"}
+                    variant={
+                      isPaymentTable == "payment" ? "outlined" : "contained"
+                    }
                   >
                     Payment History
                   </Button>
                   <Button
                     onClick={handleReceivedProductPage}
                     sx={{ borderRadius: 50, margin: 1 }}
-                    variant={isPaymentTable ? "contained" : "outlined"}
+                    variant={
+                      isPaymentTable == "receive product"
+                        ? "outlined"
+                        : "contained"
+                    }
                   >
                     Products Received
+                  </Button>
+                  <Button
+                    onClick={handleProductsDeliveredPage}
+                    sx={{ borderRadius: 50, margin: 1 }}
+                    variant={
+                      isPaymentTable == "products delivered"
+                        ? "outlined"
+                        : "contained"
+                    }
+                  >
+                    Products Delivered
                   </Button>
                 </CardContent>
               </Grid>
 
-              <Grid item xs={12} md={9}>
+              <Grid item xs={12} md={12}>
                 <CardContent>
-                  {myReceivedList && !isPaymentTable && (
+                  {myReceivedList && isPaymentTable == "receive product" && (
                     <ReceivedListTable details={myReceivedList} />
                   )}
-                  {myPaidList && isPaymentTable && (
+                  {myPaidList && isPaymentTable == "payment" && (
                     <PaymentListTable details={myPaidList} />
                   )}
+                  {productsDeliveredList &&
+                    isPaymentTable == "products delivered" && (
+                      <ProductsDeliveredListTable
+                        details={productsDeliveredList}
+                      />
+                    )}
                 </CardContent>
               </Grid>
             </Grid>

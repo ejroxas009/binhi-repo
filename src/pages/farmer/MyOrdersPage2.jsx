@@ -1,16 +1,17 @@
 import React from "react";
 import MyOrders from "../../component/shared/MyOrders";
-import BuyerSidebar from "../../component/buyer/BuyerSidebar";
+import FarmerSidebar from "../../component/farmer/FarmerSidebar";
 import Appbar from "../../component/shared/appbar/Appbar";
 import Grid from "@mui/material/Grid";
-const MyOrdersPage = () => {
+
+const MyOrdersPage2 = () => {
   return (
     <Grid container>
       <Grid item xs={12}>
         <Appbar />
       </Grid>
       <Grid item md={3}>
-        <BuyerSidebar />
+        <FarmerSidebar />
       </Grid>
       <Grid item xs={12} sm={12} md={8} lg={8} sx={{ marginTop: 10 }}>
         <MyOrders />
@@ -19,4 +20,4 @@ const MyOrdersPage = () => {
   );
 };
 
-export default MyOrdersPage;
+export default MyOrdersPage2;
