@@ -96,7 +96,7 @@ export default function UserTables({ list, onSetUserListToggle, userListToggle }
   const [postToggle, setPostToggle] = useState(false);
   const [isPostSuccess, setIsPostSuccess] = useState(false);
   const [postAdsForm, setPostAdsForm] = useState({
-    role: "admin",
+    role: "Admin",
     firstName: "",
     middleName: "",
     lastName: "",

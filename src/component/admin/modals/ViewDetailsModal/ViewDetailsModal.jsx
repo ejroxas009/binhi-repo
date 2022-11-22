@@ -56,6 +56,9 @@ const ViewDetailsModal = ({
   const handleUploadingSuccessOpen = () => setUploadingSuccessOpen(true);
   const handleUploadingSuccessClose = () => setUploadingSuccessOpen(false);
 
+  //useEffect then create function under useEffect which is getAccountById na service
+  //next item; 
+  console.log(id);
   return (
     <div>
       <Modal
