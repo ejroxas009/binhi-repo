@@ -24,7 +24,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-const Complaint = ({ complaints }) => {
+const Complaint = ({ data }) => {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState(false);
 
@@ -36,22 +36,20 @@ const Complaint = ({ complaints }) => {
   const handleCloseView = () => setView(false);
 
   useEffect(() => {
-    console.log(complaints);
+    console.log(data);
   }, [complaintsToggle]);
 
   useEffect(() => {
     handleClose();
-  }, [complaints]);
+  }, [data]);
 
   return (
     <>
       <StyledTableCell align="center">
-        {complaints.complaintPost}
-        {console.log(complaints.complaintPost)}
+        {data.complaintPost}
       </StyledTableCell>
       <StyledTableCell align="center">
-      {console.log(complaints.read)}
-        {complaints.read ? (
+        {data.read ? (
           <Chip label="Read" color="primary" />
         ) : (
           <Chip label="Unread" color="warning" />
@@ -60,14 +58,14 @@ const Complaint = ({ complaints }) => {
       <StyledTableCell align="center">
         <Tooltip title="View Complaint Details" placement="top">
           <IconButton onClick={handleOpenView}>
-            <VisibilityRoundedIcon color="secondary" />
+            <VisibilityRoundedIcon color="primary" />
           </IconButton>
         </Tooltip>
         <Dialog open={view} onClose={handleCloseView} fullWidth>
           <DialogContent>
             <ViewComplaints
-              key={complaints.complaintId}
-              complaints={complaints}
+              key={data.complaintId}
+              data={data}
             />
           </DialogContent>
         </Dialog>

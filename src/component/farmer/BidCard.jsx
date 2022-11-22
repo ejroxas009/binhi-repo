@@ -254,20 +254,19 @@ const BidCard = () => {
                   </CardActions>
                   <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-                      <Typography gutterBottom color="Green">
+                      <Typography gutterBottom color="Green" component={"div"}>
                         DETAILS OF YOUR OFFER:
                       </Typography>
-                      <Typography>BID DATE: {bidsDetail.bidDate}</Typography>
-                      <Typography>BID PRICE: ₱{bidsDetail.bidPrice}.00</Typography>
-                      <Typography paragraph>
+                      <Typography component={"div"}>BID DATE: {bidsDetail.bidDate}</Typography>
+                      <Typography component={"div"}>BID PRICE: ₱{bidsDetail.bidPrice}.00</Typography>
+                      <Typography component={"div"} paragraph>
                         BID MESSAGE: {bidsDetail.bidMsg}
                       </Typography>
-                      <Typography>STATUS: 
-                            {bidsDetail.isActive ? (
-                              <Chip label="Accepted" color="primary" />
-                            ) : (
-                              <Chip label="Your Bid is not accepted" color="warning" />
-                            )}</Typography>
+                      <Typography component={"div"}>STATUS:
+                        {(bidsDetail.accept && bidsDetail.approved) && <Chip label="Accepted" color="primary"/>}
+                        {(bidsDetail.accept && bidsDetail.approved == false) && <Chip label="Rejected" color="error"/>}
+                        {(bidsDetail.accept == false && bidsDetail.approved == false) && <Chip label="Pending" color="warning"/>} 
+                      </Typography>
                     </CardContent>
                   </Collapse>
                 </Card>
