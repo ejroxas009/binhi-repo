@@ -19,13 +19,14 @@ import ListIcon from "@mui/icons-material/List";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
-const ForPaymentListTable = ({ details }) => {
+const ForPaymentListTable = ({ details, toReceiveList }) => {
   const [paymentModeModalOpen, setPaymentModeModalOpen] = useState(false);
   const [paymentId, setPaymentId] = useState();
   const [paymentMethodForm, setPaymentMethodForm] = useState({
     changePaymentMethod: "",
   });
   const [bidWinner, setBidWinner] = useState();
+  const [orderIdRef, setOrderIdRef] = useState();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handlePaymentModeModalOpen = () => setPaymentModeModalOpen(true);
   const handlePaymentModeModalClose = () => setPaymentModeModalOpen(false);
@@ -40,13 +41,14 @@ const ForPaymentListTable = ({ details }) => {
       changePaymentMethod: event.currentTarget.value,
     });
   };
-  const handleProceedToPayment = async (paymentId, bidWinner) => {
+  const handleProceedToPayment = async (paymentId, bidWinner, orderIdRef) => {
     handlePaymentModeModalOpen();
     setPaymentId(paymentId);
     console.log(paymentId);
     console.log(paymentMethodForm);
     console.log(bidWinner);
     setBidWinner(bidWinner);
+    setOrderIdRef(orderIdRef);
     handleClose();
   };
 
@@ -168,7 +170,11 @@ const ForPaymentListTable = ({ details }) => {
                             }
                           }
                         );
-                        handleProceedToPayment(detail.paymentId, bidWinner);
+                        handleProceedToPayment(
+                          detail.paymentId,
+                          bidWinner,
+                          detail.orderIdRef
+                        );
                       }}
                     >
                       Proceed to Payment
@@ -196,6 +202,8 @@ const ForPaymentListTable = ({ details }) => {
           onSetForm={setPaymentMethodForm}
           paymentMethod={paymentMethodForm.changePaymentMethod}
           bidWinner={bidWinner}
+          toReceiveList={toReceiveList}
+          orderIdRef={orderIdRef}
         />
       )}
     </TableContainer>

@@ -22,6 +22,9 @@ const PaymentListTable = ({ details }) => {
               Order Reference
             </TableCell>
             <TableCell align="center" sx={{ color: "white" }}>
+              Payment Date
+            </TableCell>
+            <TableCell align="center" sx={{ color: "white" }}>
               Crop
             </TableCell>
             <TableCell align="center" sx={{ color: "white" }}>
@@ -33,9 +36,7 @@ const PaymentListTable = ({ details }) => {
             <TableCell align="center" sx={{ color: "white" }}>
               Amount
             </TableCell>
-            <TableCell align="center" sx={{ color: "white" }}>
-              Payment Date
-            </TableCell>
+
             <TableCell align="center" sx={{ color: "white" }}>
               Payment Mode
             </TableCell>
@@ -51,19 +52,27 @@ const PaymentListTable = ({ details }) => {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell align="center">{detail.orderIdRef}</TableCell>
+              <TableCell align="center">{detail.paymentDate}</TableCell>
               <TableCell align="center">
                 {detail.advertisement.crop.cropName}
               </TableCell>
               <TableCell align="center">
-                {detail.advertisement.cropQuantity}
+                {`${detail.advertisement.cropQuantity.toLocaleString(
+                  undefined,
+                  { minimumFractionDigits: 2 }
+                )}kgs`}
               </TableCell>
-              <TableCell align="center">{detail.bid.bidPrice}</TableCell>
               <TableCell align="center">
-                {detail.bid.bidPrice * detail.advertisement.cropQuantity}
+                {`P${detail.bid.bidPrice.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                })}/kg`}
               </TableCell>
               <TableCell align="center">
-                {detail.paymentDate.substring(0, 10)}
+                {`P${(
+                  detail.bid.bidPrice * detail.advertisement.cropQuantity
+                ).toLocaleString(undefined, { minimumFractionDigits: 2 })}`}
               </TableCell>
+
               <TableCell align="center">{detail.paymentMode}</TableCell>
 
               <TableCell align="center">

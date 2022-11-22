@@ -9,6 +9,7 @@ import SendIcon from "@mui/icons-material/Send";
 import * as transactionService from "../../../service/buyer/MyTransactionService";
 import GCashPaymentMode from "./GCashPaymentMode";
 import BankTransferPaymentMode from "../BankTransferPaymentMode";
+import CODPaymentMode from "../CODPaymentMode";
 
 const style = {
   position: "absolute",
@@ -46,6 +47,8 @@ const PaymentModeModal = ({
   onSetForm,
   paymentMethod,
   bidWinner,
+  toReceiveList,
+  orderIdRef,
 }) => {
   const [paymentMethodOpen, setPaymentMethodOpen] = useState(false);
   const handleProceedToCheckout = async () => {
@@ -100,7 +103,7 @@ const PaymentModeModal = ({
                 endIcon={<SendIcon />}
                 onClick={handleProceedToCheckout}
               >
-                Proceed to Checkout
+                Proceed
               </Button>
             </Grid>
           </Grid>
@@ -112,6 +115,8 @@ const PaymentModeModal = ({
           onHandleClose={handlePaymentMethodClose}
           bidWinner={bidWinner}
           paymentId={paymentId}
+          toReceiveList={toReceiveList}
+          orderIdRef={orderIdRef}
         />
       )}
       {paymentMethod == "Bank Transfer" && (
@@ -119,6 +124,14 @@ const PaymentModeModal = ({
           open={paymentMethodOpen}
           onHandleClose={handlePaymentMethodClose}
           bidWinner={bidWinner}
+          paymentId={paymentId}
+          toReceiveList={toReceiveList}
+        />
+      )}
+      {paymentMethod == "Cash On Delivery" && (
+        <CODPaymentMode
+          open={paymentMethodOpen}
+          onHandleClose={handlePaymentMethodClose}
           paymentId={paymentId}
         />
       )}
