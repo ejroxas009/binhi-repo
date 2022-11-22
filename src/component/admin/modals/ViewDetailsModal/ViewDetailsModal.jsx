@@ -23,6 +23,9 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker, DateTimePicker, LocalizationProvider, MobileDatePicker, TimePicker } from "@mui/x-date-pickers";
 import { Input } from "@mui/material";
 
+import { getAccountById } from "../../../../service/shared/accountService";
+import jwtDecode from "jwt-decode";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -39,10 +42,9 @@ const style = {
 const ViewDetailsModal = ({
   open,
   onHandleClose,
-  onHandleSubmit,
   onHandleChange,
   id,
-  list,
+  item,
 }) => {
   const [postImageUpload, setPostImageUpload] = useState(null);
   const [postImageRef, setPostImageRef] = useState(null);
@@ -51,6 +53,13 @@ const ViewDetailsModal = ({
   const [uploadingOpen, setUploadingOpen] = useState(false);
   const [uploadingSuccessOpen, setUploadingSuccessOpen] = useState(false);
 
+  const [users, setUsers] = useState();
+  const [userstoggle, setUsersToggle] = useState(false);
+
+
+  const [account, setAccount] = useState();
+  const [accountToggle, setAccountToggle] = useState(false);
+
   const handleUploadingOpen = () => setUploadingOpen(true);
   const handleUploadingClose = () => setUploadingOpen(false);
   const handleUploadingSuccessOpen = () => setUploadingSuccessOpen(true);
@@ -58,7 +67,25 @@ const ViewDetailsModal = ({
 
   //useEffect then create function under useEffect which is getAccountById na service
   //next item; 
-  console.log(id);
+
+
+
+
+  // useEffect(() => {
+  //   const getUserById = async (id) => {
+  //     const res = await getAccountById(id);
+  //     setUsers(res.data);
+  //     setUsersToggle(!userstoggle);
+  //   };
+  //   getUserById(id);
+  // },[])
+
+  const [detailsToggle, setDetailsToggle] = useState(false);
+
+  useEffect(() => {
+    console.log(item);
+  }, [detailsToggle]);
+
   return (
     <div>
       <Modal
@@ -72,16 +99,17 @@ const ViewDetailsModal = ({
           <Grid container item xs={12} justifyContent="center">
             <CardHeader title="User Details" />
           </Grid>
-          {list.map((details) => (
-          <CardContent key={details.accountId}>
-            
+          <CardContent>
             <Grid container spacing={2} justifyContent="center">
               <Grid item xs={12}>
+              <Typography component={"div"}>
+                Name: {item.firstName}
+              </Typography>
                 <TextField
                   label="First Name"
                   name="firstName"
                   fullWidth
-                  value={details.firstName}
+                  value={item.firstName}
                   onChange={onHandleChange}
                 />
               </Grid>
@@ -90,7 +118,7 @@ const ViewDetailsModal = ({
                     label="Middle Name"
                     name="middleName"
                     fullWidth
-                    value={details.middleName}
+                    value={item.middleName}
                     onChange={onHandleChange}
                     />
               </Grid>
@@ -99,7 +127,7 @@ const ViewDetailsModal = ({
                   label="Last Name"
                   name="lastName"
                   fullWidth
-                  value={details.lastName}
+                  value={item.lastName}
                   onChange={onHandleChange}
                 />
               </Grid>
@@ -108,7 +136,7 @@ const ViewDetailsModal = ({
                   label="Username"
                   name="username"
                   fullWidth
-                  value={details.username}
+                  value={item.username}
                   onChange={onHandleChange}
                 />
               </Grid>
@@ -118,29 +146,24 @@ const ViewDetailsModal = ({
                   label="User Type"
                   name="role"
                   fullWidth
-                  value={details.role}
+                  value={item.role}
                   onChange={onHandleChange}
                 />
               </Grid>
+
               <Grid container item xs={12} justifyContent="center">
-                <Button
-                  variant="contained"
-                  sx={{ borderRadius: 50, margin: 1 }}
-                  type="submit"
-                >
-                  Save
-                </Button>
                 <Button
                   variant="outlined"
                   sx={{ borderRadius: 50, margin: 1 }}
                   onClick={onHandleClose}
                 >
-                  Cancel
+                  Close
                 </Button>
               </Grid>
             </Grid>
+            
           </CardContent>
-          ))}
+          
         </Card>
       </Modal>
 

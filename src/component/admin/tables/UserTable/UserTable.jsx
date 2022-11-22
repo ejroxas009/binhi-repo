@@ -112,7 +112,7 @@ export default function UserTables({ list, onSetUserListToggle, userListToggle }
     complianceImg: "",
     email: "",
     username: "",
-    password: "",
+    password: "admin",
   });
   //-------Menu -------------
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -136,9 +136,6 @@ export default function UserTables({ list, onSetUserListToggle, userListToggle }
     getCurrentAccount(decoded.id);
   }, []);
 
-  useEffect(() => {
-    console.log(account);
-  }, [toggle]);
 
   //View Details Modal
   const [detailsOpen, setDetailsOpen] = useState(false);
@@ -181,7 +178,25 @@ export default function UserTables({ list, onSetUserListToggle, userListToggle }
 
   //------------End Post Ads ----------------------------
 
-  
+
+  //ViewDetails
+  const [detailsList, setDetailsList] = useState();
+  const [detailsListToggle, setDetailsListToggle] = useState();
+
+  useEffect(() => {
+    const viewUsers = async () => {
+      const res = await userService.viewAccount()
+      setDetailsList(res.data);
+    }
+    
+    viewUsers();
+    setDetailsListToggle(!detailsListToggle);
+  },[])
+
+  useEffect(() => {
+    console.log(detailsList);
+  },[detailsListToggle])
+
   return (
     <>
     {/* Add Button */}
@@ -303,16 +318,17 @@ export default function UserTables({ list, onSetUserListToggle, userListToggle }
           onSetUserListToggle={onSetUserListToggle}
         />
       )}
-      {account && (
+      {detailsList && (
+      <div>
+      {detailsList.map((item) => (
         <ViewDetailsModal
         open={detailsOpen}
         onHandleClose={handleDetailsClose}
-        onHandleSubmit={handleSubmitPost}
-        onHandleChange={handleChangePost}
-        onSetForm={setPostAdsForm}
-        id={account.accountId}
-        list={list}
+        item={item}
+        key={item.accountId}
         />
+      ))}
+      </div>
       )}
   </>
   );
