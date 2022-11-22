@@ -11,3 +11,7 @@ export function getAdsById(id){
 export function addPost(form) {
   return http.post("/ads", form);
 }
+
+export function blockPost(id){
+  return http.put(`/ads/set-active/${id}`);
+}

@@ -7,6 +7,7 @@ import Appbar from '../../../component/shared/Appbar'
 import MarketPlace from '../../../component/shared/MarketPlace'
 import * as adService from '../../../service/admin/adService'
 import * as adsService from "../../../service/buyer/AdvertisementService";
+import MarketPlaceAdmin from './MarketPlaceAdmin'
 
 const AdvertisementPage = () => {
   const [adsList, setAdsList] = useState();
@@ -55,7 +56,7 @@ const AdvertisementPage = () => {
       <Appbar/>
       <AdminSidebar/>
       <Box mt={20}>
-        {adsList && <MarketPlace adsList={adsList} />}
+        {adsList && <MarketPlaceAdmin adsList={adsList} />}
       </Box>
       
       </>
