@@ -3,7 +3,7 @@ import { Grid } from "@mui/material";
 
 import EnrolledCourses from "../../component/farmer/EnrolledCourses";
 import FarmerSidebar from "../../component/farmer/FarmerSidebar";
-import Appbar from "../../component/shared/appbar/Appbar";
+import Appbar from "../../component/shared/Appbar";
 
 const MyCourses = () => {
   return (

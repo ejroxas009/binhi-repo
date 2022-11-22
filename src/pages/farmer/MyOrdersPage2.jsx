@@ -1,7 +1,7 @@
 import React from "react";
 import MyOrders from "../../component/shared/MyOrders";
 import FarmerSidebar from "../../component/farmer/FarmerSidebar";
-import Appbar from "../../component/shared/appbar/Appbar";
+import Appbar from "../../component/shared/Appbar";
 import Grid from "@mui/material/Grid";
 
 const MyOrdersPage2 = () => {

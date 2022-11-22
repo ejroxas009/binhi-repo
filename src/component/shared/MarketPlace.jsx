@@ -235,9 +235,9 @@ const MarketPlace = ({ adsList, onSetAdsListToggle, adsListToggle }) => {
                   <Grid item xs={1.5}>
                     {account && (
                       <Avatar
-                        alt="Remy Sharp"
+                        alt="Avatar"
                         src={account.profileImg}
-                        sx={{ width: 50, height: 50 }}
+                        sx={{ width: 50, height: 50, marginTop: 1 }}
                       />
                     )}
                   </Grid>
@@ -247,7 +247,7 @@ const MarketPlace = ({ adsList, onSetAdsListToggle, adsListToggle }) => {
                       //variant="contained"
                       sx={{
                         borderRadius: 10,
-                        marginTop: 1,
+                        marginTop: 2,
                         backgroundColor: "#f0f2f5",
                         justifyContent: "flex-start",
                       }}

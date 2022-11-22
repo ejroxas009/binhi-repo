@@ -1,21 +1,25 @@
 import React from "react";
-import { Box, Container } from "@mui/material";
+import { Grid } from "@mui/material";
 
 //components
 import AdsCard from "../../component/farmer/AdsCard";
 import FarmerSidebar from "../../component/farmer/FarmerSidebar";
-import Appbar from "../../component/shared/appbar/Appbar";
+import Appbar from "../../component/shared/Appbar";
 
 const MyCurrentAds = () => {
   return (
     <>
-      <Appbar />
-      <FarmerSidebar />
-      <Container fixed>
-        <Box mt={10}>
+      <Grid container>
+        <Grid item xs={12}>
+          <Appbar />
+        </Grid>
+        <Grid item md={3}>
+          <FarmerSidebar />
+        </Grid>
+        <Grid item xs={12} sm={12} md={12} lg={12} sx={{ marginTop: 10 }}>
           <AdsCard />
-        </Box>
-      </Container>
+        </Grid>
+      </Grid>
     </>
   );
 };
