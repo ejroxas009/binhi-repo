@@ -8,12 +8,12 @@ import CardContent from "@mui/material/CardContent";
 import { Card, CardMedia, Typography } from "@mui/material";
 import Chip from "@mui/material/Chip";
 
-const ViewComplaints = ({ complaints }) => {
+const ViewComplaints = ({ data }) => {
   
   const [complaintsToggle, setComplaintsToggle] = useState(false);
 
   useEffect(() => {
-    console.log(complaints);
+    console.log(data);
   }, [complaintsToggle]);
 
   return (
@@ -24,14 +24,14 @@ const ViewComplaints = ({ complaints }) => {
           <Divider />
           <CardContent>
             <Typography component={"div"}>
-              Complaint ID: {complaints.complaintId}
+              Complaint ID: {data.complaintId}
             </Typography>
             <Typography component={"div"} paragraph>
-              Post Message: {complaints.complaintPost}
+              Post Message: {data.complaintPost}
             </Typography>
             <Typography component={"div"} paragraph>
               Status:
-              {complaints.resolved ? (
+              {data.resolved ? (
                 <Chip label="Resolved" color="primary" />
               ) : (
                 <Chip label="UnResolved" color="warning" />
@@ -42,7 +42,7 @@ const ViewComplaints = ({ complaints }) => {
               <CardMedia
                 component="img"
                 height="250"
-                image={complaints.complaintImg}
+                image={data.complaintImg}
                 alt="Screenshot"
               />
             </Card>

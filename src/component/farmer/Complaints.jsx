@@ -5,7 +5,6 @@ import jwtDecode from "jwt-decode";
 //services
 import {
   getAccountById,
-  getAllAccount,
 } from "../../service/shared/accountService";
 import * as complaintService from "../../service/admin/complaintService";
 
@@ -23,6 +22,7 @@ import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 // import TablePagination from "@mui/material/TablePagination";
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -53,12 +53,19 @@ const columns = [
 const Complaints = () => {
   // const [page, setPage] = React.useState(0);
   // const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [open, setOpen] = useState(false);
+  const [view, setView] = useState(false);
 
   const [account, setAccount] = useState();
   const [accountToggle, setAccountToggle] = useState(false);
 
   const [complaints, setComplaints] = useState();
   const [complaintsToggle, setComplaintsToggle] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const handleOpenView = () => setView(true);
+  const handleCloseView = () => setView(false);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -85,11 +92,11 @@ const Complaints = () => {
   };
 
   useEffect(() => {
-    console.log(account);
+    getAllComplaints();
   }, [accountToggle]);
 
   useEffect(() => {
-    getAllComplaints();
+    console.log(account);
   }, [accountToggle]);
 
   useEffect(() => {
@@ -111,31 +118,27 @@ const Complaints = () => {
       <Grid>
         <h1>My Complaints</h1>
       </Grid>
-      {complaints && (<TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <StyledTableCell key={column.id} align={column.align}>
-                  {column.label}
-                </StyledTableCell>
-              ))}
-            </TableRow>
+      {complaints && (
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <StyledTableCell key={column.id} align={column.align}>
+                    {column.label}
+                  </StyledTableCell>
+                ))}
+              </TableRow>
             </TableHead>
             <TableBody>
-              {complaints
-                .map((data) => (
-                  <StyledTableRow
-                    key={data.complaintId}
-                  >
-                    <Complaint
-                      complaints={complaints}
-                    />
-                  </StyledTableRow>
-                ))}
+              {complaints.map((data) => (
+                <StyledTableRow key={data.complaintId}>
+                    <Complaint data={data}/>
+                </StyledTableRow>
+              ))}
             </TableBody>
-        </Table>
-      </TableContainer>
+          </Table>
+        </TableContainer>
       )}
     </>
   );
