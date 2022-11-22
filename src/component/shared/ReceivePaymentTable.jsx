@@ -56,6 +56,9 @@ const ReceivePaymentTable = (details) => {
             <TableCell align="center" sx={{ color: "white" }}>
               Proof of Payment
             </TableCell>
+            <TableCell align="center" sx={{ color: "white" }}>
+              Receive Payment
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -76,9 +79,7 @@ const ReceivePaymentTable = (details) => {
               <TableCell align="center">
                 {detail.advertisement.cropQuantity * detail.bid.bidPrice}
               </TableCell>
-              <TableCell align="center">
-                <Button>{detail.paymentMode}</Button>
-              </TableCell>
+              <TableCell align="center">{detail.paymentMode}</TableCell>
 
               <TableCell align="center">
                 <IconButton
@@ -89,6 +90,17 @@ const ReceivePaymentTable = (details) => {
                 >
                   <VisibilityIcon />
                 </IconButton>
+              </TableCell>
+              <TableCell align="center">
+                <Button
+                  variant="contained"
+                  sx={{ borderRadius: 50 }}
+                  onClick={() => {
+                    handleReceivePayment(detail.paymentId);
+                  }}
+                >
+                  Receive
+                </Button>
               </TableCell>
             </TableRow>
           ))}

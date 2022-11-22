@@ -5,7 +5,7 @@ import jwtDecode from "jwt-decode";
 import ReceivedListTable from "./ReceivedListTable";
 import PaymentListTable from "./PaymentListTable";
 import ProductsDeliveredListTable from "./ProductsDeliveredListTable";
-
+import PaymentReceivedTable from "./PaymentReceivedTable";
 //--MUI--
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -18,11 +18,14 @@ const MyTransaction = () => {
   const [myPaidList, setMyPaidList] = useState();
   const [myReceivedList, setMyReceivedList] = useState();
   const [productsDeliveredList, setMyProductsDeliveredList] = useState();
+  const [paymentReceivedList, setPaymentReceivedList] = useState();
   const [account, setAccount] = useState();
   const [toggle, setToggle] = useState(false);
   const [myPaidListToggle, setMyPaidListToggle] = useState(false);
   const [myReceivedListToggle, setMyReceivedListToggle] = useState(false);
   const [productsDeliveredListToggle, setProductsDeliveredListToggle] =
+    useState(false);
+  const [paymentReceivedListToggle, setPaymentReceivedListToggle] =
     useState(false);
   const [isPaymentTable, setIsPaymentTable] = useState("payment");
 
@@ -54,6 +57,17 @@ const MyTransaction = () => {
 
       setMyPaidList(myPayment);
       setMyPaidListToggle(!myPaidListToggle);
+
+      const paymentReceived = res.data.filter(
+        (payment) =>
+          payment.bid.account.accountId == account.accountId &&
+          payment.bid.approved &&
+          (payment.markAsPaid || payment.markAsCOD) &&
+          payment.paid == true
+      );
+
+      setPaymentReceivedList(paymentReceived);
+      setPaymentReceivedListToggle(!paymentReceivedListToggle);
     }
   };
 
@@ -88,6 +102,9 @@ const MyTransaction = () => {
   const handleProductsDeliveredPage = () => {
     setIsPaymentTable("products delivered");
   };
+  const handleReceivedPaymentPage = () => {
+    setIsPaymentTable("received payment");
+  };
 
   useEffect(() => {
     getAllPaymentFunction();
@@ -103,6 +120,9 @@ const MyTransaction = () => {
   useEffect(() => {
     console.log(productsDeliveredList);
   }, [productsDeliveredList]);
+  useEffect(() => {
+    console.log(paymentReceivedList);
+  }, [paymentReceivedListToggle]);
 
   return (
     <>
@@ -127,6 +147,17 @@ const MyTransaction = () => {
                     }
                   >
                     Payment History
+                  </Button>
+                  <Button
+                    onClick={handleReceivedPaymentPage}
+                    sx={{ borderRadius: 50, margin: 1 }}
+                    variant={
+                      isPaymentTable == "received payment"
+                        ? "outlined"
+                        : "contained"
+                    }
+                  >
+                    Received Payment
                   </Button>
                   <Button
                     onClick={handleReceivedProductPage}
@@ -166,6 +197,10 @@ const MyTransaction = () => {
                       <ProductsDeliveredListTable
                         details={productsDeliveredList}
                       />
+                    )}
+                  {paymentReceivedList &&
+                    isPaymentTable == "received payment" && (
+                      <PaymentReceivedTable details={paymentReceivedList} />
                     )}
                 </CardContent>
               </Grid>
