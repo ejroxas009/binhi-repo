@@ -169,8 +169,6 @@ export default function AdminSidebar() {
         <Toolbar />
         <Box sx={{ overflow: 'auto', marginTop:'20px', }}>
           <List>
-            
-
               <ListItem disablePadding>
               {account && (
                 <ListItemButton LinkComponent={Link} to="/admin/profile">

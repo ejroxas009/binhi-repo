@@ -1,5 +1,4 @@
 import React from "react";
-import { useEffect, useState } from "react";
 
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
@@ -9,12 +8,6 @@ import { Card, CardMedia, Typography } from "@mui/material";
 import Chip from "@mui/material/Chip";
 
 const ViewComplaints = ({ data }) => {
-  
-  const [complaintsToggle, setComplaintsToggle] = useState(false);
-
-  useEffect(() => {
-    console.log(data);
-  }, [complaintsToggle]);
 
   return (
     <>

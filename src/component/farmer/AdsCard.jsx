@@ -120,11 +120,11 @@ const AdsCard = () => {
                         src={adsData.account.profileImg}
                       ></Avatar>
                     }
-                    action={
-                      <IconButton aria-label="settings">
-                        <StarBorderOutlinedIcon />
-                      </IconButton>
-                    }
+                    // action={
+                    //   <IconButton aria-label="settings">
+                    //     <StarBorderOutlinedIcon />
+                    //   </IconButton>
+                    // }
                     title={adsData.postDate}
                     subheader="Post Date"
                   />

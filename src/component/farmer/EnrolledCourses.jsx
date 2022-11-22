@@ -114,7 +114,7 @@ const EnrolledCourses = () => {
       <TableHead>
         <TableRow>
           <StyledTableCell align="center">Enrolled Date</StyledTableCell>
-          <StyledTableCell align="center">Course Description</StyledTableCell>
+          <StyledTableCell align="center">Course Name</StyledTableCell>
           <StyledTableCell align="center">Schedule</StyledTableCell>
         </TableRow>
       </TableHead>
@@ -126,9 +126,9 @@ const EnrolledCourses = () => {
                     )
                   : enrolledCourse
                 ).map((item) => (
-          <StyledTableRow key={item.courseEnrollId}>
+            <StyledTableRow key={item.courseEnrollId}>
             <StyledTableCell align="center">{item.enrollDate}</StyledTableCell>
-            <StyledTableCell align="center">{item.course.courseDescription}</StyledTableCell>
+            <StyledTableCell align="center">{item.course.courseName}</StyledTableCell>
             <StyledTableCell align="center">
                 {`${item.course.startTime} - ${item.course.endTime} | ${item.course.startDate} - ${item.course.endDate}`}
             </StyledTableCell>

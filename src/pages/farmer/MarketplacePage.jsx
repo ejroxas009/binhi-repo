@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Container } from "@mui/material";
+import { Grid } from "@mui/material";
 
 //service
 import * as adsService from "../../service/buyer/AdvertisementService";
@@ -7,7 +7,7 @@ import * as adsService from "../../service/buyer/AdvertisementService";
 //components
 import MarketPlace from "../../component/shared/MarketPlace";
 import FarmerSidebar from "../../component/farmer/FarmerSidebar";
-import Appbar from "../../component/shared/appbar/Appbar";
+import Appbar from "../../component/shared/Appbar";
 
 const MarketplacePage = () => {
   const [adsList, setAdsList] = useState();
@@ -28,11 +28,23 @@ const MarketplacePage = () => {
   }, [adsListToggle]);
   return (
     <>
-      <Appbar />
-      <FarmerSidebar />
-      <Container fixed>
-        <Box mt={10}>{adsList && <MarketPlace adsList={adsList} />}</Box>
-      </Container>
+      <Grid container>
+        <Grid item xs={12}>
+          <Appbar />
+        </Grid>
+        <Grid item md={3}>
+          <FarmerSidebar />
+        </Grid>
+        <Grid item xs={12} sm={12} md={12} lg={12} sx={{ marginTop: 10 }}>
+          {adsList && (
+            <MarketPlace
+              adsList={adsList}
+              onSetAdsListToggle={setAdsListToggle}
+              adsListToggle={adsListToggle}
+            />
+          )}
+        </Grid>
+      </Grid>
     </>
   );
 };
