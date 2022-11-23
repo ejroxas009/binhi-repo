@@ -8,6 +8,7 @@ import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import UploadingModal from "../../../shared/UploadingModal";
 import UploadSuccessModal from "../../../shared/UploadSuccessModal";
+import { CardMedia, Typography } from "@mui/material";
 
 // import * as accountService from "../../../../service/admin/userService";
 
@@ -54,49 +55,26 @@ const ViewDetailsModal = ({
           <CardContent>
             <Grid container spacing={2} justifyContent="center">
               <Grid item xs={12}>
-                <TextField
-                  label="First Name"
-                  name="firstName"
-                  fullWidth
-                  value={user.firstName}
-                  onChange={onHandleChange}
-                />
+                <Typography>
+                  Name: {`${user.firstName} ${user.lastName}`}
+                </Typography>
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  label="Middle Name"
-                  name="middleName"
-                  fullWidth
-                  value={user.middleName}
-                  onChange={onHandleChange}
-                />
+                <Typography>
+                  Username: {user.username}
+                </Typography>
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  label="Last Name"
-                  name="lastName"
-                  fullWidth
-                  value={user.lastName}
-                  onChange={onHandleChange}
-                />
+                <Typography>
+                  User Type: {user.role}
+                </Typography>
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  label="Username"
-                  name="username"
-                  fullWidth
-                  value={user.username}
-                  onChange={onHandleChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  disabled
-                  label="User Type"
-                  name="role"
-                  fullWidth
-                  value={user.role}
-                  onChange={onHandleChange}
+                <CardMedia
+                  component="img"
+                  height="370"
+                  image={user.complianceImg}
+                  alt="Compliance Image"
                 />
               </Grid>
               <Grid container item xs={12} justifyContent="center">
