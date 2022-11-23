@@ -24,6 +24,11 @@ import TablePaginationActions from "../../../shared/TablePaginationActions";
 
 //Material Icons
 import AddIcon from "@mui/icons-material/Add";
+import DeleteCourse from '../../modals/CourseModal/DeleteCourse';
+
+//Moment
+import moment from "moment"
+import Moment from 'react-moment';
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -147,6 +152,29 @@ export default function CoursesTable ({coursesList, onSetCourseListToggle, cours
   }, [postToggle]);
 
   //------------End Post Ads ----------------------------
+
+  //------------Delete Course----------------------------
+
+  const [course, setCourse] = useState();
+  const [courseToggle, setCourseToggle] = useState(false);
+
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deleteToggle, setDeleteToggle] = useState(false);
+  const handleDeleteOpen = () => setDeleteOpen(true);
+  const handleDeleteClose = () => setDeleteOpen(false);
+
+  const deleteFunction = (course) => {
+    handleDeleteOpen();
+    const deleteDataFunction = async () => {
+      if (course) {
+        const res = await courseService.getCourseById(course);
+        setCourse(res.data);
+        setCourseToggle(!courseToggle);
+      }
+    };
+
+    deleteDataFunction();
+  };
   
   return (
     <>
@@ -192,10 +220,17 @@ export default function CoursesTable ({coursesList, onSetCourseListToggle, cours
                 <StyledTableCell align="center">{item.courseName}</StyledTableCell>
                 <StyledTableCell align="center">{item.courseDescription}</StyledTableCell>
                 <StyledTableCell align="center">
-                    {`${item.startTime} - ${item.endTime} | ${item.startDate.substring(0,10)} - ${item.endDate.substring(0,10)}`}
+                    {/* {`${item.startTime} - ${item.endTime} | ${item.startDate.substring(0,10)} - ${item.endDate.substring(0,10)}`} */}
+                    <Moment format="YYYY/MM/DD" date={item.startDate}/>
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  <Button variant="outlined" color="error" sx={{ borderRadius:'20px!important'}}>
+                  <Button variant="outlined" 
+                  color="error" 
+                  sx={{ borderRadius:'20px!important'}}
+                  onClick={() => {
+                    deleteFunction(item.courseId);
+                  }}
+                  >
                     Delete
                   </Button>
                 </StyledTableCell>
@@ -238,6 +273,20 @@ export default function CoursesTable ({coursesList, onSetCourseListToggle, cours
           id={account.accountId}
           courseListToggle={courseListToggle}
           onSetCourseListToggle={onSetCourseListToggle}
+        />
+      )}
+
+      {account && (
+        <DeleteCourse
+          open={deleteOpen}
+          onHandleClose={handleDeleteClose}
+          onSetForm={setPostAdsForm}
+          id={account.accountId}
+          course={course}
+          coursesList={coursesList}
+          setCourse = {setCourse}
+          setCourseToggle = {setCourseToggle}
+          courseToggle = {courseToggle}
         />
       )}
     </>
