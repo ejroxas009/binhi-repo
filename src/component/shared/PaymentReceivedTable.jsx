@@ -40,9 +40,6 @@ const PaymentReceivedTable = ({ details }) => {
             <TableCell align="center" sx={{ color: "white" }}>
               Payment Mode
             </TableCell>
-            <TableCell align="center" sx={{ color: "white" }}>
-              Actions
-            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -74,12 +71,6 @@ const PaymentReceivedTable = ({ details }) => {
               </TableCell>
 
               <TableCell align="center">{detail.paymentMode}</TableCell>
-
-              <TableCell align="center">
-                <IconButton>
-                  <ArrowForwardIcon />
-                </IconButton>
-              </TableCell>
             </TableRow>
           ))}
         </TableBody>

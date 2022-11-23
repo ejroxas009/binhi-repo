@@ -20,6 +20,7 @@ const ToReceiveListTable = ({ details }) => {
   const handleReceiveProduct = async (receiveId) => {
     const res = await transactionService.receiveCrop(receiveId);
     console.log(res);
+    window.location.reload();
   };
   return (
     <TableContainer component={Paper}>

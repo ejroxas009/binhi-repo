@@ -66,6 +66,7 @@ const ForPaymentListTable = ({ details, toReceiveList }) => {
     const res = await transactionService.markAsPaid(paymentId);
     console.log(res);
     handleClose();
+    window.location.reload();
   };
   return (
     <TableContainer component={Paper}>

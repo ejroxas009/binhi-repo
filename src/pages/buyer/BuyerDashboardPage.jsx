@@ -3,7 +3,7 @@ import BuyerDashboard from "../../component/buyer/BuyerDashboard";
 import AppSettingsAltIcon from "@mui/icons-material/AppSettingsAlt";
 import Grid from "@mui/material/Grid";
 import BuyerSidebar from "../../component/buyer/BuyerSidebar";
-import Appbar from "../../component/shared/appbar/Appbar";
+import Appbar from "../../component/shared/Appbar";
 
 const BuyerDashboardPage = () => {
   const AppSettingAltIcon = <AppSettingsAltIcon />;

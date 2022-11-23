@@ -184,19 +184,39 @@ const BuyerDashboard = () => {
           />
         </Grid>
         <Grid item xs={12} sm={4} md={4} lg={4}>
-          <DashboardCard header="Orders Received" data="486" bgColor="yellow" />
+          <DashboardCard
+            header="Orders Received"
+            data="486"
+            bgColor="#ffc066"
+          />
         </Grid>
         <Grid item xs={12} sm={4} md={4} lg={4}>
-          <DashboardCard header="Orders Received" data="485" bgColor="red" />
+          <DashboardCard
+            header="Orders Received"
+            data="485"
+            bgColor="#fe6a84"
+          />
         </Grid>
         <Grid item xs={12} sm={4} md={4} lg={4}>
-          <DashboardCard header="Orders Received" data="485" bgColor="blue" />
+          <DashboardCard
+            header="Orders Received"
+            data="485"
+            bgColor="#55a4ff"
+          />
         </Grid>
         <Grid item xs={12} sm={4} md={4} lg={4}>
-          <DashboardCard header="Orders Received" data="485" bgColor="yellow" />
+          <DashboardCard
+            header="Orders Received"
+            data="485"
+            bgColor="#ffc066"
+          />
         </Grid>
         <Grid item xs={12} sm={4} md={4} lg={4}>
-          <DashboardCard header="Orders Received" data="485" bgColor="red" />
+          <DashboardCard
+            header="Orders Received"
+            data="485"
+            bgColor="#ffc066"
+          />
         </Grid>
       </Grid>
     </>

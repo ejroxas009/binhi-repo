@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import MultiStepper from "./MultiStepper";
@@ -16,8 +17,10 @@ import RegistrationForm2 from "./RegistrationForm2";
 import RegistrationForm3 from "./RegistrationForm3";
 import * as accountService from "../../service/shared/accountService";
 import Appbar from "../../component/shared/appbar/Appbar";
+import UploadSuccessModal from "./UploadSuccessModal";
 
 const RegistrationFormHolder = () => {
+  const navigate = useNavigate();
   let temp;
   const [accountForm, setAccountForm] = useState({
     role: "",
@@ -43,6 +46,7 @@ const RegistrationFormHolder = () => {
   const [imageRef, setImageRef] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
   const [toggle, setToggle] = useState(false);
+  const [successModal, setSuccessModal] = useState(false);
 
   const [step, setStep] = useState(0);
 
@@ -75,6 +79,9 @@ const RegistrationFormHolder = () => {
           password: "",
         });
       });
+      handleSuccessModalOpen();
+      setTimeout(handleSuccessModalClose, 3000);
+      setTimeout(navigateToLandingPage, 3500);
     }
   }, [toggle]);
 
@@ -124,6 +131,10 @@ const RegistrationFormHolder = () => {
       );
     }
   };
+
+  const handleSuccessModalOpen = () => setSuccessModal(true);
+  const handleSuccessModalClose = () => setSuccessModal(false);
+  const navigateToLandingPage = () => navigate("/");
 
   return (
     <>
@@ -227,6 +238,10 @@ const RegistrationFormHolder = () => {
           )}
         </Grid> */}
       </Grid>
+      <UploadSuccessModal
+        message="Registration Successful"
+        open={successModal}
+      />
     </>
   );
 };
