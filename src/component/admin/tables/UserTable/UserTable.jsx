@@ -148,13 +148,11 @@ export default function UserTables({
   }, [toggle]);
 
   //function for view details button
-  console.log(user);
   const viewDetailsFunction = (user) => {
     handleDetailsOpen();
     const viewDataFunction = async () => {
       if (user) {
         const res = await accountService.getAccountById(user);
-        console.log(res.data);
         setUser(res.data);
         setUserToggle(!userToggle);
       }
@@ -207,7 +205,7 @@ export default function UserTables({
  //------------View Data ---------------------------
 
   useEffect(() => {
-    console.log(user);
+    // console.log(user);
   }, [userToggle]);
 
   return (
