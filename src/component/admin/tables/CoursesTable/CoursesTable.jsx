@@ -160,8 +160,8 @@ export default function CoursesTable ({coursesList, onSetCourseListToggle, cours
               aria-label="add"
               sx={{
                 position: "fixed",
-                bottom: (theme) => theme.spacing(5),
-                right: (theme) => theme.spacing(5),
+                top: (theme) => theme.spacing(12),
+                right: (theme) => theme.spacing(4),
                 backgroundColor: Colors.primary,
               }}
             >
@@ -172,15 +172,15 @@ export default function CoursesTable ({coursesList, onSetCourseListToggle, cours
       </Grid>
 
       {/* Table */}
+      <h1>Courses</h1>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
-            <StyledTableCell align="left">Course Name</StyledTableCell>
-              <StyledTableCell align="left">Course Description</StyledTableCell>
+            <StyledTableCell align="center">Course Name</StyledTableCell>
+              <StyledTableCell align="center">Course Description</StyledTableCell>
               <StyledTableCell align="center">Schedule</StyledTableCell>
-              <StyledTableCell align="left">Course Link</StyledTableCell>
-              <StyledTableCell align="right">Action</StyledTableCell>
+              <StyledTableCell align="center">Action</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -189,12 +189,11 @@ export default function CoursesTable ({coursesList, onSetCourseListToggle, cours
             : coursesList
           ).map((item) => (
               <StyledTableRow key={item.courseId}>
-                <StyledTableCell align="left">{item.courseName}</StyledTableCell>
-                <StyledTableCell align="left">{item.courseDescription}</StyledTableCell>
+                <StyledTableCell align="center">{item.courseName}</StyledTableCell>
+                <StyledTableCell align="center">{item.courseDescription}</StyledTableCell>
                 <StyledTableCell align="center">
                     {`${item.startTime} - ${item.endTime} | ${item.startDate.substring(0,10)} - ${item.endDate.substring(0,10)}`}
                 </StyledTableCell>
-                <StyledTableCell align="left">{item.courseLink}</StyledTableCell>
                 <StyledTableCell align="right">
                   <Button variant="outlined" color="error" sx={{ borderRadius:'20px!important'}}>
                     Delete

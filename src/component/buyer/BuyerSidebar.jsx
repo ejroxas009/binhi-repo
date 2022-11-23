@@ -15,6 +15,10 @@ import Drawer from "@mui/material/Drawer";
 import Avatar from "@mui/material/Avatar";
 import Divider from '@mui/material/Divider';
 
+//icons
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import FeedbackIcon from '@mui/icons-material/Feedback';
+
 import { getAccountById } from "../../service/shared/accountService";
 import jwtDecode from "jwt-decode";
 
@@ -87,7 +91,7 @@ const BuyerSidebar = () => {
             <ListItem disablePadding>
               <ListItemButton LinkComponent={Link} to="/buyer/marketplace">
                 <ListItemIcon>
-                  <DashboardRoundedIcon />
+                  <StorefrontIcon />
                 </ListItemIcon>
                 <ListItemText primary={"Marketplace"} />
               </ListItemButton>
@@ -135,7 +139,7 @@ const BuyerSidebar = () => {
             <ListItem disablePadding>
               <ListItemButton LinkComponent={Link} to="/buyer/complaints">
                 <ListItemIcon>
-                  <DashboardRoundedIcon />
+                  <FeedbackIcon />
                 </ListItemIcon>
                 <ListItemText primary={"My Complaints"} />
               </ListItemButton>

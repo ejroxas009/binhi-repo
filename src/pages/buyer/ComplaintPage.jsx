@@ -4,7 +4,7 @@ import { Grid } from '@mui/material'
 //components
 import Complaints from "../../component/farmer/Complaints";
 import BuyerSidebar from "../../component/buyer/BuyerSidebar";
-import Appbar from "../../component/shared/appbar/Appbar";
+import Appbar from "../../component/shared/Appbar";
 
 const ComplaintPage = () => {
   return (

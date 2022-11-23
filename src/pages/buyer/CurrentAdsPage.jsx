@@ -2,7 +2,7 @@ import React from "react";
 import { Grid } from "@mui/material";
 //components
 import BuyerSidebar from "../../component/buyer/BuyerSidebar";
-import Appbar from "../../component/shared/appbar/Appbar";
+import Appbar from "../../component/shared/Appbar";
 import CurrentAdsCard from "../../component/buyer/CurrentAdsCard";
 
 const CurrentAdsPage = () => {

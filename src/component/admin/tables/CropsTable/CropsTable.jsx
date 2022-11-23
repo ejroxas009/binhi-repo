@@ -155,8 +155,8 @@ export default function CropsTable ({cropsList, onSetCropListToggle, cropListTog
               aria-label="add"
               sx={{
                 position: "fixed",
-                bottom: (theme) => theme.spacing(5),
-                right: (theme) => theme.spacing(5),
+                top: (theme) => theme.spacing(12),
+                right: (theme) => theme.spacing(4),
                 backgroundColor: Colors.primary,
               }}
             >
@@ -167,10 +167,12 @@ export default function CropsTable ({cropsList, onSetCropListToggle, cropListTog
       </Grid>
 
       {/* Table */}
+      <h1>Crops Categories</h1>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
+            <StyledTableCell align="center">Crop ID</StyledTableCell>
             <StyledTableCell align="center">Crop Name</StyledTableCell>
             <StyledTableCell align="center">Actions</StyledTableCell>
             </TableRow>
@@ -181,6 +183,7 @@ export default function CropsTable ({cropsList, onSetCropListToggle, cropListTog
             : cropsList
           ).map((item) => (
               <StyledTableRow key={item.cropId}>
+                <StyledTableCell align="center">{item.cropId}</StyledTableCell>
                 <StyledTableCell align="center">{item.cropName}</StyledTableCell>
                 <StyledTableCell align="center">
                   <Button variant="outlined" color="error" sx={{ borderRadius:'20px!important'}}>
