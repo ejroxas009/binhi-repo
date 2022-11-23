@@ -13,6 +13,7 @@ import { Colors } from '../../styles/Theme/Theme';
 import PropTypes from "prop-types";
 import TableFooter from "@mui/material/TableFooter";
 import TablePagination from "@mui/material/TablePagination";
+import { Button } from "@mui/material";
 
 //components
 import TablePaginationActions from "../shared/TablePaginationActions";
@@ -20,6 +21,7 @@ import TablePaginationActions from "../shared/TablePaginationActions";
 //services
 import {getAccountById} from "../../service/shared/accountService";
 import * as courseService from '../../service/admin/courseService'
+import ViewEnrolledCourse from './ViewEnrolledCourse';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -59,6 +61,9 @@ const EnrolledCourses = () => {
   const [enrolledCourse, setEnrolledCourse] = useState();
   const [enrolledCourseToggle, setEnrolledCourseToggle] = useState(false);
 
+  const [course, setCourse] = useState();
+  const [courseToggle, setCourseToggle] = useState(false);
+
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     const decoded = jwtDecode(token);
@@ -95,6 +100,28 @@ const EnrolledCourses = () => {
     console.log(enrolledCourse);
   }, [enrolledCourseToggle])
 
+  //function for view details
+  const viewDetailsFunction = (course) => {
+    handleDetailsOpen();
+    const viewDataFunction = async () => {
+      if (course) {
+        const res = await courseService.getCourseEnrollById(course);
+        setCourse(res.data);
+        setCourseToggle(!courseToggle);
+      }
+    };
+    viewDataFunction();
+  };
+
+  useEffect(() => {
+    console.log(course);
+  }, [courseToggle]);
+
+  //View Details Modal
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const handleDetailsOpen = () => setDetailsOpen(true);
+  const handleDetailsClose = () => setDetailsOpen(false);
+
   //Pagination
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -115,7 +142,8 @@ const EnrolledCourses = () => {
         <TableRow>
           <StyledTableCell align="center">Enrolled Date</StyledTableCell>
           <StyledTableCell align="center">Course Name</StyledTableCell>
-          <StyledTableCell align="center">Schedule</StyledTableCell>
+          <StyledTableCell align="center">Description</StyledTableCell>
+          <StyledTableCell align="center">Action</StyledTableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -129,9 +157,18 @@ const EnrolledCourses = () => {
             <StyledTableRow key={item.courseEnrollId}>
             <StyledTableCell align="center">{item.enrollDate}</StyledTableCell>
             <StyledTableCell align="center">{item.course.courseName}</StyledTableCell>
+            <StyledTableCell align="center">{item.course.courseDescription}</StyledTableCell>
             <StyledTableCell align="center">
-                {`${item.course.startTime} - ${item.course.endTime} | ${item.course.startDate} - ${item.course.endDate}`}
-            </StyledTableCell>
+                  <Button
+                    variant="text"
+                    size="small"
+                    onClick={() => {
+                      viewDetailsFunction(item.courseEnrollId);
+                    }}
+                  >
+                    View Details
+                  </Button>
+                </StyledTableCell>
           </StyledTableRow>
         ))}
       </TableBody>
@@ -163,6 +200,16 @@ const EnrolledCourses = () => {
     </Table>
   </TableContainer>
    )}
+    {enrolledCourse && course && (
+      <ViewEnrolledCourse 
+      open={detailsOpen}
+      onHandleClose={handleDetailsClose}
+      course={course}
+      enrolledCourse={enrolledCourse}
+      id={enrolledCourse.courseId}
+      />
+    )}
+
   </>
 );
 }
