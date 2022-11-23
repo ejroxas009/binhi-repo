@@ -18,6 +18,10 @@ import Divider from '@mui/material/Divider';
 //icons
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import FeedbackIcon from '@mui/icons-material/Feedback';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import DvrIcon from '@mui/icons-material/Dvr';
+import SpeakerNotesIcon from '@mui/icons-material/SpeakerNotes';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
 import { getAccountById } from "../../service/shared/accountService";
 import jwtDecode from "jwt-decode";
@@ -103,7 +107,7 @@ const BuyerSidebar = () => {
                 to="/buyer/transaction-history"
               >
                 <ListItemIcon>
-                  <DashboardRoundedIcon />
+                  <ReceiptLongIcon />
                 </ListItemIcon>
                 <ListItemText primary={"Transaction History"} />
               </ListItemButton>
@@ -112,7 +116,7 @@ const BuyerSidebar = () => {
             <ListItem disablePadding>
               <ListItemButton LinkComponent={Link} to="/buyer/my-orders">
                 <ListItemIcon>
-                  <DashboardRoundedIcon />
+                  <ShoppingCartCheckoutIcon />
                 </ListItemIcon>
                 <ListItemText primary={"My Orders"} />
               </ListItemButton>
@@ -121,7 +125,7 @@ const BuyerSidebar = () => {
             <ListItem disablePadding>
               <ListItemButton LinkComponent={Link} to="/buyer/current-ads">
                 <ListItemIcon>
-                  <DashboardRoundedIcon />
+                  <DvrIcon />
                 </ListItemIcon>
                 <ListItemText primary={"My Current Ads"} />
               </ListItemButton>
@@ -130,7 +134,7 @@ const BuyerSidebar = () => {
             <ListItem disablePadding>
               <ListItemButton LinkComponent={Link} to="/buyer/current-bids">
                 <ListItemIcon>
-                  <DashboardRoundedIcon />
+                  <SpeakerNotesIcon />
                 </ListItemIcon>
                 <ListItemText primary={"My Current Bids"} />
               </ListItemButton>

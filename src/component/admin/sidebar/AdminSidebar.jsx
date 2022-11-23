@@ -17,6 +17,8 @@ import DvrIcon from '@mui/icons-material/Dvr';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import FeedbackIcon from '@mui/icons-material/Feedback';
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
+import AgricultureIcon from '@mui/icons-material/Agriculture';
+import GroupsIcon from '@mui/icons-material/Groups';
 
 import { v4 } from "uuid";
 import { storage } from "../../../service/shared/firebase";
@@ -237,7 +239,7 @@ export default function AdminSidebar() {
               <ListItem disablePadding>
                 <ListItemButton LinkComponent={Link} to="/admin/crops">
                   <ListItemIcon>
-                    <DashboardRoundedIcon />
+                    <AgricultureIcon />
                   </ListItemIcon>
                   <ListItemText primary={"Crops"} />
                 </ListItemButton>
@@ -246,7 +248,7 @@ export default function AdminSidebar() {
               <ListItem disablePadding>
                 <ListItemButton LinkComponent={Link} to="/admin/users">
                   <ListItemIcon>
-                    <DashboardRoundedIcon />
+                    <GroupsIcon />
                   </ListItemIcon>
                   <ListItemText primary={"Users"} />
                 </ListItemButton>

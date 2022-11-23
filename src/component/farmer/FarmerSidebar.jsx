@@ -21,6 +21,10 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 import FeedbackIcon from '@mui/icons-material/Feedback';
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import DvrIcon from '@mui/icons-material/Dvr';
+import SpeakerNotesIcon from '@mui/icons-material/SpeakerNotes';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
 import { getAccountById } from "../../service/shared/accountService";
 import jwtDecode from "jwt-decode";
@@ -106,7 +110,7 @@ const FarmerSidebar = () => {
                 to="/farmer/transaction-history"
               >
                 <ListItemIcon>
-                  <DashboardRoundedIcon />
+                  <ReceiptLongIcon />
                 </ListItemIcon>
                 <ListItemText primary={"Transaction History"} />
               </ListItemButton>
@@ -114,7 +118,7 @@ const FarmerSidebar = () => {
             <ListItem disablePadding>
               <ListItemButton LinkComponent={Link} to="/farmer/my-orders">
                 <ListItemIcon>
-                  <DashboardRoundedIcon />
+                  <ShoppingCartCheckoutIcon />
                 </ListItemIcon>
                 <ListItemText primary={"My Orders"} />
               </ListItemButton>
@@ -132,7 +136,7 @@ const FarmerSidebar = () => {
             <ListItem disablePadding>
               <ListItemButton LinkComponent={Link} to="/farmer/current-ads">
                 <ListItemIcon>
-                  <DashboardRoundedIcon />
+                  <DvrIcon />
                 </ListItemIcon>
                 <ListItemText primary={"My Current Ads"} />
               </ListItemButton>
@@ -141,7 +145,7 @@ const FarmerSidebar = () => {
             <ListItem disablePadding>
               <ListItemButton LinkComponent={Link} to="/farmer/current-bids">
                 <ListItemIcon>
-                  <DashboardRoundedIcon />
+                  <SpeakerNotesIcon />
                 </ListItemIcon>
                 <ListItemText primary={"My Current Bids"} />
               </ListItemButton>
