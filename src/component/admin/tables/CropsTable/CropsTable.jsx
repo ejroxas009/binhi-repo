@@ -25,6 +25,7 @@ import TablePaginationActions from "../../../shared/TablePaginationActions";
 //Material Icons
 import AddIcon from "@mui/icons-material/Add";
 import CropsModal from '../../modals/CropsModal/CropsModal';
+import DeleteCrops from '../../modals/CropsModal/DeleteCrops';
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -142,6 +143,30 @@ export default function CropsTable ({cropsList, onSetCropListToggle, cropListTog
   }, [postToggle]);
 
   //------------End Post Ads ----------------------------
+
+  //------------Delete Crops----------------------------
+  const [crop, setCrop] = useState();
+  const [cropToggle, setCropToggle] = useState(false);
+
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deleteToggle, setDeleteToggle] = useState(false);
+  const handleDeleteOpen = () => setDeleteOpen(true);
+  const handleDeleteClose = () => setDeleteOpen(false);
+
+  const deleteFunction = (crop) => {
+    handleDeleteOpen();
+    const deleteDataFunction = async () => {
+      if (crop) {
+        const res = await cropService.getCropById(crop)
+        setCrop(res.data);
+        setCropToggle(!cropToggle);
+      }
+    };
+
+    deleteDataFunction();
+  };
+
+
   
   return (
     <>
@@ -155,8 +180,8 @@ export default function CropsTable ({cropsList, onSetCropListToggle, cropListTog
               aria-label="add"
               sx={{
                 position: "fixed",
-                top: (theme) => theme.spacing(12),
-                right: (theme) => theme.spacing(4),
+                bottom: (theme) => theme.spacing(5),
+                right: (theme) => theme.spacing(5),
                 backgroundColor: Colors.primary,
               }}
             >
@@ -186,7 +211,12 @@ export default function CropsTable ({cropsList, onSetCropListToggle, cropListTog
                 <StyledTableCell align="center">{item.cropId}</StyledTableCell>
                 <StyledTableCell align="center">{item.cropName}</StyledTableCell>
                 <StyledTableCell align="center">
-                  <Button variant="outlined" color="error" sx={{ borderRadius:'20px!important'}}>
+                  <Button variant="outlined" color="error" 
+                  sx={{ borderRadius:'20px!important'}}
+                  onClick={() => {
+                    deleteFunction(item.cropId);
+                  }}
+                  >
                     Delete
                   </Button>
                 </StyledTableCell>
@@ -229,6 +259,19 @@ export default function CropsTable ({cropsList, onSetCropListToggle, cropListTog
           id={account.accountId}
           cropListToggle={cropListToggle}
           onSetCropListToggle={onSetCropListToggle}
+        />
+      )}
+      {account && (
+        <DeleteCrops
+          open={deleteOpen}
+          onHandleClose={handleDeleteClose}
+          onSetForm={setPostAdsForm}
+          id={account.accountId}
+          crop={crop}
+          cropsList={cropsList}
+          setCrop = {setCrop}
+          setCropToggle = {setCropToggle}
+          cropToggle = {cropToggle}
         />
       )}
     </>
