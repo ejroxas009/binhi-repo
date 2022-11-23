@@ -36,6 +36,8 @@ const ViewDetailsModal = ({
   const [uploadingOpen, setUploadingOpen] = useState(false);
   const [uploadingSuccessOpen, setUploadingSuccessOpen] = useState(false);
 
+  console.log(user);
+
   return (
     <div>
       <Modal
@@ -45,10 +47,12 @@ const ViewDetailsModal = ({
         aria-describedby="modal-modal-description"
         component="form"
       >
+        
         <Card sx={style}>
           <Grid container item xs={12} justifyContent="center">
             <CardHeader title="User Details" />
           </Grid>
+          {user && (
           <CardContent>
             <Grid container spacing={2} justifyContent="center">
               <Grid item xs={12}>
@@ -108,6 +112,7 @@ const ViewDetailsModal = ({
               </Grid>
             </Grid>
           </CardContent>
+           )}
         </Card>
       </Modal>
 
