@@ -7,3 +7,11 @@ export function getAllCrops() {
 export function addCrop(form) {
   return http.post("/crop",form);
 }
+
+export function deleteCrop(id) {
+  return http.delete(`/crop/${id}`);
+}
+
+export function getCropById(id) {
+  return http.get(`/crop/${id}`);
+}
