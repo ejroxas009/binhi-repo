@@ -1,27 +1,15 @@
-import React, { useRef, useState } from "react";
-import Box from "@mui/material/Box";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
-import SendIcon from "@mui/icons-material/Send";
-import { v4 } from "uuid";
-import { storage } from "../../../../service/shared/firebase";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { useEffect } from "react";
-import * as userService from "../../../../service/admin/userService";
 import UploadingModal from "../../../shared/UploadingModal";
 import UploadSuccessModal from "../../../shared/UploadSuccessModal";
 
-//DatePicker
-import dayjs from 'dayjs';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker, DateTimePicker, LocalizationProvider, MobileDatePicker, TimePicker } from "@mui/x-date-pickers";
-import { Input } from "@mui/material";
+// import * as accountService from "../../../../service/admin/userService";
 
 const style = {
   position: "absolute",
@@ -42,19 +30,11 @@ const ViewDetailsModal = ({
   onHandleSubmit,
   onHandleChange,
   id,
+  user,
   list,
 }) => {
-  const [postImageUpload, setPostImageUpload] = useState(null);
-  const [postImageRef, setPostImageRef] = useState(null);
-  const [postImageUrl, setPostImageUrl] = useState("");
-  const [postImageToggle, setPostImageToggle] = useState(false);
   const [uploadingOpen, setUploadingOpen] = useState(false);
   const [uploadingSuccessOpen, setUploadingSuccessOpen] = useState(false);
-
-  const handleUploadingOpen = () => setUploadingOpen(true);
-  const handleUploadingClose = () => setUploadingOpen(false);
-  const handleUploadingSuccessOpen = () => setUploadingSuccessOpen(true);
-  const handleUploadingSuccessClose = () => setUploadingSuccessOpen(false);
 
   return (
     <div>
@@ -69,34 +49,32 @@ const ViewDetailsModal = ({
           <Grid container item xs={12} justifyContent="center">
             <CardHeader title="User Details" />
           </Grid>
-          {list.map((details) => (
-          <CardContent key={details.accountId}>
-            
+          <CardContent>
             <Grid container spacing={2} justifyContent="center">
               <Grid item xs={12}>
                 <TextField
                   label="First Name"
                   name="firstName"
                   fullWidth
-                  value={details.firstName}
+                  value={user.firstName}
                   onChange={onHandleChange}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                    label="Middle Name"
-                    name="middleName"
-                    fullWidth
-                    value={details.middleName}
-                    onChange={onHandleChange}
-                    />
+                  label="Middle Name"
+                  name="middleName"
+                  fullWidth
+                  value={user.middleName}
+                  onChange={onHandleChange}
+                />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   label="Last Name"
                   name="lastName"
                   fullWidth
-                  value={details.lastName}
+                  value={user.lastName}
                   onChange={onHandleChange}
                 />
               </Grid>
@@ -105,28 +83,21 @@ const ViewDetailsModal = ({
                   label="Username"
                   name="username"
                   fullWidth
-                  value={details.username}
+                  value={user.username}
                   onChange={onHandleChange}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                disabled
+                  disabled
                   label="User Type"
                   name="role"
                   fullWidth
-                  value={details.role}
+                  value={user.role}
                   onChange={onHandleChange}
                 />
               </Grid>
               <Grid container item xs={12} justifyContent="center">
-                <Button
-                  variant="contained"
-                  sx={{ borderRadius: 50, margin: 1 }}
-                  type="submit"
-                >
-                  Save
-                </Button>
                 <Button
                   variant="outlined"
                   sx={{ borderRadius: 50, margin: 1 }}
@@ -137,7 +108,6 @@ const ViewDetailsModal = ({
               </Grid>
             </Grid>
           </CardContent>
-          ))}
         </Card>
       </Modal>
 

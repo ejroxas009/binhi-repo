@@ -57,8 +57,8 @@ const Complaint = ({ data }) => {
       </StyledTableCell>
       <StyledTableCell align="center">
         <Tooltip title="View Complaint Details" placement="top">
-          <IconButton onClick={handleOpenView}>
-            <VisibilityRoundedIcon color="primary" />
+          <IconButton onClick={handleOpenView} sx={{ color: Colors.black }}>
+            <VisibilityRoundedIcon />
           </IconButton>
         </Tooltip>
         <Dialog open={view} onClose={handleCloseView} fullWidth>

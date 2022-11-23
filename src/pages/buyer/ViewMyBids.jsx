@@ -11,7 +11,7 @@ import * as adsService from "../../service/buyer/AdvertisementService";
 //components
 import BuyerSidebar from "../../component/buyer/BuyerSidebar";
 import ViewAllBidsTable from "../../component/farmer/ViewAllBidsTable";
-import Appbar from "../../component/shared/appbar/Appbar";
+import Appbar from "../../component/shared/Appbar";
 
 const ViewMyBids = () => {
   const params = useParams();

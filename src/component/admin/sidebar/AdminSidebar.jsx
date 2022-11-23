@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import AppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import { Link } from "react-router-dom";
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
+
+//icons
+import DvrIcon from '@mui/icons-material/Dvr';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import FeedbackIcon from '@mui/icons-material/Feedback';
+import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 
 import { v4 } from "uuid";
 import { storage } from "../../../service/shared/firebase";
@@ -198,7 +201,7 @@ export default function AdminSidebar() {
               <ListItem disablePadding>
                 <ListItemButton LinkComponent={Link} to="/admin/ads">
                   <ListItemIcon>
-                    <DashboardRoundedIcon />
+                    <DvrIcon />
                   </ListItemIcon>
                   <ListItemText primary={"Advertisements"} />
                 </ListItemButton>
@@ -207,7 +210,7 @@ export default function AdminSidebar() {
               <ListItem disablePadding>
                 <ListItemButton LinkComponent={Link} to="/admin/courses">
                   <ListItemIcon>
-                    <DashboardRoundedIcon />
+                    <MenuBookIcon />
                   </ListItemIcon>
                   <ListItemText primary={"Courses"} />
                 </ListItemButton>
@@ -216,7 +219,7 @@ export default function AdminSidebar() {
               <ListItem disablePadding>
                 <ListItemButton LinkComponent={Link} to="/admin/complaints">
                   <ListItemIcon>
-                    <DashboardRoundedIcon />
+                    <FeedbackIcon />
                   </ListItemIcon>
                   <ListItemText primary={"Complaints"} />
                 </ListItemButton>
@@ -225,7 +228,7 @@ export default function AdminSidebar() {
               <ListItem disablePadding>
                 <ListItemButton LinkComponent={Link} to="/admin/farmingtips">
                   <ListItemIcon>
-                    <DashboardRoundedIcon />
+                    <TipsAndUpdatesIcon />
                   </ListItemIcon>
                   <ListItemText primary={"Farming Tips"} />
                 </ListItemButton>

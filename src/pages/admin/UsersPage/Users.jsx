@@ -1,14 +1,9 @@
-import { Box, Container } from '@mui/material'
+import { Grid } from '@mui/material'
 import React, { useState, useEffect } from 'react'
-import AdminAppbar from '../../../component/admin/appbar/AdminAppbar'
-import ViewDetailsModal from '../../../component/admin/modals/ViewDetailsModal/ViewDetailsModal'
 import AdminSidebar from '../../../component/admin/sidebar/AdminSidebar'
 import UserTable from '../../../component/admin/tables/UserTable/UserTable'
 import Appbar from '../../../component/shared/Appbar'
 import * as userService from '../../../service/admin/userService'
-
-
-
 
 const Users = () => {
 
@@ -29,27 +24,25 @@ const Users = () => {
     console.log(userList);
   },[userListToggle])
 
-
-  //View Details Modal
-  const [detailsOpen, setDetailsOpen] = useState(false);
-  const handleDetailsOpen = () => setDetailsOpen(true);
-  const handleDetailsClose = () => setDetailsOpen(false);
-
   return (
     <>
-        <Appbar/>
-        <AdminSidebar/>
-        <Container fixed>
-          <Box mt={20}>
-            {userList &&(
+      <Grid container>
+        <Grid item xs={12}>
+          <Appbar />
+        </Grid>
+        <Grid item md={3}>
+          <AdminSidebar />
+        </Grid>
+        <Grid item xs={12} sm={12} md={8} lg={8} sx={{ marginTop: 10 }}>
+        {userList &&(
               <UserTable 
               list={userList}
               onSetUserListToggle={setUserListToggle}
               userListToggle={userListToggle}
               />
             )}
-          </Box>
-        </Container>
+        </Grid>
+      </Grid>
     </>
   )
 }

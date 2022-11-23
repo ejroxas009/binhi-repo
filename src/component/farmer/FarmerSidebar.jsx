@@ -15,6 +15,13 @@ import Drawer from "@mui/material/Drawer";
 import Avatar from "@mui/material/Avatar";
 import Divider from '@mui/material/Divider';
 
+//icons
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
+import FeedbackIcon from '@mui/icons-material/Feedback';
+import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
+
 import { getAccountById } from "../../service/shared/accountService";
 import jwtDecode from "jwt-decode";
 
@@ -87,7 +94,7 @@ const FarmerSidebar = () => {
             <ListItem disablePadding>
               <ListItemButton LinkComponent={Link} to="/farmer/marketplace">
                 <ListItemIcon>
-                  <DashboardRoundedIcon />
+                  <StorefrontIcon />
                 </ListItemIcon>
                 <ListItemText primary={"Marketplace"} />
               </ListItemButton>
@@ -116,7 +123,7 @@ const FarmerSidebar = () => {
             <ListItem disablePadding>
               <ListItemButton LinkComponent={Link} to="/farmer/courses">
                 <ListItemIcon>
-                  <DashboardRoundedIcon />
+                  <MenuBookIcon />
                 </ListItemIcon>
                 <ListItemText primary={"Courses"} />
               </ListItemButton>
@@ -143,7 +150,7 @@ const FarmerSidebar = () => {
             <ListItem disablePadding>
               <ListItemButton LinkComponent={Link} to="/farmer/complaints">
                 <ListItemIcon>
-                  <DashboardRoundedIcon />
+                  <FeedbackIcon />
                 </ListItemIcon>
                 <ListItemText primary={"My Complaints"} />
               </ListItemButton>
@@ -155,7 +162,7 @@ const FarmerSidebar = () => {
                 to="/farmer/enrolled-courses"
               >
                 <ListItemIcon>
-                  <DashboardRoundedIcon />
+                  <LocalLibraryIcon />
                 </ListItemIcon>
                 <ListItemText primary={"My Courses"} />
               </ListItemButton>
@@ -164,7 +171,7 @@ const FarmerSidebar = () => {
             <ListItem disablePadding>
               <ListItemButton LinkComponent={Link} to="/farmer/farming-tips">
                 <ListItemIcon>
-                  <DashboardRoundedIcon />
+                  <TipsAndUpdatesIcon />
                 </ListItemIcon>
                 <ListItemText primary={"Farming Tips"} />
               </ListItemButton>
