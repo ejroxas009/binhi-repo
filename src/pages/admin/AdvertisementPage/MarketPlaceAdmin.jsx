@@ -238,7 +238,7 @@ const MarketPlaceAdmin = ({ adsList, onSetAdsListToggle, adsListToggle }) => {
 
         <Grid item xs={12} sm={12} md={6} lg={6}>
           {[...adsList].reverse().map((ads) => {
-            if (ads.active) {
+            if (ads.active || !ads.active) {
               return (
                 <Card
                   variant="outlined"
@@ -294,7 +294,7 @@ const MarketPlaceAdmin = ({ adsList, onSetAdsListToggle, adsListToggle }) => {
                             console.log(ads.postId)
                         }} 
                         >
-                          Blocked
+                          Block Post
                         </Button>
                         ) : (
                           <Button
@@ -309,7 +309,7 @@ const MarketPlaceAdmin = ({ adsList, onSetAdsListToggle, adsListToggle }) => {
                             console.log(ads.postId)
                         }} 
                         >
-                          Block Post
+                          Blocked
                         </Button>
                         )}
                       </Grid>
