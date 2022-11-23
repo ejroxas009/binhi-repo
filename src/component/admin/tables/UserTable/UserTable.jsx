@@ -103,7 +103,7 @@ export default function UserTables({
   const [postToggle, setPostToggle] = useState(false);
   const [isPostSuccess, setIsPostSuccess] = useState(false);
   const [postAdsForm, setPostAdsForm] = useState({
-    role: "admin",
+    role: "Admin",
     firstName: "",
     middleName: "",
     lastName: "",
@@ -233,7 +233,9 @@ export default function UserTables({
 
       {/* Table */}
       <h1>All Users</h1>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} 
+      sx={{borderRadius:5}}
+      >
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
