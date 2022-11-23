@@ -4,7 +4,7 @@ import { Grid } from "@mui/material";
 //components
 import CoursesList from "../../component/farmer/CoursesList";
 import FarmerSidebar from "../../component/farmer/FarmerSidebar";
-import Appbar from "../../component/shared/appbar/Appbar";
+import Appbar from "../../component/shared/Appbar";
 
 //services
 import * as courseService from "../../service/admin/courseService";

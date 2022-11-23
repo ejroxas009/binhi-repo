@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 //material UI
@@ -12,10 +12,41 @@ import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
+import Avatar from "@mui/material/Avatar";
+import Divider from '@mui/material/Divider';
+
+//icons
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
+import FeedbackIcon from '@mui/icons-material/Feedback';
+import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
+
+import { getAccountById } from "../../service/shared/accountService";
+import jwtDecode from "jwt-decode";
 
 const drawerWidth = 240;
 
 const FarmerSidebar = () => {
+  const [account, setAccount] = useState();
+  const [toggle, setToggle] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    const decoded = jwtDecode(token);
+    const getCurrentAccount = async (id) => {
+      const res = await getAccountById(id);
+      setAccount(res.data);
+      setToggle(!toggle);
+    };
+
+    getCurrentAccount(decoded.id);
+  }, []);
+
+  useEffect(() => {
+    console.log(account);
+  }, [toggle]);
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -33,6 +64,24 @@ const FarmerSidebar = () => {
         <Toolbar />
         <Box sx={{ overflow: "auto", marginTop: "20px" }}>
           <List>
+          <ListItem disablePadding>
+              {account && (
+                <ListItemButton LinkComponent={Link} to="/farmer/profile">
+                  <ListItemIcon>
+                  
+                  <Avatar
+                    alt="Profile Image"
+                    src={account.profileImg}
+                    sx={{ width: 50, height: 50 }}
+                  />
+                  
+                  </ListItemIcon>
+                  <ListItemText disableTypography sx={{ fontWeight: 'bold' }} primary={account.username} />
+                </ListItemButton>
+                )}
+              </ListItem>
+              <Divider />
+
             <ListItem disablePadding>
               <ListItemButton LinkComponent={Link} to="/farmer/dashboard">
                 <ListItemIcon>
@@ -43,18 +92,9 @@ const FarmerSidebar = () => {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link} to="/farmer/profile">
-                <ListItemIcon>
-                  <DashboardRoundedIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Profile"} />
-              </ListItemButton>
-            </ListItem>
-
-            <ListItem disablePadding>
               <ListItemButton LinkComponent={Link} to="/farmer/marketplace">
                 <ListItemIcon>
-                  <DashboardRoundedIcon />
+                  <StorefrontIcon />
                 </ListItemIcon>
                 <ListItemText primary={"Marketplace"} />
               </ListItemButton>
@@ -83,18 +123,9 @@ const FarmerSidebar = () => {
             <ListItem disablePadding>
               <ListItemButton LinkComponent={Link} to="/farmer/courses">
                 <ListItemIcon>
-                  <DashboardRoundedIcon />
+                  <MenuBookIcon />
                 </ListItemIcon>
                 <ListItemText primary={"Courses"} />
-              </ListItemButton>
-            </ListItem>
-
-            <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link} to="/farmer/current-bids">
-                <ListItemIcon>
-                  <DashboardRoundedIcon />
-                </ListItemIcon>
-                <ListItemText primary={"My Current Bids"} />
               </ListItemButton>
             </ListItem>
 
@@ -106,11 +137,20 @@ const FarmerSidebar = () => {
                 <ListItemText primary={"My Current Ads"} />
               </ListItemButton>
             </ListItem>
+            
+            <ListItem disablePadding>
+              <ListItemButton LinkComponent={Link} to="/farmer/current-bids">
+                <ListItemIcon>
+                  <DashboardRoundedIcon />
+                </ListItemIcon>
+                <ListItemText primary={"My Current Bids"} />
+              </ListItemButton>
+            </ListItem>
 
             <ListItem disablePadding>
               <ListItemButton LinkComponent={Link} to="/farmer/complaints">
                 <ListItemIcon>
-                  <DashboardRoundedIcon />
+                  <FeedbackIcon />
                 </ListItemIcon>
                 <ListItemText primary={"My Complaints"} />
               </ListItemButton>
@@ -122,7 +162,7 @@ const FarmerSidebar = () => {
                 to="/farmer/enrolled-courses"
               >
                 <ListItemIcon>
-                  <DashboardRoundedIcon />
+                  <LocalLibraryIcon />
                 </ListItemIcon>
                 <ListItemText primary={"My Courses"} />
               </ListItemButton>
@@ -131,7 +171,7 @@ const FarmerSidebar = () => {
             <ListItem disablePadding>
               <ListItemButton LinkComponent={Link} to="/farmer/farming-tips">
                 <ListItemIcon>
-                  <DashboardRoundedIcon />
+                  <TipsAndUpdatesIcon />
                 </ListItemIcon>
                 <ListItemText primary={"Farming Tips"} />
               </ListItemButton>

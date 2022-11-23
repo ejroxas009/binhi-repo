@@ -18,12 +18,14 @@ const MyOrders = () => {
   const [myPaymentList, setMyPaymentList] = useState();
   const [myToReceiveList, setMyToReceiveList] = useState();
   const [myReceivePaymentList, setMyReceivePaymentList] = useState();
+
   const [account, setAccount] = useState();
   const [toggle, setToggle] = useState(false);
   const [myPaymentListToggle, setMyPaymentListToggle] = useState(false);
   const [myToReceiveListToggle, setMyToReceiveListToggle] = useState(false);
   const [myReceivePaymentListToggle, setMyReceivePaymentListToggle] =
     useState(false);
+
   const [isPaymentTable, setIsPaymentTable] = useState("for payment");
   const [pageToggle, setPageToggle] = useState(false);
 
@@ -56,12 +58,20 @@ const MyOrders = () => {
         (receivePayment) =>
           receivePayment.bid.account.accountId == account.accountId &&
           receivePayment.bid.approved &&
-          receivePayment.markAsPaid &&
+          (receivePayment.markAsPaid || receivePayment.markAsCOD) &&
           receivePayment.paid == false
       );
       console.log(receivePayment);
       setMyReceivePaymentList(receivePayment);
       setMyReceivePaymentListToggle(!myReceivePaymentListToggle);
+
+      const paymentReceived = res.data.filter(
+        (payment) =>
+          payment.bid.account.accountId == account.accountId &&
+          payment.bid.approved &&
+          (payment.markAsPaid || payment.markAsCOD) &&
+          payment.paid == true
+      );
     }
   };
 
@@ -171,7 +181,10 @@ const MyOrders = () => {
               <Grid item xs={12} md={12}>
                 <CardContent>
                   {myToReceiveList && isPaymentTable == "for payment" && (
-                    <ForPaymentListTable details={myPaymentList} />
+                    <ForPaymentListTable
+                      details={myPaymentList}
+                      toReceiveList={myToReceiveList}
+                    />
                   )}
 
                   {myPaymentList && isPaymentTable == "to receive" && (

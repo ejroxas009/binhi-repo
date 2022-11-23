@@ -18,7 +18,8 @@ import PropTypes from "prop-types";
 import TablePaginationActions from "../../../shared/TablePaginationActions";
 
 //Service
-import * as userService from "../../../../service/admin/userService"
+import * as userService from "../../../../service/admin/userService";
+import * as accountService from "../../../../service/admin/userService";
 import { getAccountById } from "../../../../service/shared/accountService";
 import { useEffect } from "react";
 import jwtDecode from "jwt-decode";
@@ -57,14 +58,18 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-
 //Main Function
-export default function UserTables({ list, onSetUserListToggle, userListToggle }) {
+export default function UserTables({
+  list,
+  onSetUserListToggle,
+  userListToggle,
+}) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [account, setAccount] = useState();
+
   const [user, setUser] = useState();
-  const [userId, setUserId] = useState();
+  const [userToggle, setUserToggle] = useState(false);
 
   //Pagination
   const handleChangePage = (event, newPage) => {
@@ -77,11 +82,11 @@ export default function UserTables({ list, onSetUserListToggle, userListToggle }
   };
 
   //for block and unblock
-  const handleActiveUser = async (id,event) => {
+  const handleActiveUser = async (id, event) => {
     const res = await userService.blockUser(id);
     console.log(res);
     window.location.reload();
-  }
+  };
 
   const handleChange = (event) => {
     setAccount({
@@ -142,11 +147,27 @@ export default function UserTables({ list, onSetUserListToggle, userListToggle }
     console.log(account);
   }, [toggle]);
 
+  //function for view details button
+  console.log(user);
+  const viewDetailsFunction = (user) => {
+    handleDetailsOpen();
+    const viewDataFunction = async () => {
+      if (user) {
+        const res = await accountService.getAccountById(user);
+        console.log(res.data);
+        setUser(res.data);
+        setUserToggle(!userToggle);
+      }
+    };
+
+    viewDataFunction();
+  };
+
   //View Details Modal
   const [detailsOpen, setDetailsOpen] = useState(false);
   const handleDetailsOpen = () => setDetailsOpen(true);
   const handleDetailsClose = () => setDetailsOpen(false);
-  
+
   //-----------Post Ads ----------------------------------
 
   const handlePostOpen = () => setPostOpen(true);
@@ -183,17 +204,16 @@ export default function UserTables({ list, onSetUserListToggle, userListToggle }
 
   //------------End Post Ads ----------------------------
 
-  //ViewDetailsModal
-  const viewDetailsFunction = (userId) => {
-    handleDetailsOpen();
-    setUser(userId);
-  }
+ //------------View Data ---------------------------
 
-  
+  useEffect(() => {
+    console.log(user);
+  }, [userToggle]);
+
   return (
     <>
-    {/* Add Button */}
-    <Grid container justifyContent="center">
+      {/* Add Button */}
+      <Grid container justifyContent="center">
         <Grid item xs={12} sm={12} md={6} lg={6}>
           <Grid item xs={10.5}>
             <Fab
@@ -213,94 +233,99 @@ export default function UserTables({ list, onSetUserListToggle, userListToggle }
         </Grid>
       </Grid>
 
-    {/* Table */}
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align="left">Username</StyledTableCell>
-            <StyledTableCell align="left">Name</StyledTableCell>
-            <StyledTableCell align="left">User Type</StyledTableCell>
-            <StyledTableCell align="center">Details</StyledTableCell>
-            <StyledTableCell align="right">Action </StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {(rowsPerPage > 0
-            ? list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : list
-          ).map((item) => (
-            <StyledTableRow key={item.accountId}>
-              <StyledTableCell align="left">{item.username}</StyledTableCell>
-              <StyledTableCell align="left">{`${item.firstName} ${item.lastName}`}</StyledTableCell>
-              <StyledTableCell align="left">{item.role}</StyledTableCell>
-              <StyledTableCell align="center">
-                <Button variant="text" size="small" onClick={() => {
-                  viewDetailsFunction(item.accountId);
-                }}>View Details</Button>
-              </StyledTableCell>
-              <StyledTableCell align="right">
-                {(item.active) ? (
-                <Button
-                  variant="outlined"
-                  color="error"
-                  name="active"
-                  value={item.active}
-                  sx={{ borderRadius: "20px!important" }}
-                  //onChange={handleChange}
-                  onClick = {() => {
-                    handleActiveUser(item.accountId)
-                    console.log(item.accountId)
-                 }} 
-                >
-                  Deactivate
-                </Button>
-                ) : (
+      {/* Table */}
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell align="left">Username</StyledTableCell>
+              <StyledTableCell align="left">Name</StyledTableCell>
+              <StyledTableCell align="left">User Type</StyledTableCell>
+              <StyledTableCell align="center">Details</StyledTableCell>
+              <StyledTableCell align="right">Action </StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {(rowsPerPage > 0
+              ? list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              : list
+            ).map((item) => (
+              <StyledTableRow key={item.accountId}>
+                <StyledTableCell align="left">{item.username}</StyledTableCell>
+                <StyledTableCell align="left">{`${item.firstName} ${item.lastName}`}</StyledTableCell>
+                <StyledTableCell align="left">{item.role}</StyledTableCell>
+                <StyledTableCell align="center">
                   <Button
-                  variant="outlined"
-                  color="success"
-                  name="active"
-                  value={item.active}
-                  sx={{ borderRadius: "20px!important" }}
-                  //onChange={handleChange}
-                  onClick = {() => {
-                    handleActiveUser(item.accountId)
-                    console.log(item.accountId)
-                 }} 
-                >
-                  Activate
-                </Button>
-                )}
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-              colSpan={5}
-              count={list.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                inputProps: {
-                  "aria-label": "rows per page",
-                },
-                native: true,
-              }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
-      </Table>
-    </TableContainer>
+                    variant="text"
+                    size="small"
+                    onClick={() => {
+                      viewDetailsFunction(item.accountId);
+                    }}
+                  >
+                    View Details
+                  </Button>
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {item.active ? (
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      name="active"
+                      value={item.active}
+                      sx={{ borderRadius: "20px!important" }}
+                      //onChange={handleChange}
+                      onClick={() => {
+                        handleActiveUser(item.accountId);
+                        console.log(item.accountId);
+                      }}
+                    >
+                      Deactivate
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="outlined"
+                      color="success"
+                      name="active"
+                      value={item.active}
+                      sx={{ borderRadius: "20px!important" }}
+                      //onChange={handleChange}
+                      onClick={() => {
+                        handleActiveUser(item.accountId);
+                        console.log(item.accountId);
+                      }}
+                    >
+                      Activate
+                    </Button>
+                  )}
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                colSpan={5}
+                count={list.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                SelectProps={{
+                  inputProps: {
+                    "aria-label": "rows per page",
+                  },
+                  native: true,
+                }}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+              />
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </TableContainer>
 
-
-    {/* Modals */}
-    {account && (
+      {/* Modals */}
+      {account && (
         <AddAdminModal
           open={postOpen}
           onHandleClose={handlePostClose}
@@ -315,16 +340,16 @@ export default function UserTables({ list, onSetUserListToggle, userListToggle }
       )}
       {account && (
         <ViewDetailsModal
-        open={detailsOpen}
-        onHandleClose={handleDetailsClose}
-        onHandleSubmit={handleSubmitPost}
-        onHandleChange={handleChangePost}
-        onSetForm={setPostAdsForm}
-        id={account.accountId}
-        list={list}
-        userId={userId}
+          open={detailsOpen}
+          onHandleClose={handleDetailsClose}
+          onHandleSubmit={handleSubmitPost}
+          onHandleChange={handleChangePost}
+          onSetForm={setPostAdsForm}
+          id={account.accountId}
+          user={user}
+          list={list}
         />
       )}
-  </>
+    </>
   );
 }

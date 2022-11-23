@@ -1,13 +1,13 @@
 import * as React from "react";
-// import { useEffect, useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 
 //material
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 
-// JWT Decode
-// import decode from "jwt-decode";
+//JWT Decode
+import decode from "jwt-decode";
 
 //pages
 import { LoginPage } from "./pages/shared/LoginPage/LoginPage";
@@ -60,23 +60,31 @@ function App() {
   const [accessToken, setAccessToken] = React.useState(
     accountService.getAccessToken()
   );
-  // const [decodedToken, setDecodedToken] = useState();
+  const [decodedToken, setDecodedToken] = useState();
+  const [role, setRole] = useState();
+  const [loginToggle, setLoginToggle] = useState(false);
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem("accessToken");
-  //   const date = new Date();
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    const date = new Date();
 
-  //   if (token) {
-  //     const decodedToken = decode(token);
-  //     setDecodedToken(decodedToken);
-  //     if (new Date(decodedToken.exp * 1000).getTime() <= date.getTime()) {
-  //       handleLogout();
-  //     }
-  //   }
-  //   setAccessToken(localStorage.getItem("accessToken"));
-  // }, []);
+    if (token) {
+      const decodedToken = decode(token);
+      setRole(decodedToken.role);
+      setLoginToggle(!loginToggle);
+      setDecodedToken(decodedToken);
+      // if (new Date(decodedToken.exp * 1000).getTime() <= date.getTime()) {
+      //   handleLogout();
+      // }
+    }
+    setAccessToken(localStorage.getItem("accessToken"));
+  }, []);
+
+  useEffect(() => {
+    console.log(role);
+  }, [loginToggle]);
 
   // const theme = createTheme({
   //   palette: {

@@ -1,7 +1,7 @@
 import React from "react";
 import MyOrders from "../../component/shared/MyOrders";
 import BuyerSidebar from "../../component/buyer/BuyerSidebar";
-import Appbar from "../../component/shared/appbar/Appbar";
+import Appbar from "../../component/shared/Appbar";
 import Grid from "@mui/material/Grid";
 const MyOrdersPage = () => {
   return (

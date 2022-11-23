@@ -1,7 +1,7 @@
 import React from "react";
 import MyTransaction from "../../component/shared/MyTransaction";
 import BuyerSidebar from "../../component/buyer/BuyerSidebar";
-import Appbar from "../../component/shared/appbar/Appbar";
+import Appbar from "../../component/shared/Appbar";
 import Grid from "@mui/material/Grid";
 
 const MyTransacionPage = () => {

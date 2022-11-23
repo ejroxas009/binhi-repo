@@ -28,6 +28,7 @@ const BankTransferPaymentMode = ({
   onHandleClose,
   bidWinner,
   paymentId,
+  toReceiveList,
 }) => {
   const [paymentImageUpload, setPaymentImageUpload] = useState(null);
   const [paymentImageRef, setPaymentImageRef] = useState(null);

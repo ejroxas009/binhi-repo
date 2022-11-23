@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState }  from "react";
 import { Link } from "react-router-dom";
 
 //material UI
@@ -12,10 +12,38 @@ import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
+import Avatar from "@mui/material/Avatar";
+import Divider from '@mui/material/Divider';
+
+//icons
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import FeedbackIcon from '@mui/icons-material/Feedback';
+
+import { getAccountById } from "../../service/shared/accountService";
+import jwtDecode from "jwt-decode";
 
 const drawerWidth = 240;
 
 const BuyerSidebar = () => {
+  const [account, setAccount] = useState();
+  const [toggle, setToggle] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    const decoded = jwtDecode(token);
+    const getCurrentAccount = async (id) => {
+      const res = await getAccountById(id);
+      setAccount(res.data);
+      setToggle(!toggle);
+    };
+
+    getCurrentAccount(decoded.id);
+  }, []);
+
+  useEffect(() => {
+    console.log(account);
+  }, [toggle]);
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -33,6 +61,24 @@ const BuyerSidebar = () => {
         <Toolbar />
         <Box sx={{ overflow: "auto", marginTop: "20px" }}>
           <List>
+          <ListItem disablePadding>
+              {account && (
+                <ListItemButton LinkComponent={Link} to="/buyer/profile">
+                  <ListItemIcon>
+                  
+                  <Avatar
+                    alt="Profile Image"
+                    src={account.profileImg}
+                    sx={{ width: 50, height: 50 }}
+                  />
+                  
+                  </ListItemIcon>
+                  <ListItemText disableTypography sx={{ fontWeight: 'bold' }} primary={account.username} />
+                </ListItemButton>
+                )}
+              </ListItem>
+              <Divider />
+
             <ListItem disablePadding>
               <ListItemButton LinkComponent={Link} to="/buyer/dashboard">
                 <ListItemIcon>
@@ -43,18 +89,9 @@ const BuyerSidebar = () => {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link} to="/buyer/profile">
-                <ListItemIcon>
-                  <DashboardRoundedIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Profile"} />
-              </ListItemButton>
-            </ListItem>
-
-            <ListItem disablePadding>
               <ListItemButton LinkComponent={Link} to="/buyer/marketplace">
                 <ListItemIcon>
-                  <DashboardRoundedIcon />
+                  <StorefrontIcon />
                 </ListItemIcon>
                 <ListItemText primary={"Marketplace"} />
               </ListItemButton>
@@ -91,9 +128,18 @@ const BuyerSidebar = () => {
             </ListItem>
 
             <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link} to="/buyer/complaints">
+              <ListItemButton LinkComponent={Link} to="/buyer/current-bids">
                 <ListItemIcon>
                   <DashboardRoundedIcon />
+                </ListItemIcon>
+                <ListItemText primary={"My Current Bids"} />
+              </ListItemButton>
+            </ListItem>
+
+            <ListItem disablePadding>
+              <ListItemButton LinkComponent={Link} to="/buyer/complaints">
+                <ListItemIcon>
+                  <FeedbackIcon />
                 </ListItemIcon>
                 <ListItemText primary={"My Complaints"} />
               </ListItemButton>

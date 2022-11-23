@@ -10,8 +10,10 @@ import * as complaintService from "../../service/admin/complaintService";
 
 //component
 import Complaint from "./Complaint";
+import TablePaginationActions from "../shared/TablePaginationActions";
 
 //material
+import PropTypes from "prop-types";
 import { TableFooter, Grid, TableHead } from "@mui/material";
 import TableContainer from "@mui/material/TableContainer";
 import { styled } from "@mui/material/styles";
@@ -21,8 +23,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-// import TablePagination from "@mui/material/TablePagination";
-
+import TablePagination from "@mui/material/TablePagination";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -44,6 +45,13 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+TablePaginationActions.propTypes = {
+  count: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+  page: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.number.isRequired,
+};
+
 const columns = [
   { id: "complaintPost", label: "Complaint Message", align: "center" },
   { id: "read", label: "Status", align: "center" },
@@ -51,8 +59,8 @@ const columns = [
 ];
 
 const Complaints = () => {
-  // const [page, setPage] = React.useState(0);
-  // const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [open, setOpen] = useState(false);
   const [view, setView] = useState(false);
 
@@ -61,11 +69,6 @@ const Complaints = () => {
 
   const [complaints, setComplaints] = useState();
   const [complaintsToggle, setComplaintsToggle] = useState(false);
-
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const handleOpenView = () => setView(true);
-  const handleCloseView = () => setView(false);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -104,14 +107,14 @@ const Complaints = () => {
   }, [complaintsToggle]);
 
   //Pagination
-  // const handleChangePage = (event, newPage) => {
-  //   setPage(newPage);
-  // };
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
-  // const handleChangeRowsPerPage = (event) => {
-  //   setRowsPerPage(parseInt(event.target.value, 10));
-  //   setPage(0);
-  // };
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
   return (
     <>
@@ -131,12 +134,38 @@ const Complaints = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {complaints.map((data) => (
+              {(rowsPerPage > 0
+                ? complaints.slice(
+                    page * rowsPerPage,
+                    page * rowsPerPage + rowsPerPage
+                  )
+                : complaints
+              ).map((data) => (
                 <StyledTableRow key={data.complaintId}>
                     <Complaint data={data}/>
                 </StyledTableRow>
               ))}
             </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                  colSpan={4}
+                  count={complaints.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  SelectProps={{
+                    inputProps: {
+                      "aria-label": "rows per page",
+                    },
+                    native: true,
+                  }}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                  ActionsComponent={TablePaginationActions}
+                />
+              </TableRow>
+            </TableFooter>
           </Table>
         </TableContainer>
       )}

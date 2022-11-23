@@ -54,7 +54,7 @@ const ToReceiveListTable = ({ details }) => {
                 {`${detail.bid.account.firstName} ${detail.bid.account.middleName} ${detail.bid.account.lastName}`}
               </TableCell>
               <TableCell align="center">
-                {detail.advertisement.cropName}
+                {detail.advertisement.crop.cropName}
               </TableCell>
               <TableCell align="center">
                 {detail.advertisement.cropQuantity}

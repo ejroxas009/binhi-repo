@@ -1,55 +1,69 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
+import PropTypes from "prop-types";
 import jwtDecode from "jwt-decode";
 
 //materialUI
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import { green } from "@mui/material/colors";
-import ReportIcon from "@mui/icons-material/Report";
-import Button from "@mui/material/Button";
-import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
 import { styled } from "@mui/material/styles";
-import Collapse from "@mui/material/Collapse";
-import Grid from "@mui/material/Grid";
-import Chip from "@mui/material/Chip";
+import { Colors } from "../../styles/Theme/Theme";
+import Table from "@mui/material/Table";
+import { TableHead, Grid, TableBody, Chip } from "@mui/material";
+import TableContainer from "@mui/material/TableContainer";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import TableFooter from "@mui/material/TableFooter";
+import TablePagination from "@mui/material/TablePagination";
 
 //components
-import SendComplainModal from "../../component/shared/SendComplainModal";
-import SuccessComplaintModal from "../../component/shared/SuccessComplaintModal";
+import TablePaginationActions from "../shared/TablePaginationActions";
 
 //services
 import * as bidService from "../../service/farmer/bids";
 import * as adsService from "../../service/buyer/AdvertisementService";
-import * as complaintService from "../../service/farmer/complaints";
 import {
   getAccountById,
   getAllAccount,
 } from "../../service/shared/accountService";
 
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: Colors.primary,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
 }));
 
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
+
+TablePaginationActions.propTypes = {
+  count: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+  page: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.number.isRequired,
+};
+
+const columns = [
+  { id: "bidDate", label: "Date", align: "center" },
+  { id: "bidPrice", label: "Price Offer", align: "center" },
+  { id: "bidMsg", label: "Message", align: "center" },
+  { id: "status", label: "Status", align: "center" },
+];
 
 const BidCard = () => {
-  const [value, setValue] = React.useState();
-  const [expanded, setExpanded] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const [account, setAccount] = useState();
   const [accountToggle, setAccountToggle] = useState(false);
@@ -62,23 +76,6 @@ const BidCard = () => {
   const [postAds, setPostAds] = useState();
   const [postToggle, setPostToggle] = useState(false);
 
-  const [ads, setAds] = useState();
-  const [adsToggle, setAdsToggle] = useState(false);
-
-  //-----------Complaint------------------
-  const [sendComplainOpen, setSendComplainOpen] = useState(false);
-  const [complaintToggle, setComplaintToggle] = useState(false);
-  const [isComplaintSuccess, setIsComplaintSuccess] = useState(false);
-  const [complaintForm, setComplaintForm] = useState({
-    accountId: "",
-    complaintImg: "",
-    complaintPost: "",
-  });
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     const decoded = jwtDecode(token);
@@ -90,13 +87,15 @@ const BidCard = () => {
     };
     getCurrentAccount(decoded.id);
   }, []);
-  
+
   // const getAdById = async () => {
   //   const res = await adsService.getAdsById(id);
   //   console.log(res.data);
   //   setAds(res.data);
   //   setAdsToggle(!adsToggle);
   // }
+
+  useEffect(() => {}, []);
 
   const getAllBids = async () => {
     const res = await bidService.getAllBid();
@@ -152,137 +151,89 @@ const BidCard = () => {
     console.log(postAds);
   }, [postToggle]);
 
-  //----------------Send Complaint ----------------------
-
-  const handleSendComplainOpen = () => setSendComplainOpen(true);
-
-  const handleSendComplainClose = () => setSendComplainOpen(false);
-
-  const handleComplaintSuccessOpen = () => setIsComplaintSuccess(true);
-  const handleComplaintSuccessClose = () => setIsComplaintSuccess(false);
-
-  const handleSubmitComplaint = (event) => {
-    event.preventDefault();
-    setComplaintForm({ ...complaintForm, accountId: account.accountId });
-    setComplaintToggle(!complaintToggle);
+  //Pagination
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
   };
 
-  const handleChangeComplaint = (event) => {
-    setComplaintForm({
-      ...complaintForm,
-      [event.currentTarget.name]: event.currentTarget.value,
-    });
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
   };
-
-  useEffect(() => {
-    const addComplaintsFunction = async () => {
-      if (account) {
-        const res = await complaintService.addComplaints(complaintForm);
-        console.log(res);
-
-        handleComplaintSuccessOpen();
-        console.log(isComplaintSuccess);
-        handleSendComplainClose();
-        setTimeout(handleComplaintSuccessClose, 3000);
-      }
-    };
-
-    addComplaintsFunction();
-  }, [complaintToggle]);
 
   return (
     <React.Fragment>
-      <Grid container justifyContent="center">
-        {bids && (
-          <Grid item xs={12} sm={12} md={6} lg={6}>
-            {bids.map((bidsDetail) => {
-              return (
-                <Card variant="outlined" key={bidsDetail.bidId} sx={{ margin: 2, borderRadius: 5 }}>
-                  <CardHeader
-                    avatar={
-                      <Avatar
-                        sx={{ bgcolor: green[900] }}
-                        aria-label="profile"
-                        image="https://joeschmoe.io/api/v1/random"
-                      ></Avatar>
-                    }
-                    action={
-                      <IconButton aria-label="settings">
-                        {/* <StarBorderOutlinedIcon /> */}
-                      </IconButton>
-                    }
-                    // title={`${ads.account.firstName} ${ads.account.lastName}`}
-                    // subheader={ads.postDate && ads.postDate.substring(0, 10)}
-                  />
-                  <CardContent>
-                    <Typography variant="body2" color="text.secondary">
-                      {accountList.map((account) => {
-                        if (account.accountId == bidsDetail.account.accountId) {
-                          return account.firstName;
-                        }
-                      })}
-                    </Typography>
-                  </CardContent>
-                  <CardMedia
-                    component="img"
-                    height="350"
-                    image="https://picsum.photos/200"
-                    alt="Crop Image"
-                  />
-
-                  <CardActions disableSpacing>
-                    <Button
-                      variant="contained"
-                      sx={{ borderRadius: 50 }}
-                      startIcon={<ReportIcon />}
-                      onClick={() => {
-                        handleSendComplainOpen();
-                      }}
-                    >
-                      Report
-                    </Button>
-
-                    <ExpandMore
-                      expand={expanded}
-                      onClick={handleExpandClick}
-                      aria-expanded={expanded}
-                      aria-label="show more"
-                    >
-                      <ExpandCircleDownIcon/>
-                      
-                    </ExpandMore>
-                  </CardActions>
-                  <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <CardContent>
-                      <Typography gutterBottom color="Green" component={"div"}>
-                        DETAILS OF YOUR OFFER:
-                      </Typography>
-                      <Typography component={"div"}>BID DATE: {bidsDetail.bidDate}</Typography>
-                      <Typography component={"div"}>BID PRICE: ₱{bidsDetail.bidPrice}.00</Typography>
-                      <Typography component={"div"} paragraph>
-                        BID MESSAGE: {bidsDetail.bidMsg}
-                      </Typography>
-                      <Typography component={"div"}>STATUS:
-                        {(bidsDetail.accept && bidsDetail.approved) && <Chip label="Accepted" color="primary"/>}
-                        {(bidsDetail.accept && bidsDetail.approved == false) && <Chip label="Rejected" color="error"/>}
-                        {(bidsDetail.accept == false && bidsDetail.approved == false) && <Chip label="Pending" color="warning"/>} 
-                      </Typography>
-                    </CardContent>
-                  </Collapse>
-                </Card>
-              );
-            })}
-          </Grid>
-        )}
+      <Grid>
+        <h1>My Current Bids</h1>
       </Grid>
-      <SendComplainModal
-        open={sendComplainOpen}
-        onHandleChange={handleChangeComplaint}
-        onHandleSubmit={handleSubmitComplaint}
-        form={complaintForm}
-        onHandleClose={handleSendComplainClose}
-      />
-      <SuccessComplaintModal open={isComplaintSuccess} />
+      {bids && (
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <StyledTableCell key={column.id} align={column.align}>
+                    {column.label}
+                  </StyledTableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {(rowsPerPage > 0
+                ? bids.slice(
+                    page * rowsPerPage,
+                    page * rowsPerPage + rowsPerPage
+                  )
+                : bids
+              ).map((bidsDetail) => (
+                <StyledTableRow key={bidsDetail.bidId}>
+                  <StyledTableCell align="center">
+                    {bidsDetail.bidDate}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {bidsDetail.bidPrice}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {bidsDetail.bidMsg}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {bidsDetail.accept && bidsDetail.approved && (
+                      <Chip label="Accepted" color="primary" />
+                    )}
+                    {bidsDetail.accept && bidsDetail.approved == false && (
+                      <Chip label="Rejected" color="error" />
+                    )}
+                    {bidsDetail.accept == false &&
+                      bidsDetail.approved == false && (
+                        <Chip label="Pending" color="warning" />
+                      )}
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                  colSpan={4}
+                  count={bids.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  SelectProps={{
+                    inputProps: {
+                      "aria-label": "rows per page",
+                    },
+                    native: true,
+                  }}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                  ActionsComponent={TablePaginationActions}
+                />
+              </TableRow>
+            </TableFooter>
+          </Table>
+        </TableContainer>
+      )}
     </React.Fragment>
   );
 };

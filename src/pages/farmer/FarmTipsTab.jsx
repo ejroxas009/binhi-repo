@@ -8,7 +8,7 @@ import * as tipsService from "../../service/admin/farmingTipsService";
 import Grid from "@mui/material/Grid";
 
 //components
-import Appbar from "../../component/shared/appbar/Appbar";
+import Appbar from "../../component/shared/Appbar";
 import FarmerSidebar from "../../component/farmer/FarmerSidebar";
 import FarmTipsCard from "../../component/farmer/FarmTipsCard";
 

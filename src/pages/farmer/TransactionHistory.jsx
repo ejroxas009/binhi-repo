@@ -2,7 +2,7 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 
 import FarmerSidebar from "../../component/farmer/FarmerSidebar";
-import Appbar from "../../component/shared/appbar/Appbar";
+import Appbar from "../../component/shared/Appbar";
 import MyTransaction from "../../component/shared/MyTransaction";
 
 const TransactionHistory = () => {

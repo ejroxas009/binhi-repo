@@ -119,9 +119,9 @@ const ComplaintsTable = () => {
     setAccountListToggle(!accountListToggle);
   };
 
-  const getComplaintById = async () => {
-    const res = await complaintService.getComplaintsById();
-  };
+  // const getComplaintById = async () => {
+  //   const res = await complaintService.getComplaintsById();
+  // };
 
   useEffect(() => {
     console.log(account);
@@ -130,7 +130,7 @@ const ComplaintsTable = () => {
   useEffect(() => {
     getAllComplaints();
     getAllAccounts();
-    getComplaintById();
+    // getComplaintById();
   }, [accountToggle]);
 
   useEffect(() => {

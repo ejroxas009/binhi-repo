@@ -26,7 +26,14 @@ const style = {
   p: 4,
 };
 
-const GCashPaymentMode = ({ open, onHandleClose, bidWinner, paymentId }) => {
+const GCashPaymentMode = ({
+  open,
+  onHandleClose,
+  bidWinner,
+  paymentId,
+  toReceiveList,
+  orderIdRef,
+}) => {
   const [paymentImageUpload, setPaymentImageUpload] = useState(null);
   const [paymentImageRef, setPaymentImageRef] = useState(null);
   const [paymentImageUrl, setPaymentImageUrl] = useState("");
@@ -35,7 +42,6 @@ const GCashPaymentMode = ({ open, onHandleClose, bidWinner, paymentId }) => {
     proofOfPayment: "",
   });
 
-  console.log(paymentId);
   const uploadPaymentImage = async () => {
     if (paymentImageUpload == null) return;
     const paymentImageRef = ref(
@@ -76,6 +82,9 @@ const GCashPaymentMode = ({ open, onHandleClose, bidWinner, paymentId }) => {
           paymentImgForm
         );
         console.log(res);
+        // const res2 = await transactionService.sendProofOfPaymentCropReceived(
+        //   paymentId
+        // );
         //window.location.reload();
       }
     };
@@ -109,7 +118,7 @@ const GCashPaymentMode = ({ open, onHandleClose, bidWinner, paymentId }) => {
             <Grid item>
               <Card>
                 <Grid container item justifyContent="center">
-                  <Typography>Upload Proof of Payment</Typography>
+                  <Typography>Upload the Proof of Payment</Typography>
                 </Grid>
 
                 <CardContent>

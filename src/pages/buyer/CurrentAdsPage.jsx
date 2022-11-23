@@ -1,22 +1,26 @@
-import React from 'react'
-import { Box, Container } from "@mui/material";
+import React from "react";
+import { Grid } from "@mui/material";
 //components
 import BuyerSidebar from "../../component/buyer/BuyerSidebar";
-import Appbar from "../../component/shared/appbar/Appbar";
-import CurrentAdsCard from '../../component/buyer/CurrentAdsCard';
+import Appbar from "../../component/shared/Appbar";
+import CurrentAdsCard from "../../component/buyer/CurrentAdsCard";
 
 const CurrentAdsPage = () => {
   return (
     <>
-    <Appbar/>
-    <BuyerSidebar/>
-    <Container fixed>
-        <Box mt={10}>
+      <Grid container>
+        <Grid item xs={12}>
+          <Appbar />
+        </Grid>
+        <Grid item md={3}>
+          <BuyerSidebar />
+        </Grid>
+        <Grid item xs={12} sm={12} md={12} lg={12} sx={{ marginTop: 10 }}>
           <CurrentAdsCard />
-        </Box>
-      </Container>
+        </Grid>
+      </Grid>
     </>
-  )
-}
+  );
+};
 
-export default CurrentAdsPage
+export default CurrentAdsPage;
