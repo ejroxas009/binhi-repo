@@ -63,6 +63,8 @@ export default function UserTables({ list, onSetUserListToggle, userListToggle }
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [account, setAccount] = useState();
+  const [user, setUser] = useState();
+  const [userId, setUserId] = useState();
 
   //Pagination
   const handleChangePage = (event, newPage) => {
@@ -96,7 +98,7 @@ export default function UserTables({ list, onSetUserListToggle, userListToggle }
   const [postToggle, setPostToggle] = useState(false);
   const [isPostSuccess, setIsPostSuccess] = useState(false);
   const [postAdsForm, setPostAdsForm] = useState({
-    role: "Admin",
+    role: "admin",
     firstName: "",
     middleName: "",
     lastName: "",
@@ -112,7 +114,7 @@ export default function UserTables({ list, onSetUserListToggle, userListToggle }
     complianceImg: "",
     email: "",
     username: "",
-    password: "admin",
+    password: "",
   });
   //-------Menu -------------
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -136,6 +138,9 @@ export default function UserTables({ list, onSetUserListToggle, userListToggle }
     getCurrentAccount(decoded.id);
   }, []);
 
+  useEffect(() => {
+    console.log(account);
+  }, [toggle]);
 
   //View Details Modal
   const [detailsOpen, setDetailsOpen] = useState(false);
@@ -178,25 +183,13 @@ export default function UserTables({ list, onSetUserListToggle, userListToggle }
 
   //------------End Post Ads ----------------------------
 
+  //ViewDetailsModal
+  const viewDetailsFunction = (userId) => {
+    handleDetailsOpen();
+    setUser(userId);
+  }
 
-  //ViewDetails
-  const [detailsList, setDetailsList] = useState();
-  const [detailsListToggle, setDetailsListToggle] = useState();
-
-  useEffect(() => {
-    const viewUsers = async () => {
-      const res = await userService.viewAccount()
-      setDetailsList(res.data);
-    }
-    
-    viewUsers();
-    setDetailsListToggle(!detailsListToggle);
-  },[])
-
-  useEffect(() => {
-    console.log(detailsList);
-  },[detailsListToggle])
-
+  
   return (
     <>
     {/* Add Button */}
@@ -242,7 +235,9 @@ export default function UserTables({ list, onSetUserListToggle, userListToggle }
               <StyledTableCell align="left">{`${item.firstName} ${item.lastName}`}</StyledTableCell>
               <StyledTableCell align="left">{item.role}</StyledTableCell>
               <StyledTableCell align="center">
-                <Button variant="text" size="small" onClick={handleDetailsOpen}>View Details</Button>
+                <Button variant="text" size="small" onClick={() => {
+                  viewDetailsFunction(item.accountId);
+                }}>View Details</Button>
               </StyledTableCell>
               <StyledTableCell align="right">
                 {(item.active) ? (
@@ -318,17 +313,17 @@ export default function UserTables({ list, onSetUserListToggle, userListToggle }
           onSetUserListToggle={onSetUserListToggle}
         />
       )}
-      {detailsList && (
-      <div>
-      {detailsList.map((item) => (
+      {account && (
         <ViewDetailsModal
         open={detailsOpen}
         onHandleClose={handleDetailsClose}
-        item={item}
-        key={item.accountId}
+        onHandleSubmit={handleSubmitPost}
+        onHandleChange={handleChangePost}
+        onSetForm={setPostAdsForm}
+        id={account.accountId}
+        list={list}
+        userId={userId}
         />
-      ))}
-      </div>
       )}
   </>
   );

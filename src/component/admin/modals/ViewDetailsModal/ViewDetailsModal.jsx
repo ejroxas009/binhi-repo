@@ -23,9 +23,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker, DateTimePicker, LocalizationProvider, MobileDatePicker, TimePicker } from "@mui/x-date-pickers";
 import { Input } from "@mui/material";
 
-import { getAccountById } from "../../../../service/shared/accountService";
-import jwtDecode from "jwt-decode";
-
 const style = {
   position: "absolute",
   top: "50%",
@@ -42,9 +39,11 @@ const style = {
 const ViewDetailsModal = ({
   open,
   onHandleClose,
+  onHandleSubmit,
   onHandleChange,
   id,
-  item,
+  list,
+  userId
 }) => {
   const [postImageUpload, setPostImageUpload] = useState(null);
   const [postImageRef, setPostImageRef] = useState(null);
@@ -53,39 +52,26 @@ const ViewDetailsModal = ({
   const [uploadingOpen, setUploadingOpen] = useState(false);
   const [uploadingSuccessOpen, setUploadingSuccessOpen] = useState(false);
 
-  const [users, setUsers] = useState();
-  const [userstoggle, setUsersToggle] = useState(false);
-
-
-  const [account, setAccount] = useState();
-  const [accountToggle, setAccountToggle] = useState(false);
-
   const handleUploadingOpen = () => setUploadingOpen(true);
   const handleUploadingClose = () => setUploadingOpen(false);
   const handleUploadingSuccessOpen = () => setUploadingSuccessOpen(true);
   const handleUploadingSuccessClose = () => setUploadingSuccessOpen(false);
 
-  //useEffect then create function under useEffect which is getAccountById na service
-  //next item; 
-
-
-
-
-  // useEffect(() => {
-  //   const getUserById = async (id) => {
-  //     const res = await getAccountById(id);
-  //     setUsers(res.data);
-  //     setUsersToggle(!userstoggle);
-  //   };
-  //   getUserById(id);
-  // },[])
-
-  const [detailsToggle, setDetailsToggle] = useState(false);
+  const [account, setAccount] = useState();
+  const [toggle, setToggle] = useState();
 
   useEffect(() => {
-    console.log(item);
-  }, [detailsToggle]);
+    const viewData = async () => {
+    if (userId){
+      const res = await userService.getAccountById(userId);
+      setAccount(res.data);
+      setToggle(!toggle);
+    }
+    }
+    viewData();
+  },[])
 
+   console.log(userId)
   return (
     <div>
       <Modal
@@ -100,16 +86,14 @@ const ViewDetailsModal = ({
             <CardHeader title="User Details" />
           </Grid>
           <CardContent>
+            
             <Grid container spacing={2} justifyContent="center">
               <Grid item xs={12}>
-              <Typography component={"div"}>
-                Name: {item.firstName}
-              </Typography>
                 <TextField
                   label="First Name"
                   name="firstName"
                   fullWidth
-                  value={item.firstName}
+                  //value={details.firstName}
                   onChange={onHandleChange}
                 />
               </Grid>
@@ -118,7 +102,7 @@ const ViewDetailsModal = ({
                     label="Middle Name"
                     name="middleName"
                     fullWidth
-                    value={item.middleName}
+                    //value={details.middleName}
                     onChange={onHandleChange}
                     />
               </Grid>
@@ -127,7 +111,7 @@ const ViewDetailsModal = ({
                   label="Last Name"
                   name="lastName"
                   fullWidth
-                  value={item.lastName}
+                  //value={details.lastName}
                   onChange={onHandleChange}
                 />
               </Grid>
@@ -136,21 +120,20 @@ const ViewDetailsModal = ({
                   label="Username"
                   name="username"
                   fullWidth
-                  value={item.username}
+                  //value={details.username}
                   onChange={onHandleChange}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                disabled
+                  disabled
                   label="User Type"
                   name="role"
                   fullWidth
-                  value={item.role}
+                  //value={details.role}
                   onChange={onHandleChange}
                 />
               </Grid>
-
               <Grid container item xs={12} justifyContent="center">
                 <Button
                   variant="outlined"
@@ -161,9 +144,7 @@ const ViewDetailsModal = ({
                 </Button>
               </Grid>
             </Grid>
-            
           </CardContent>
-          
         </Card>
       </Modal>
 
