@@ -25,7 +25,7 @@ import { useEffect } from "react";
 import jwtDecode from "jwt-decode";
 
 //Material Icons
-import AddIcon from "@mui/icons-material/Add";
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import AddAdminModal from "../../modals/AddAdminModal/AddAdminModal";
 import ViewDetailsModal from "../../modals/ViewDetailsModal/ViewDetailsModal";
 
@@ -148,13 +148,11 @@ export default function UserTables({
   }, [toggle]);
 
   //function for view details button
-  console.log(user);
   const viewDetailsFunction = (user) => {
     handleDetailsOpen();
     const viewDataFunction = async () => {
       if (user) {
         const res = await accountService.getAccountById(user);
-        console.log(res.data);
         setUser(res.data);
         setUserToggle(!userToggle);
       }
@@ -207,7 +205,7 @@ export default function UserTables({
  //------------View Data ---------------------------
 
   useEffect(() => {
-    console.log(user);
+    // console.log(user);
   }, [userToggle]);
 
   return (
@@ -227,22 +225,23 @@ export default function UserTables({
                 backgroundColor: Colors.primary,
               }}
             >
-              <AddIcon />
+              <PersonAddIcon />
             </Fab>
           </Grid>
         </Grid>
       </Grid>
 
       {/* Table */}
+      <h1>All Users</h1>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell align="left">Username</StyledTableCell>
-              <StyledTableCell align="left">Name</StyledTableCell>
-              <StyledTableCell align="left">User Type</StyledTableCell>
+              <StyledTableCell align="center">Username</StyledTableCell>
+              <StyledTableCell align="center">Name</StyledTableCell>
+              <StyledTableCell align="center">User Type</StyledTableCell>
               <StyledTableCell align="center">Details</StyledTableCell>
-              <StyledTableCell align="right">Action </StyledTableCell>
+              <StyledTableCell align="center">Action </StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -251,9 +250,9 @@ export default function UserTables({
               : list
             ).map((item) => (
               <StyledTableRow key={item.accountId}>
-                <StyledTableCell align="left">{item.username}</StyledTableCell>
-                <StyledTableCell align="left">{`${item.firstName} ${item.lastName}`}</StyledTableCell>
-                <StyledTableCell align="left">{item.role}</StyledTableCell>
+                <StyledTableCell align="center">{item.username}</StyledTableCell>
+                <StyledTableCell align="center">{`${item.firstName} ${item.lastName}`}</StyledTableCell>
+                <StyledTableCell align="center">{item.role}</StyledTableCell>
                 <StyledTableCell align="center">
                   <Button
                     variant="text"
@@ -265,7 +264,7 @@ export default function UserTables({
                     View Details
                   </Button>
                 </StyledTableCell>
-                <StyledTableCell align="right">
+                <StyledTableCell align="center">
                   {item.active ? (
                     <Button
                       variant="outlined"
@@ -338,7 +337,7 @@ export default function UserTables({
           onSetUserListToggle={onSetUserListToggle}
         />
       )}
-      {account && (
+      {account && user && (
         <ViewDetailsModal
           open={detailsOpen}
           onHandleClose={handleDetailsClose}

@@ -35,7 +35,7 @@ const ViewDetailsModal = ({
 }) => {
   const [uploadingOpen, setUploadingOpen] = useState(false);
   const [uploadingSuccessOpen, setUploadingSuccessOpen] = useState(false);
-  
+
   return (
     <div>
       <Modal
@@ -45,11 +45,13 @@ const ViewDetailsModal = ({
         aria-describedby="modal-modal-description"
         component="form"
       >
+        
         <Card sx={style}>
           <Grid container item xs={12} justifyContent="center">
             <CardHeader title="User Details" />
           </Grid>
-          <CardContent key={user.accountId}>
+          {user && (
+          <CardContent>
             <Grid container spacing={2} justifyContent="center">
               <Grid item xs={12}>
                 <TextField
@@ -57,6 +59,7 @@ const ViewDetailsModal = ({
                   name="firstName"
                   fullWidth
                   value={user.firstName}
+                  onChange={onHandleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -65,6 +68,7 @@ const ViewDetailsModal = ({
                   name="middleName"
                   fullWidth
                   value={user.middleName}
+                  onChange={onHandleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -73,6 +77,7 @@ const ViewDetailsModal = ({
                   name="lastName"
                   fullWidth
                   value={user.lastName}
+                  onChange={onHandleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -81,6 +86,7 @@ const ViewDetailsModal = ({
                   name="username"
                   fullWidth
                   value={user.username}
+                  onChange={onHandleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -90,6 +96,7 @@ const ViewDetailsModal = ({
                   name="role"
                   fullWidth
                   value={user.role}
+                  onChange={onHandleChange}
                 />
               </Grid>
               <Grid container item xs={12} justifyContent="center">
@@ -103,6 +110,7 @@ const ViewDetailsModal = ({
               </Grid>
             </Grid>
           </CardContent>
+           )}
         </Card>
       </Modal>
 
