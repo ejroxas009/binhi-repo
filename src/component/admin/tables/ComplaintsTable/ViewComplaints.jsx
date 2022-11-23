@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
@@ -7,11 +7,10 @@ import CardContent from "@mui/material/CardContent";
 import { Card, CardMedia, Typography } from "@mui/material";
 import Chip from "@mui/material/Chip";
 
-const ViewComplaints = ({data}) => {
-
+const ViewComplaints = ({ data }) => {
   return (
     <>
-        <Grid component="form">
+      <Grid component="form">
         <Grid item>
           <CardHeader title="Complaint Details" sx={{ textAlign: "center" }} />
           <Divider />
@@ -20,7 +19,8 @@ const ViewComplaints = ({data}) => {
               Complaint ID: {data.complaintId}
             </Typography>
             <Typography component={"div"}>
-              Complainant's Name: {`${data.account.firstName} ${data.account.lastName}`}
+              Complainant's Name:{" "}
+              {`${data.account.firstName} ${data.account.lastName}`}
             </Typography>
             <Typography component={"div"} paragraph>
               Post Message: {data.complaintPost}
@@ -30,7 +30,7 @@ const ViewComplaints = ({data}) => {
               {data.resolved ? (
                 <Chip label="Resolved" color="success" />
               ) : (
-                <Chip label="UnResolve" color="error" />
+                <Chip label="Pending" color="warning" />
               )}
             </Typography>
             <Divider />
@@ -46,7 +46,7 @@ const ViewComplaints = ({data}) => {
         </Grid>
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default ViewComplaints
+export default ViewComplaints;
