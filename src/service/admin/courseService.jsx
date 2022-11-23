@@ -8,9 +8,13 @@ export function viewCourses() {
     return http.post("/course",form);
   }
   
-export function getAccountById(id) {
-    return http.get(`/account/${id}`);
+export function getCourseById(id) {
+    return http.get(`/course/${id}`);
   }
+
+export function deleteCourse(id) {
+  return http.delete(`/course/${id}`);
+}
   
 export function getCourseEnroll(){
   return http.get("/enroll-course")
