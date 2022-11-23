@@ -36,8 +36,6 @@ const ViewDetailsModal = ({
   const [uploadingOpen, setUploadingOpen] = useState(false);
   const [uploadingSuccessOpen, setUploadingSuccessOpen] = useState(false);
 
-  console.log(user);
-
   return (
     <div>
       <Modal

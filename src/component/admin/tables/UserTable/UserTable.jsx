@@ -339,7 +339,7 @@ export default function UserTables({
           onSetUserListToggle={onSetUserListToggle}
         />
       )}
-      {account && (
+      {account && user && (
         <ViewDetailsModal
           open={detailsOpen}
           onHandleClose={handleDetailsClose}
