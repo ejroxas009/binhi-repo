@@ -26,6 +26,10 @@ import TablePaginationActions from "../../../shared/TablePaginationActions";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteCourse from '../../modals/CourseModal/DeleteCourse';
 
+//Moment
+import moment from "moment"
+import Moment from 'react-moment';
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -216,7 +220,8 @@ export default function CoursesTable ({coursesList, onSetCourseListToggle, cours
                 <StyledTableCell align="center">{item.courseName}</StyledTableCell>
                 <StyledTableCell align="center">{item.courseDescription}</StyledTableCell>
                 <StyledTableCell align="center">
-                    {`${item.startTime} - ${item.endTime} | ${item.startDate.substring(0,10)} - ${item.endDate.substring(0,10)}`}
+                    {/* {`${item.startTime} - ${item.endTime} | ${item.startDate.substring(0,10)} - ${item.endDate.substring(0,10)}`} */}
+                    <Moment format="YYYY/MM/DD" date={item.startDate}/>
                 </StyledTableCell>
                 <StyledTableCell align="right">
                   <Button variant="outlined" 
