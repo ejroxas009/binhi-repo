@@ -18,6 +18,7 @@ export function getCourseEnroll() {
 
 export function getCourseEnrollById(id) {
   return http.get(`/enroll-course/${id}`);
+}
   
 export function getCourseById(id) {
     return http.get(`/course/${id}`);
