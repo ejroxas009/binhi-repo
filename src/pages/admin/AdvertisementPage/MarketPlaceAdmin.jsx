@@ -224,21 +224,19 @@ const MarketPlaceAdmin = ({ adsList, onSetAdsListToggle, adsListToggle }) => {
 
   //------------End Post Ads ----------------------------
 
-
   //for block and unblock
-  const handleActiveUser = async (id,event) => {
+  const handleActiveUser = async (id, event) => {
     const res = await adsService.blockPost(id);
     console.log(res);
     window.location.reload();
-  }
+  };
 
   return (
     <>
       <Grid container justifyContent="center">
-
         <Grid item xs={12} sm={12} md={6} lg={6}>
           {[...adsList].reverse().map((ads) => {
-            if (ads.active) {
+            if (ads.active || !ads.active) {
               return (
                 <Card
                   variant="outlined"
@@ -281,36 +279,36 @@ const MarketPlaceAdmin = ({ adsList, onSetAdsListToggle, adsListToggle }) => {
                   {account && ads.account.accountId !== account.accountId && (
                     <CardContent>
                       <Grid container item justifyContent="flex-end">
-                      {(ads.isActive) ? (
-                        <Button
-                          variant="outlined"
-                          color="error"
-                          name="active"
-                          value={ads.isActive}
-                          sx={{ borderRadius: "20px!important" }}
-                          //onChange={handleChange}
-                          onClick = {() => {
-                            handleActiveUser(ads.postId)
-                            console.log(ads.postId)
-                        }} 
-                        >
-                          Blocked
-                        </Button>
+                        {ads.active ? (
+                          <Button
+                            variant="outlined"
+                            color="error"
+                            name="active"
+                            value={ads.isActive}
+                            sx={{ borderRadius: "20px!important" }}
+                            //onChange={handleChange}
+                            onClick={() => {
+                              handleActiveUser(ads.postId);
+                              console.log(ads.postId);
+                            }}
+                          >
+                            Block Post
+                          </Button>
                         ) : (
                           <Button
-                          variant="outlined"
-                          color="success"
-                          name="active"
-                          value={ads.isActive}
-                          sx={{ borderRadius: "20px!important" }}
-                          //onChange={handleChange}
-                          onClick = {() => {
-                            handleActiveUser(ads.postId)
-                            console.log(ads.postId)
-                        }} 
-                        >
-                          Block Post
-                        </Button>
+                            variant="outlined"
+                            color="success"
+                            name="active"
+                            value={ads.isActive}
+                            sx={{ borderRadius: "20px!important" }}
+                            //onChange={handleChange}
+                            onClick={() => {
+                              handleActiveUser(ads.postId);
+                              console.log(ads.postId);
+                            }}
+                          >
+                            Unblock Post
+                          </Button>
                         )}
                       </Grid>
                     </CardContent>

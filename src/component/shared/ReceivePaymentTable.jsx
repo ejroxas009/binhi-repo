@@ -26,6 +26,7 @@ const ReceivePaymentTable = (details) => {
   const handleReceivePayment = async (paymentId) => {
     const res = await transactionService.receivePayment(paymentId);
     console.log(res);
+    window.location.reload();
   };
   return (
     <TableContainer component={Paper}>
