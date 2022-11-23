@@ -35,7 +35,7 @@ const ViewDetailsModal = ({
 }) => {
   const [uploadingOpen, setUploadingOpen] = useState(false);
   const [uploadingSuccessOpen, setUploadingSuccessOpen] = useState(false);
-
+  
   return (
     <div>
       <Modal
@@ -49,7 +49,7 @@ const ViewDetailsModal = ({
           <Grid container item xs={12} justifyContent="center">
             <CardHeader title="User Details" />
           </Grid>
-          <CardContent>
+          <CardContent key={user.accountId}>
             <Grid container spacing={2} justifyContent="center">
               <Grid item xs={12}>
                 <TextField
@@ -57,7 +57,6 @@ const ViewDetailsModal = ({
                   name="firstName"
                   fullWidth
                   value={user.firstName}
-                  onChange={onHandleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -66,7 +65,6 @@ const ViewDetailsModal = ({
                   name="middleName"
                   fullWidth
                   value={user.middleName}
-                  onChange={onHandleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -75,7 +73,6 @@ const ViewDetailsModal = ({
                   name="lastName"
                   fullWidth
                   value={user.lastName}
-                  onChange={onHandleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -84,7 +81,6 @@ const ViewDetailsModal = ({
                   name="username"
                   fullWidth
                   value={user.username}
-                  onChange={onHandleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -94,7 +90,6 @@ const ViewDetailsModal = ({
                   name="role"
                   fullWidth
                   value={user.role}
-                  onChange={onHandleChange}
                 />
               </Grid>
               <Grid container item xs={12} justifyContent="center">
