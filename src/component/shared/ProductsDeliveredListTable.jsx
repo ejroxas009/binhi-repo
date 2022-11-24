@@ -23,7 +23,7 @@ const ProductsDeliveredListTable = ({ details }) => {
   const handleProofOfPaymentClose = () => setProofOfPaymentOpen(false);
   console.log(details);
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={{borderRadius:5}}>
       <Table aria-label="simple table">
         <TableHead sx={{ backgroundColor: "#558b94" }}>
           <TableRow>

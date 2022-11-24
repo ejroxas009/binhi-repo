@@ -13,9 +13,10 @@ import { Button } from "@mui/material";
 import PropTypes from "prop-types";
 import TableFooter from "@mui/material/TableFooter";
 import TablePagination from "@mui/material/TablePagination";
+import Chip from "@mui/material/Chip";
 
 import jwtDecode from "jwt-decode";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 //components
 import TablePaginationActions from "../shared/TablePaginationActions";
@@ -54,17 +55,21 @@ TablePaginationActions.propTypes = {
 const randomstring = require("randomstring");
 
 const CoursesList = ({ details }) => {
+  const [enrolledCourse, setEnrolledCourse] = useState();
+  const [enrolledCourseToggle, setEnrolledCourseToggle] = useState(false);
+
   const [account, setAccount] = useState();
   const [toggle, setToggle] = useState(false);
+
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [ enrollForm, setEnrollForm ] = useState({
+  const [enrollForm, setEnrollForm] = useState({
     enrollId: "",
     accountId: "",
     courseId: "",
   });
   const [coursesId, setCoursesId] = useState();
-  const [ enrollFormToggle, setEnrollFormToggle] = useState(false);
+  const [enrollFormToggle, setEnrollFormToggle] = useState(false);
   const [enrollButtonToggle, setEnrollButtonToggle] = useState(false);
 
   useEffect(() => {
@@ -79,8 +84,75 @@ const CoursesList = ({ details }) => {
   }, []);
 
   useEffect(() => {
+    // console.log(account);
+  }, [toggle]);
+
+  const viewEnrolledCourses = async () => {
+    const res = await courseService.getCourseEnroll();
+    // console.log(res.data);
+    if (account) {
+      const coursesList = res.data.filter(
+        (enrolledCourse) => enrolledCourse.account.accountId == account.accountId
+      );
+      setEnrolledCourse(coursesList);
+      setEnrolledCourseToggle(!enrolledCourseToggle);
+    } 
+  }
+
+  useEffect(() => {
     console.log(account);
   }, [toggle]);
+
+  useEffect(() => {
+    viewEnrolledCourses();
+  }, [toggle]);
+  
+  useEffect(() => {
+    console.log(enrolledCourse);
+  }, [enrolledCourseToggle])
+
+
+  //--------------Enroll Course Function---------------------------
+  const handleEnrollCourse = async (accountId, courseId) => {
+    const enrollIdRef =
+      "EnrollRef-" +
+      randomstring.generate({
+        length: 10,
+        charset: "alphanumeric",
+      });
+
+    setEnrollForm({
+      enrollId: enrollIdRef,
+      accountId,
+      courseId,
+    });
+    setCoursesId(courseId);
+    setEnrollFormToggle(!enrollFormToggle);
+  };
+
+  useEffect(() => {
+    const enrolledCourseFunction = async () => {
+      if (enrollForm.enrollId !== "") {
+        const res = await courseService.postCourseEnroll(enrollForm);
+        setEnrollButtonToggle(!enrollButtonToggle);
+
+        // console.log(enrollForm);
+        console.log(res);
+      }
+    };
+
+    enrolledCourseFunction();
+  }, [enrollFormToggle]);
+
+  useEffect(() => {
+    // console.log(enrollButtonToggle);
+  }, [enrollButtonToggle]);
+
+  const showToastMessage = () => {
+    toast.success("Course Enrolled Successfully !", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+  };
 
   //Pagination
   const handleChangePage = (event, newPage) => {
@@ -92,54 +164,10 @@ const CoursesList = ({ details }) => {
     setPage(0);
   };
 
-  //--------------Enroll Course Function---------------------------
-  const handleEnrollCourse = async (accountId, courseId) => {
-    const enrollIdRef  =
-    "EnrollRef-" +
-    randomstring.generate({
-      length: 10,
-      charset: "alphanumeric",
-    });
-
-    setEnrollForm({
-      enrollId: enrollIdRef,
-      accountId,
-      courseId,
-    });
-    setCoursesId(courseId);
-    setEnrollFormToggle(!enrollFormToggle);
-
-  };
-
-  useEffect(() => {
-    const enrolledCourseFunction = async () => {
-      if (enrollForm.enrollId !== "") {
-        const res = await courseService.postCourseEnroll(enrollForm);
-        setEnrollButtonToggle(!enrollButtonToggle);
-        
-        console.log(enrollForm);
-        console.log(res);
-      }
-    };
-
-    enrolledCourseFunction();
-  }, [enrollFormToggle]);
-
-  useEffect(() => {
-    console.log(enrollButtonToggle);
-  }, [enrollButtonToggle]);
-
-  const showToastMessage = () => {
-    toast.success('Course Enrolled Successfully !', {
-        position: toast.POSITION.TOP_RIGHT
-    });
-};
-
-
   return (
     <>
       <h1>Courses</h1>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{borderRadius:5}}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
@@ -174,20 +202,23 @@ const CoursesList = ({ details }) => {
                   {`${item.startTime} - ${item.endTime} | ${item.startDate} - ${item.endDate}`}
                 </StyledTableCell>
                 <StyledTableCell>
+                {/* {enrolledCourse && enrolledCourse.map((data) => {
+                   {item.courseId == enrolledCourse.courseId ? (
+                      <Chip label="Enrolled" color="success" />
+                  ) : (  */}
                   <Button
                     variant="outlined"
-                    color="success"
+                    color="primary"
                     sx={{ borderRadius: "20px!important" }}
                     onClick={() => {
-                      handleEnrollCourse(
-                        account.accountId,
-                        item.courseId
-                      )
+                      handleEnrollCourse(account.accountId, item.courseId);
+                      showToastMessage();
                     }}
                   >
                     Enroll
                   </Button>
-                  <ToastContainer />
+                   {/* )} */}
+                  {/* })} */}
                 </StyledTableCell>
               </StyledTableRow>
             ))}

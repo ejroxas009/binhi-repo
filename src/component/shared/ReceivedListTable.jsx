@@ -22,7 +22,7 @@ const ReceivedListTable = ({ details }) => {
     console.log(res);
   };
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={{borderRadius:5}}>
       <Table aria-label="simple table">
         <TableHead sx={{ backgroundColor: "#558b94" }}>
           <TableRow>

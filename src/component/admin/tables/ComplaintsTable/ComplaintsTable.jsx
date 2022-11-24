@@ -70,7 +70,7 @@ export default function ComplaintsTable({ details }) {
   return (
     <>
     <h1>All Complaints</h1>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{borderRadius:5}}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
