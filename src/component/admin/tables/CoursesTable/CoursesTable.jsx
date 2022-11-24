@@ -221,8 +221,13 @@ export default function CoursesTable ({coursesList, onSetCourseListToggle, cours
                 <StyledTableCell align="center">
                     {/* {`${item.startTime} - ${item.endTime} | ${item.startDate.substring(0,10)} - ${item.endDate.substring(0,10)}`} */}
                     
-                    <Moment format="hh:mm" date={item.startTime}/>
-                    <Moment format="YYYY/MM/DD" date={item.startDate}/>
+                    <Moment format="hh:mm A" date={item.startTime}/>
+                    &nbsp; - &nbsp;
+                    <Moment format="hh:mm A" date={item.endTime}/>
+                    &nbsp; | &nbsp;
+                    <Moment format="ddd YYYY/MM/DD" date={item.startDate}/>
+                    &nbsp; - &nbsp;
+                    <Moment format="ddd YYYY/MM/DD" date={item.endDate}/>
                 </StyledTableCell>
               </StyledTableRow>
             ))}
