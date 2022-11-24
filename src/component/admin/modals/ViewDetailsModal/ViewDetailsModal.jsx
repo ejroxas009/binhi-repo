@@ -8,7 +8,7 @@ import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import UploadingModal from "../../../shared/UploadingModal";
 import UploadSuccessModal from "../../../shared/UploadSuccessModal";
-import { CardMedia, Typography } from "@mui/material";
+import { CardMedia, Typography, Divider } from "@mui/material";
 
 // import * as accountService from "../../../../service/admin/userService";
 
@@ -18,7 +18,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 700,
-  height: 700,
+  height: 750,
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
@@ -37,6 +37,10 @@ const ViewDetailsModal = ({
   const [uploadingOpen, setUploadingOpen] = useState(false);
   const [uploadingSuccessOpen, setUploadingSuccessOpen] = useState(false);
 
+  function BoldText({ children }) {
+    return <span style={{ fontWeight: "bold" }}>{children}</span>;
+  }
+
   return (
     <div>
       <Modal
@@ -51,22 +55,38 @@ const ViewDetailsModal = ({
           <Grid container item xs={12} justifyContent="center">
             <CardHeader title="User Details" />
           </Grid>
+          <Divider/>
           {user && (
           <CardContent>
             <Grid container spacing={2} justifyContent="center">
               <Grid item xs={12}>
                 <Typography>
-                  Name: {`${user.firstName} ${user.lastName}`}
+                  Name: <BoldText>{`${user.firstName} ${user.middleName} ${user.lastName}`}</BoldText>
                 </Typography>
               </Grid>
               <Grid item xs={12}>
                 <Typography>
-                  Username: {user.username}
+                  Gender: <BoldText>{user.gender}</BoldText>
                 </Typography>
               </Grid>
               <Grid item xs={12}>
                 <Typography>
-                  User Type: {user.role}
+                  User Type: <BoldText>{user.role}</BoldText>
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography>
+                  Home Address: <BoldText>{`${user.addressLine1} ${user.city} ${user.province} ${user.zipCode} ${user.country}`}</BoldText>
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography>
+                  Contact Number: <BoldText>{user.phoneNumber}</BoldText>
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography>
+                  Email: <BoldText>{user.email}</BoldText>
                 </Typography>
               </Grid>
               <Grid item xs={12}>
@@ -76,15 +96,6 @@ const ViewDetailsModal = ({
                   image={user.complianceImg}
                   alt="Compliance Image"
                 />
-              </Grid>
-              <Grid container item xs={12} justifyContent="center">
-                <Button
-                  variant="outlined"
-                  sx={{ borderRadius: 50, margin: 1 }}
-                  onClick={onHandleClose}
-                >
-                  Cancel
-                </Button>
               </Grid>
             </Grid>
           </CardContent>

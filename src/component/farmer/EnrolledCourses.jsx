@@ -136,7 +136,7 @@ const EnrolledCourses = () => {
     <>
   <h1>My Courses</h1>
     {enrolledCourse && (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={{borderRadius:5}}>
     <Table sx={{ minWidth: 700 }} aria-label="customized table">
       <TableHead>
         <TableRow>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import { Grid } from "@mui/material";
 
 //components
@@ -11,17 +12,20 @@ import * as courseService from "../../service/admin/courseService";
 
 const Courses = () => {
   const [courseList, setCourseList] = useState();
-  const [courseListToggle, setCourseListToggle] = useState();
+  const [courseListToggle, setCourseListToggle] = useState(false);
+
+  const [account, setAccount] = useState();
+  const [accountToggle, setAccountToggle] = useState(false);
 
   useEffect(() => {
     const viewCourses = async () => {
       const res = await courseService.viewCourses();
       // console.log(res.data);
       setCourseList(res.data);
+      setCourseListToggle(!courseListToggle);
     };
 
     viewCourses();
-    setCourseListToggle(!courseListToggle);
   }, []);
 
   useEffect(() => {
@@ -37,7 +41,7 @@ const Courses = () => {
         <FarmerSidebar />
       </Grid>
       <Grid item xs={12} sm={12} md={8} lg={8} sx={{ marginTop: 10 }}>
-        {courseList && <CoursesList details={courseList} />}
+        {courseList && <CoursesList details={courseList}/>}
       </Grid>
     </Grid>
   );

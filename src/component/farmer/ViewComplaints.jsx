@@ -9,6 +9,10 @@ import Chip from "@mui/material/Chip";
 
 const ViewComplaints = ({ data }) => {
 
+  function BoldText({ children }) {
+    return <span style={{ fontWeight: "bold" }}>{children}</span>;
+  }
+
   return (
     <>
       <Grid component="form">
@@ -17,17 +21,16 @@ const ViewComplaints = ({ data }) => {
           <Divider />
           <CardContent>
             <Typography component={"div"}>
-              Complaint ID: {data.complaintId}
+              Complaint ID: <BoldText>{data.complaintId}</BoldText>
             </Typography>
             <Typography component={"div"} paragraph>
-              Post Message: {data.complaintPost}
+              Post Message: <BoldText>{data.complaintPost}</BoldText>
             </Typography>
             <Typography component={"div"} paragraph>
-              Status:
-              {data.resolved ? (
+              Status: {data.resolved ? (
                 <Chip label="Resolved" color="primary" />
               ) : (
-                <Chip label="UnResolved" color="warning" />
+                <Chip label="Pending" color="warning" />
               )}
             </Typography>
             <Divider />

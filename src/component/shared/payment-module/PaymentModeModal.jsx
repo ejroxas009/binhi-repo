@@ -117,6 +117,7 @@ const PaymentModeModal = ({
           paymentId={paymentId}
           toReceiveList={toReceiveList}
           orderIdRef={orderIdRef}
+          handlePaymentMethodClose={handlePaymentMethodClose}
         />
       )}
       {paymentMethod == "Bank Transfer" && (
