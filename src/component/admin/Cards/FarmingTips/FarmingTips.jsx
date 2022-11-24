@@ -118,7 +118,7 @@ const FarmingTips = ({ tipsList, onSetAdsListToggle, adsListToggle }) => {
         {tipsList.map((contents) => (
           <Card
             sx={{
-              marginLeft: 2,
+              marginLeft: 20,
               marginTop: 2,
               height: 300,
               width: 300,

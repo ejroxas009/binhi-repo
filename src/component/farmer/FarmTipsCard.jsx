@@ -9,7 +9,6 @@ import CardMedia from "@mui/material/CardMedia";
 import jwtDecode from "jwt-decode";
 import { getAccountById } from "../../service/shared/accountService";
 
-
 const FarmTipsCard = ({ tipsList }) => {
   const [account, setAccount] = useState();
   const [toggle, setToggle] = useState(false);
@@ -32,11 +31,11 @@ const FarmTipsCard = ({ tipsList }) => {
   return (
     <>
       {/* Start of Card */}
-      <Grid container="row" columnSpacing={{ xs: 12, sm: 3, md: 6, lg: 6 }}>
+      <Grid container="row" columnSpacing={{ xs: 12, sm: 3, md: 4, lg: 4 }}>
         {tipsList.map((contents) => (
           <Card
             sx={{
-              marginLeft: 2,
+              marginLeft: 25,
               marginTop: 2,
               height: 250,
               width: 250,
