@@ -211,7 +211,7 @@ const PostAdsModal = ({
                   type="submit"
                   endIcon={<SendIcon />}
                 >
-                  Send
+                  Post
                 </Button>
                 <Button
                   variant="outlined"
