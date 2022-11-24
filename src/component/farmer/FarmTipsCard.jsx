@@ -36,7 +36,7 @@ const FarmTipsCard = ({ tipsList }) => {
         {tipsList.map((contents) => (
           <Card
             sx={{
-              marginLeft: 35,
+              marginLeft: 2,
               marginTop: 2,
               height: 250,
               width: 250,

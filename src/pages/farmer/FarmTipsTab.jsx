@@ -11,6 +11,7 @@ import Grid from "@mui/material/Grid";
 import Appbar from "../../component/shared/Appbar";
 import FarmerSidebar from "../../component/farmer/FarmerSidebar";
 import FarmTipsCard from "../../component/farmer/FarmTipsCard";
+import { Container } from "@mui/material";
 
 const FarmTipsTab = () => {
     const [tipList, setTipList] = useState();
@@ -39,11 +40,13 @@ const FarmTipsTab = () => {
         <FarmerSidebar />
       </Grid>
         <Grid sx={{ marginLeft: 10 }} item xs={12} sm={9} md={6} lg={3} mt={10}>
+          <Container>
           {tipList && (
             <FarmTipsCard
               tipsList={tipList}
             />
           )}
+          </Container>
         </Grid>
     </Grid>
   </>);

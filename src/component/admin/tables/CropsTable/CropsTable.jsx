@@ -180,7 +180,7 @@ export default function CropsTable ({cropsList, onSetCropListToggle, cropListTog
               aria-label="add"
               sx={{
                 position: "fixed",
-                bottom: (theme) => theme.spacing(5),
+                top: (theme) => theme.spacing(15),
                 right: (theme) => theme.spacing(5),
                 backgroundColor: Colors.primary,
               }}
@@ -199,7 +199,7 @@ export default function CropsTable ({cropsList, onSetCropListToggle, cropListTog
             <TableRow>
             <StyledTableCell align="center">Crop ID</StyledTableCell>
             <StyledTableCell align="center">Crop Name</StyledTableCell>
-            <StyledTableCell align="center">Actions</StyledTableCell>
+            {/* <StyledTableCell align="center">Actions</StyledTableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -210,7 +210,7 @@ export default function CropsTable ({cropsList, onSetCropListToggle, cropListTog
               <StyledTableRow key={item.cropId}>
                 <StyledTableCell align="center">{item.cropId}</StyledTableCell>
                 <StyledTableCell align="center">{item.cropName}</StyledTableCell>
-                <StyledTableCell align="center">
+                {/* <StyledTableCell align="center">
                   <Button variant="outlined" color="error" 
                   sx={{ borderRadius:'20px!important'}}
                   onClick={() => {
@@ -219,7 +219,7 @@ export default function CropsTable ({cropsList, onSetCropListToggle, cropListTog
                   >
                     Delete
                   </Button>
-                </StyledTableCell>
+                </StyledTableCell> */}
               </StyledTableRow>
             ))}
           </TableBody>

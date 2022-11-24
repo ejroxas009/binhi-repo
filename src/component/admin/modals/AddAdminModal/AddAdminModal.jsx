@@ -59,7 +59,6 @@ const AddAdminModal = ({
     event.preventDefault();
     onSetForm({
       ...form,
-      accountId: id,
       onHandleSubmit
     });
 

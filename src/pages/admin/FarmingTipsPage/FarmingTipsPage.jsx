@@ -35,6 +35,7 @@ const FarmingTipsPage = () => {
           <AdminSidebar />
         </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12} mt={15}>
+            <Container>
             {tipList && (
               <FarmingTips
                 tipsList={tipList}
@@ -42,6 +43,7 @@ const FarmingTipsPage = () => {
                 adsListToggle={tipToggle}
               />
             )}
+            </Container>
           </Grid>
       </Grid>
     </>

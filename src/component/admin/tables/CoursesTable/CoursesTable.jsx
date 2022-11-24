@@ -188,7 +188,7 @@ export default function CoursesTable ({coursesList, onSetCourseListToggle, cours
               aria-label="add"
               sx={{
                 position: "fixed",
-                bottom: (theme) => theme.spacing(5),
+                top: (theme) => theme.spacing(15),
                 right: (theme) => theme.spacing(5),
                 backgroundColor: Colors.primary,
               }}
