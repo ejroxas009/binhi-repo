@@ -9,10 +9,11 @@ import DashboardCard from "../shared/DashboardCard";
 import jwtDecode from "jwt-decode";
 import { getAccountById } from "../../service/shared/accountService";
 import * as transactionService from "../../service/buyer/MyTransactionService";
+import * as courseService from "../../service/admin/courseService";
 
 import AppSettingsAltIcon from "@mui/icons-material/AppSettingsAlt";
 
-const BuyerDashboard = () => {
+const FarmerDashboard = () => {
   const [account, setAccount] = useState();
   const [toggle, setToggle] = useState(false);
   const [myAds, setMyAds] = useState();
@@ -29,6 +30,8 @@ const BuyerDashboard = () => {
   const [mySentPayment, setMySentPayment] = useState();
   const [myPaidCrops, setMyPaidCrops] = useState();
   const [myReceivedPayments, setMyReceivedPayments] = useState();
+  const [myAvailableCourses, setMyAvailableCourses] = useState();
+  const [myEnrolledCourses, setMyEnrolledCourses] = useState();
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -159,11 +162,25 @@ const BuyerDashboard = () => {
     }
   };
 
+  const getMyCourses = async () => {
+    const res = await courseService.viewCourses();
+    setMyAvailableCourses(res.data);
+    const res2 = await courseService.getCourseEnroll();
+    console.log(res2);
+    if (account) {
+      const myEnrolledCourses = res2.data.filter(
+        (course) => course.account.accountId == account.accountId
+      );
+      setMyEnrolledCourses(myEnrolledCourses);
+    }
+  };
+
   useEffect(() => {
     getMyAds();
     getMyBids();
     getMyComplaints();
     getAllCropPayment();
+    getMyCourses();
   }, [toggle]);
 
   useEffect(() => {
@@ -180,6 +197,8 @@ const BuyerDashboard = () => {
     console.log(mySentPayment);
     console.log(myPaidCrops);
     console.log(myReceivedPayments);
+    console.log(myAvailableCourses);
+    console.log(myEnrolledCourses);
   }, [myToggle]);
 
   return (
@@ -329,9 +348,39 @@ const BuyerDashboard = () => {
             </Grid>
           </Card>
         </Grid>
+        <Grid item xs={12}>
+          <Card>
+            <CardHeader title="Course Summary" />
+            <Grid item xs={12}>
+              <CardContent>
+                <Grid container>
+                  <Grid item={4}>
+                    {myAvailableCourses && (
+                      <DashboardCard
+                        header="Available Courses"
+                        data={myAvailableCourses.length}
+                        bgColor="#558b94"
+                      />
+                    )}
+                  </Grid>
+                  <Grid item={4}>
+                    {myEnrolledCourses && (
+                      <DashboardCard
+                        header="Enrolled Courses"
+                        data={myEnrolledCourses.length}
+                        bgColor="#ffc066"
+                      />
+                    )}
+                  </Grid>
+                  <Grid item={4}></Grid>
+                </Grid>
+              </CardContent>
+            </Grid>
+          </Card>
+        </Grid>
       </Grid>
     </>
   );
 };
 
-export default BuyerDashboard;
+export default FarmerDashboard;
