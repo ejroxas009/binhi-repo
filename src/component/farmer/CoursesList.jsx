@@ -18,6 +18,9 @@ import Chip from "@mui/material/Chip";
 import jwtDecode from "jwt-decode";
 import { toast } from "react-toastify";
 
+//Moment
+import Moment from 'react-moment';
+
 //components
 import TablePaginationActions from "../shared/TablePaginationActions";
 
@@ -199,7 +202,14 @@ const CoursesList = ({ details }) => {
                   {item.courseDescription}
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  {`${item.startTime} - ${item.endTime} | ${item.startDate} - ${item.endDate}`}
+                  {/* {`${item.startTime} - ${item.endTime} | ${item.startDate} - ${item.endDate}`} */}
+                  <Moment format="hh:mm A" date={item.startTime}/>
+                    &nbsp; - &nbsp;
+                    <Moment format="hh:mm A" date={item.endTime}/>
+                    &nbsp; | &nbsp;
+                    <Moment format="ddd YYYY/MM/DD" date={item.startDate}/>
+                    &nbsp; - &nbsp;
+                    <Moment format="ddd YYYY/MM/DD" date={item.endDate}/>
                 </StyledTableCell>
                 <StyledTableCell>
                 {/* {enrolledCourse && enrolledCourse.map((data) => {
