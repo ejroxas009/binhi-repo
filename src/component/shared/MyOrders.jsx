@@ -159,7 +159,7 @@ const MyOrders = () => {
                       isPaymentTable == "to receive" ? "outlined" : "contained"
                     }
                   >
-                    To Receive
+                    Receive Product
                   </Button>
                   <Button
                     sx={{ borderRadius: 50, margin: 1 }}

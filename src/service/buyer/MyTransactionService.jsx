@@ -4,6 +4,10 @@ export function getAllAds() {
   return http.get("/ads");
 }
 
+export function getAllBids() {
+  return http.get("/bid");
+}
+
 export function getAllCropPayment() {
   return http.get("/crop-payment");
 }
@@ -50,4 +54,8 @@ export function receiveCrop(receiveId) {
 
 export function markAsCOD(paymentId) {
   return http.put(`/crop-payment/mark-as-cod/${paymentId}`);
+}
+
+export function getAllComplaints() {
+  return http.get("/complaints");
 }

@@ -20,6 +20,7 @@ import Paper from "@mui/material/Paper";
 import { TableHead, Button, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Colors } from "../../styles/Theme/Theme";
+import Chip from "@mui/material/Chip";
 
 const randomstring = require("randomstring");
 
@@ -169,7 +170,7 @@ const ViewAllBidsTable = ({ bids }) => {
                 <StyledTableCell align="center">{data.bidMsg}</StyledTableCell>
                 <StyledTableCell align="center">
                   {data.approved ? (
-                    <Typography>Accepted</Typography>
+                    <Chip label="Accepted" color="primary" />
                   ) : (
                     <Button
                       variant="outlined"

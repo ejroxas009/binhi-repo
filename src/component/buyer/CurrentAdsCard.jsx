@@ -118,7 +118,7 @@ const CurrentAdsCard = () => {
                     }
                     action={
                       <IconButton aria-label="settings">
-                        <StarBorderOutlinedIcon />
+                        {/* <StarBorderOutlinedIcon /> */}
                       </IconButton>
                     }
                     title={adsData.postDate}

@@ -13,14 +13,18 @@ import List from "@mui/material/List";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Avatar from "@mui/material/Avatar";
-import Divider from '@mui/material/Divider';
+import Divider from "@mui/material/Divider";
 
 //icons
-import StorefrontIcon from '@mui/icons-material/Storefront';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
-import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
-import FeedbackIcon from '@mui/icons-material/Feedback';
-import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
+import StorefrontIcon from "@mui/icons-material/Storefront";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
+import FeedbackIcon from "@mui/icons-material/Feedback";
+import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
+import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+import DvrIcon from "@mui/icons-material/Dvr";
+import SpeakerNotesIcon from "@mui/icons-material/SpeakerNotes";
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 
 import { getAccountById } from "../../service/shared/accountService";
 import jwtDecode from "jwt-decode";
@@ -64,62 +68,107 @@ const FarmerSidebar = () => {
         <Toolbar />
         <Box sx={{ overflow: "auto", marginTop: "20px" }}>
           <List>
-          <ListItem disablePadding>
+            <ListItem disablePadding>
               {account && (
                 <ListItemButton LinkComponent={Link} to="/farmer/profile">
                   <ListItemIcon>
-                  
-                  <Avatar
-                    alt="Profile Image"
-                    src={account.profileImg}
-                    sx={{ width: 50, height: 50 }}
-                  />
-                  
+                    <Avatar
+                      alt="Profile Image"
+                      src={account.profileImg}
+                      sx={{ width: 50, height: 50 }}
+                    />
                   </ListItemIcon>
-                  <ListItemText disableTypography sx={{ fontWeight: 'bold' }} primary={account.username} />
+                  <ListItemText
+                    disableTypography
+                    sx={{ fontWeight: "bold" }}
+                    primary={account.username}
+                  />
                 </ListItemButton>
-                )}
+              )}
+            </ListItem>
+            <Divider />
+
+            {account && (
+              <ListItem disablePadding>
+                <ListItemButton LinkComponent={Link} to="/farmer/dashboard">
+                  <ListItemIcon>
+                    <DashboardRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Dashboard"} />
+                </ListItemButton>
               </ListItem>
-              <Divider />
+            )}
 
-            <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link} to="/farmer/dashboard">
-                <ListItemIcon>
-                  <DashboardRoundedIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Dashboard"} />
-              </ListItemButton>
-            </ListItem>
+            {account && account.active && (
+              <ListItem disablePadding>
+                <ListItemButton LinkComponent={Link} to="/farmer/marketplace">
+                  <ListItemIcon>
+                    <StorefrontIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Marketplace"} />
+                </ListItemButton>
+              </ListItem>
+            )}
 
-            <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link} to="/farmer/marketplace">
-                <ListItemIcon>
-                  <StorefrontIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Marketplace"} />
-              </ListItemButton>
-            </ListItem>
+            {account && account.active && (
+              <ListItem disablePadding>
+                <ListItemButton
+                  LinkComponent={Link}
+                  to="/farmer/transaction-history"
+                >
+                  <ListItemIcon>
+                    <ReceiptLongIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Transaction History"} />
+                </ListItemButton>
+              </ListItem>
+            )}
 
-            <ListItem disablePadding>
-              <ListItemButton
-                LinkComponent={Link}
-                to="/farmer/transaction-history"
-              >
-                <ListItemIcon>
-                  <DashboardRoundedIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Transaction History"} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link} to="/farmer/my-orders">
-                <ListItemIcon>
-                  <DashboardRoundedIcon />
-                </ListItemIcon>
-                <ListItemText primary={"My Orders"} />
-              </ListItemButton>
-            </ListItem>
+            {account && account.active && (
+              <ListItem disablePadding>
+                <ListItemButton LinkComponent={Link} to="/farmer/my-orders">
+                  <ListItemIcon>
+                    <ShoppingCartCheckoutIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"My Orders"} />
+                </ListItemButton>
+              </ListItem>
+            )}
 
+            {account && account.active && (
+              <ListItem disablePadding>
+                <ListItemButton LinkComponent={Link} to="/farmer/current-ads">
+                  <ListItemIcon>
+                    <DvrIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"My Current Ads"} />
+                </ListItemButton>
+              </ListItem>
+            )}
+
+            {account && account.active && (
+              <ListItem disablePadding>
+                <ListItemButton LinkComponent={Link} to="/farmer/current-bids">
+                  <ListItemIcon>
+                    <SpeakerNotesIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"My Current Bids"} />
+                </ListItemButton>
+              </ListItem>
+            )}
+
+            {account && account.active && (
+              <ListItem disablePadding>
+                <ListItemButton LinkComponent={Link} to="/farmer/complaints">
+                  <ListItemIcon>
+                    <FeedbackIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"My Complaints"} />
+                </ListItemButton>
+              </ListItem>
+            )}
+
+            {/* {account && account.active && ( */}
             <ListItem disablePadding>
               <ListItemButton LinkComponent={Link} to="/farmer/courses">
                 <ListItemIcon>
@@ -128,33 +177,7 @@ const FarmerSidebar = () => {
                 <ListItemText primary={"Courses"} />
               </ListItemButton>
             </ListItem>
-
-            <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link} to="/farmer/current-ads">
-                <ListItemIcon>
-                  <DashboardRoundedIcon />
-                </ListItemIcon>
-                <ListItemText primary={"My Current Ads"} />
-              </ListItemButton>
-            </ListItem>
-            
-            <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link} to="/farmer/current-bids">
-                <ListItemIcon>
-                  <DashboardRoundedIcon />
-                </ListItemIcon>
-                <ListItemText primary={"My Current Bids"} />
-              </ListItemButton>
-            </ListItem>
-
-            <ListItem disablePadding>
-              <ListItemButton LinkComponent={Link} to="/farmer/complaints">
-                <ListItemIcon>
-                  <FeedbackIcon />
-                </ListItemIcon>
-                <ListItemText primary={"My Complaints"} />
-              </ListItemButton>
-            </ListItem>
+            {/* )} */}
 
             <ListItem disablePadding>
               <ListItemButton

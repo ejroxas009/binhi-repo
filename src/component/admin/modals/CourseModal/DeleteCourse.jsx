@@ -10,32 +10,50 @@ import UploadingModal from "../../../shared/UploadingModal";
 import UploadSuccessModal from "../../../shared/UploadSuccessModal";
 import { CardMedia, Typography } from "@mui/material";
 
-// import * as accountService from "../../../../service/admin/userService";
+import * as courseService from '../../../../service/admin/courseService'
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 700,
-  height: 700,
+  width: 500,
+  height: 300,
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
   borderRadius: 5,
 };
 
-const ViewDetailsModal = ({
+const DeleteCourse = ({
   open,
   onHandleClose,
   onHandleSubmit,
   onHandleChange,
   id,
-  user,
+  course,
   list,
+  setCourse,
+  setCourseToggle,
+  courseToggle
+
 }) => {
   const [uploadingOpen, setUploadingOpen] = useState(false);
   const [uploadingSuccessOpen, setUploadingSuccessOpen] = useState(false);
+
+  const deleteFunction = (course) => {
+    onHandleClose();
+    const deleteDataFunction = async () => {
+      if (course) {
+        const res = await courseService.deleteCourse(course)
+        setCourse(res.data);
+        setCourseToggle(!courseToggle);
+        window.location.reload();
+      }
+    };
+
+    deleteDataFunction();
+  };
 
   return (
     <div>
@@ -49,35 +67,31 @@ const ViewDetailsModal = ({
         
         <Card sx={style}>
           <Grid container item xs={12} justifyContent="center">
-            <CardHeader title="User Details" />
+            <CardHeader title="Delete Category" />
           </Grid>
-          {user && (
+          {course && (
           <CardContent>
             <Grid container spacing={2} justifyContent="center">
               <Grid item xs={12}>
-                <Typography>
-                  Name: {`${user.firstName} ${user.lastName}`}
+                <Typography variant="h5">
+                  Are you sure you want to delete: {course.courseName} ?
+                  {/* <Typography variant="h5" sx={{fontWeight: 'bold'}}>{crop.cropName}</Typography>? */}
                 </Typography>
               </Grid>
-              <Grid item xs={12}>
-                <Typography>
-                  Username: {user.username}
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <Typography>
-                  User Type: {user.role}
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <CardMedia
-                  component="img"
-                  height="370"
-                  image={user.complianceImg}
-                  alt="Compliance Image"
-                />
-              </Grid>
-              <Grid container item xs={12} justifyContent="center">
+              <Grid container item xs={12} justifyContent="center" mt={2}>
+                <Button
+                  variant="contained"
+                  color="error"
+                  sx={{ 
+                    borderRadius: 50, 
+                    margin: 1,
+                   }}
+                   onClick={() => {
+                    deleteFunction(course.courseId);
+                  }}
+                >
+                  Delete
+                </Button>
                 <Button
                   variant="outlined"
                   sx={{ borderRadius: 50, margin: 1 }}
@@ -98,4 +112,4 @@ const ViewDetailsModal = ({
   );
 };
 
-export default ViewDetailsModal;
+export default DeleteCourse;

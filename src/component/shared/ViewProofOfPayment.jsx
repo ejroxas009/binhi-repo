@@ -49,10 +49,7 @@ const ViewProofOfPayment = ({
           <CardContent>
             <Grid container justifyContent="center" spacing={2}>
               <Grid container item xs={12} justifyContent="center">
-                <img
-                  src={proofOfPayment}
-                  style={{ height: "50vh", width: "50vw" }}
-                />
+                <img src={proofOfPayment} style={{ height: 350, width: 250 }} />
               </Grid>
               <Grid container item xs={12} justifyContent="center">
                 <Button

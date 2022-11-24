@@ -8,6 +8,7 @@ import SendIcon from "@mui/icons-material/Send";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import * as transactionService from "../../service/buyer/MyTransactionService";
+import UploadSuccessModal from "./UploadSuccessModal";
 
 const style = {
   position: "absolute",
@@ -22,9 +23,16 @@ const style = {
 };
 
 const CODPaymentMode = ({ open, onHandleClose, paymentId }) => {
+  const [uploadSuccess, setUploadSuccess] = useState(false);
+
+  const handleUploadSuccessOpen = () => setUploadSuccess(true);
+  const handleUploadSuccessClose = () => setUploadSuccess(false);
   const handleCODPayment = async () => {
     const res = await transactionService.markAsCOD(paymentId);
     console.log(res);
+    handleUploadSuccessOpen();
+
+    setTimeout(handleUploadSuccessClose, 3000);
   };
   return (
     <div>
@@ -75,6 +83,10 @@ const CODPaymentMode = ({ open, onHandleClose, paymentId }) => {
           </Grid>
         </Box>
       </Modal>
+      <UploadSuccessModal
+        message="You chose COD as Payment Method"
+        open={uploadSuccess}
+      />
     </div>
   );
 };

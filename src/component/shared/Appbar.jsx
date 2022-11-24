@@ -3,9 +3,8 @@ import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Navigate, useNavigate } from "react-router-dom";
-import MenuIcon from '@mui/icons-material/Menu';
-import AdbIcon from '@mui/icons-material/Adb';
+import { useNavigate } from "react-router-dom";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import * as accountService from "../../service/shared/accountService"
 
@@ -103,6 +102,7 @@ export default function Appbar({ onLogout }){
   };
 
   const settings = ['Logout'];
+
   return(
     <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar>
@@ -174,7 +174,7 @@ export default function Appbar({ onLogout }){
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} 
+                <MenuItem key={setting}
                 onClick={() => {
                   handleCloseUserMenu();
                   handleLogout();

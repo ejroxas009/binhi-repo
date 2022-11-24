@@ -11,6 +11,7 @@ import { v4 } from "uuid";
 import { storage } from "../../service/shared/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import * as transactionService from "../../service/buyer/MyTransactionService";
+import UploadSuccessModal from "./UploadSuccessModal";
 const style = {
   position: "absolute",
   top: "50%",
@@ -37,6 +38,7 @@ const BankTransferPaymentMode = ({
   const [paymentImgForm, setPaymentImgForm] = useState({
     proofOfPayment: "",
   });
+  const [uploadSuccess, setUploadSuccess] = useState(false);
 
   console.log(paymentId);
   const uploadPaymentImage = async () => {
@@ -56,6 +58,8 @@ const BankTransferPaymentMode = ({
     } catch {}
   };
 
+  const handleUploadSuccessOpen = () => setUploadSuccess(true);
+  const handleUploadSuccessClose = () => setUploadSuccess(false);
   const handleSubmitPaymentImage = async (event) => {
     event.preventDefault();
     console.log("Submitted");
@@ -67,7 +71,9 @@ const BankTransferPaymentMode = ({
     setPaymentImageToggle(!paymentImageToggle);
     console.log(paymentImgForm);
 
-    alert("Profile Image Sucessfully Uploaded!");
+    handleUploadSuccessOpen();
+
+    setTimeout(handleUploadSuccessClose, 3000);
   };
 
   useEffect(() => {
@@ -154,6 +160,10 @@ const BankTransferPaymentMode = ({
           </Grid>
         </Box>
       </Modal>
+      <UploadSuccessModal
+        message="Proof of payment uploaded successfully"
+        open={uploadSuccess}
+      />
     </div>
   );
 };
