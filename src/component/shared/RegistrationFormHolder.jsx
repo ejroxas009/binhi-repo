@@ -18,6 +18,7 @@ import RegistrationForm3 from "./RegistrationForm3";
 import * as accountService from "../../service/shared/accountService";
 import Appbar from "../../component/shared/appbar/Appbar";
 import UploadSuccessModal from "./UploadSuccessModal";
+import LandingAppbar from "../../pages/shared/LandingPage/LandingAppbar";
 
 const RegistrationFormHolder = () => {
   const navigate = useNavigate();
@@ -138,7 +139,7 @@ const RegistrationFormHolder = () => {
 
   return (
     <>
-      <Appbar />
+      <LandingAppbar />
       <Grid
         container
         justifyContent="center"
