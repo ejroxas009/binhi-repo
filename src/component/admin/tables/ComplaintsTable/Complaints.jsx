@@ -59,7 +59,7 @@ const Complaints = ({ data }) => {
         {data.resolved ? (
           <Chip label="Resolved" color="success" />
         ) : (
-          <Chip label="Unresolve" color="error" />
+          <Chip label="Pending" color="warning" />
         )}
       </StyledTableCell>
       <StyledTableCell align="center">

@@ -122,7 +122,7 @@ const Complaints = () => {
         <h1>My Complaints</h1>
       </Grid>
       {complaints && (
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} sx={{borderRadius:5}}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
               <TableRow>

@@ -150,7 +150,7 @@ const ViewAllBidsTable = ({ bids }) => {
 
   return (
     <>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{borderRadius:5}}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <StyledTableRow>

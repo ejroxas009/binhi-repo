@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 
 const PaymentReceivedTable = ({ details }) => {
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={{borderRadius:5}}>
       <Table aria-label="simple table">
         <TableHead sx={{ backgroundColor: "#558b94" }}>
           <TableRow>
