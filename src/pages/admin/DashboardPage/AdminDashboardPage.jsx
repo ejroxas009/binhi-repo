@@ -4,6 +4,7 @@ import AdminAppbar from '../../../component/admin/appbar/AdminAppbar'
 import DashboardCards from '../../../component/admin/Cards/Dashboard/DashboardCards'
 import AdminSidebar from '../../../component/admin/sidebar/AdminSidebar'
 import Appbar from '../../../component/shared/Appbar'
+import DashboardCard from '../../../component/shared/DashboardCard'
 
 const AdminDashboardPage = () => {
   return (
@@ -12,7 +13,7 @@ const AdminDashboardPage = () => {
       <AdminSidebar/>
       <Grid container mt={10}>
         <Container>
-          <DashboardCards/>
+          <DashboardCard/>
         </Container>
       </Grid>
     </>

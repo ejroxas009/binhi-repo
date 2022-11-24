@@ -102,7 +102,7 @@ const FarmingTips = ({ tipsList, onSetAdsListToggle, adsListToggle }) => {
               aria-label="add"
               sx={{
                 position: "fixed",
-                bottom: (theme) => theme.spacing(5),
+                top: (theme) => theme.spacing(15),
                 right: (theme) => theme.spacing(5),
                 backgroundColor: Colors.primary,
               }}
@@ -114,15 +114,15 @@ const FarmingTips = ({ tipsList, onSetAdsListToggle, adsListToggle }) => {
       </Grid>
 
       {/* Start of Card */}
-      <Grid container="row" columnSpacing={{ xs: 12, sm: 3, md: 6, lg: 6 }}>
+      <Grid container="row" columnSpacing={{ xs: 12, sm: 3, md: 4, lg: 4 }}>
         {tipsList.map((contents) => (
           <Card
             sx={{
-              marginLeft: 35,
+              marginLeft: 2,
               marginTop: 2,
-              height: 250,
-              width: 250,
-              borderRadius: "20px",
+              height: 300,
+              width: 300,
+              borderRadius: 5,
             }}
           >
             <CardActionArea href={contents.farmingTipsLink}>
