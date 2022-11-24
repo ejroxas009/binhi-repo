@@ -208,7 +208,6 @@ export default function CoursesTable ({coursesList, onSetCourseListToggle, cours
             <StyledTableCell align="center">Course Name</StyledTableCell>
               <StyledTableCell align="center">Course Description</StyledTableCell>
               <StyledTableCell align="center">Schedule</StyledTableCell>
-              <StyledTableCell align="center">Action</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -221,18 +220,9 @@ export default function CoursesTable ({coursesList, onSetCourseListToggle, cours
                 <StyledTableCell align="center">{item.courseDescription}</StyledTableCell>
                 <StyledTableCell align="center">
                     {/* {`${item.startTime} - ${item.endTime} | ${item.startDate.substring(0,10)} - ${item.endDate.substring(0,10)}`} */}
+                    
+                    <Moment format="hh:mm" date={item.startTime}/>
                     <Moment format="YYYY/MM/DD" date={item.startDate}/>
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  <Button variant="outlined" 
-                  color="error" 
-                  sx={{ borderRadius:'20px!important'}}
-                  onClick={() => {
-                    deleteFunction(item.courseId);
-                  }}
-                  >
-                    Delete
-                  </Button>
                 </StyledTableCell>
               </StyledTableRow>
             ))}
