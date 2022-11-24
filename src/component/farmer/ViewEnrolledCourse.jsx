@@ -14,6 +14,10 @@ import {
   CardActions,
 } from "@mui/material";
 
+//Moment
+import moment from "moment"
+import Moment from 'react-moment';
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -67,9 +71,16 @@ const ViewEnrolledCourse = ({
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
+                  <Typography> Schedule:</Typography>
                   <Typography>
-                    Schedule:{" "}
-                    <BoldText>{`${course.course.startTime} - ${course.course.endTime} | ${course.course.startDate} - ${course.course.endDate}`}</BoldText>
+                    {/* {`${course.course.startTime} - ${course.course.endTime} | ${course.course.startDate} - ${course.course.endDate}`} */}
+                    <BoldText> <Moment format="hh:mm A" date={course.course.startTime}/>
+                    &nbsp; - &nbsp;
+                    <Moment format="hh:mm A" date={course.course.endTime}/>
+                    &nbsp; | &nbsp;
+                    <Moment format="ddd YYYY/MM/DD" date={course.course.startDate}/>
+                    &nbsp; - &nbsp;
+                    <Moment format="ddd YYYY/MM/DD" date={course.course.endDate}/></BoldText>
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
