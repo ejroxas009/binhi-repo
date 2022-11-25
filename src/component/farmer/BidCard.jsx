@@ -26,6 +26,7 @@ import {
   getAccountById,
   getAllAccount,
 } from "../../service/shared/accountService";
+import Moment from "react-moment";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -188,7 +189,8 @@ const BidCard = () => {
               ).map((bidsDetail) => (
                 <StyledTableRow key={bidsDetail.bidId}>
                   <StyledTableCell align="center">
-                    {bidsDetail.bidDate}
+                    <Moment format="ddd YYYY/MM/DD hh:mm A" date={bidsDetail.bidDate}/>
+                    {/* {bidsDetail.bidDate} */}
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     {bidsDetail.bidPrice}
